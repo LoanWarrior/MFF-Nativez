@@ -1,12 +1,21 @@
 import React, {Component} from 'react';
-import {Platform, StyleSheet, Text, View} from 'react-native';
+import {Platform, StyleSheet, Text, View, Image, Button} from 'react-native';
 
 type Props = {};
 export default class App extends Component<Props> {
   render() {
     return (
       <View style={styles.container}>
-        <Text style={styles.welcome}>Y'all smelly, especially Edison</Text>
+        <Image style={styles.logo} source={require('./images/food-truck.jpg')} />
+        <Text style={styles.welcome}>Mobile-Food-Finder</Text>
+        <Button
+          title="Eaters"
+          color="black"
+        />
+        <Button
+          title="Owners"
+          color="black"
+        />
       </View>
     );
   }
@@ -17,10 +26,10 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: '#F5FCFF',
+    backgroundColor: 'lightblue',
   },
   welcome: {
-    fontSize: 20,
+    fontSize: 35,
     textAlign: 'center',
     margin: 10,
   },
@@ -29,4 +38,9 @@ const styles = StyleSheet.create({
     color: '#333333',
     marginBottom: 5,
   },
+  logo: {
+    width: 250,
+    height: 250,
+    borderRadius: 150,
+  }
 });
