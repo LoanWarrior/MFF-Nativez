@@ -1,57 +1,32 @@
 import React, {Component} from 'react';
 import {Platform, StyleSheet, Text, View, Image, Button, TouchableOpacity} from 'react-native';
+import { createStackNavigator } from 'react-navigation';
+import Homepage from './components/homepage'
+import Login from './components/login'
+import Order from './components/order'
+import CreateTruck from './components/create-truck'
+import SpecificTruck from './components/specific-truck'
+import LoggedIn from './components/logged-in'
+import MapView from './components/map'
 
-type Props = {};
-export default class App extends Component<Props> {
+const RootStack = createStackNavigator(
+  {
+      Home: Homepage,
+      Login: Login,
+      Order: Order,
+      CreateTruck: CreateTruck,
+      SpecificTruck: SpecificTruck,
+      LoggedIn: LoggedIn,
+      Map: MapView,
 
-  handleEater = () => {
-    alert('hello bitch')
+  },
+  {
+    initialRouteName: 'Home',
   }
+);
+
+export default class App extends React.Component {
   render() {
-    return (
-      <View style={styles.container}>
-        <Image style={styles.logo} source={require('./images/food-truck.jpg')} />
-        <Text style={styles.welcome}>Mobile-Food-Finder</Text>
-        <TouchableOpacity onPress={this.handleEater} style={styles.buttons}>
-          <Text style={{ fontSize: 35 }}>Eaters</Text>
-        </TouchableOpacity>
-        <TouchableOpacity onPress={this.handleEater} style={styles.buttons}>
-          <Text style={{ fontSize: 35 }}>Owners</Text>
-        </TouchableOpacity>
-      </View>
-    );
+    return <RootStack />;
   }
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: 'lightblue',
-  },
-  welcome: {
-    fontSize: 35,
-    textAlign: 'center',
-    margin: 10,
-  },
-  instructions: {
-    textAlign: 'center',
-    color: '#333333',
-    marginBottom: 5,
-  },
-  logo: {
-    width: 250,
-    height: 250,
-    borderRadius: 150,
-  },
-  buttons: {
-    backgroundColor: '#D34C47',
-    width: 180,
-    height: 80,
-    justifyContent: 'center',
-    alignItems: 'center',
-    marginBottom: 5,
-    borderRadius: 50,
-  }
-});
