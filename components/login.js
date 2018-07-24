@@ -3,7 +3,7 @@ import {Platform, StyleSheet, Text, View, Image, Button, TouchableOpacity} from 
 import { createStackNavigator } from 'react-navigation';
 import { FormLabel, FormInput, FormValidationMessage } from 'react-native-elements'
 
-import t from 'tcomb-form-native'; // 0.6.9
+import t from 'tcomb-form-native';
 
 const Form = t.form.Form;
 
@@ -13,19 +13,19 @@ const User = t.struct({
   Owner: t.Boolean
 });
 
-
 export default class Login extends Component {
 
   handleSubmit = () => {
     const value = this._form.getValue()
   }
 
+
   render() {
     const { navigate } = this.props.navigation
     return (
       <View style={styles.container}>
         <Text style={styles.header}>Log in!!!</Text>
-          <Form type={User} ref={c => this._form = c} />
+          <Form type={User} ref={c => this._form = c}/>
           <Button
             onPress={this.handleSubmit}
             title="Log in"
@@ -52,6 +52,7 @@ const styles = StyleSheet.create({
     fontSize: 50
   },
   inputs: {
-    width: 100
+    width: 300,
+    height: 75
   }
 })
