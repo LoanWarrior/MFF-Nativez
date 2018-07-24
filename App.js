@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {Platform, StyleSheet, Text, View, Image, Button} from 'react-native';
+import {Platform, StyleSheet, Text, View, Image, Button, TouchableOpacity} from 'react-native';
 
 type Props = {};
 export default class App extends Component<Props> {
@@ -12,17 +12,12 @@ export default class App extends Component<Props> {
       <View style={styles.container}>
         <Image style={styles.logo} source={require('./images/food-truck.jpg')} />
         <Text style={styles.welcome}>Mobile-Food-Finder</Text>
-        <Button
-          style={styles.buttons}
-          onPress={this.handleEater}
-          title="Eaters"
-          color="black"
-        />
-        <Button
-          // onPress={}
-          title="Owners"
-          color="black"
-        />
+        <TouchableOpacity onPress={this.handleEater} style={styles.buttons}>
+          <Text style={{ fontSize: 35 }}>Eaters</Text>
+        </TouchableOpacity>
+        <TouchableOpacity onPress={this.handleEater} style={styles.buttons}>
+          <Text style={{ fontSize: 35 }}>Owners</Text>
+        </TouchableOpacity>
       </View>
     );
   }
@@ -51,8 +46,12 @@ const styles = StyleSheet.create({
     borderRadius: 150,
   },
   buttons: {
-    borderRadius: 100,
-    borderWidth: 1,
-    borderColor: 'black',
+    backgroundColor: '#D34C47',
+    width: 180,
+    height: 80,
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginBottom: 5,
+    borderRadius: 50,
   }
 });
