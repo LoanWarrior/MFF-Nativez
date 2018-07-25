@@ -2,8 +2,15 @@ import React, {Component} from 'react';
 import { connect } from 'react-redux'
 import {Platform, StyleSheet, Text, View, Image, Button, TouchableOpacity} from 'react-native';
 import { createStackNavigator } from 'react-navigation';
+import {ownersTrucks} from '../actions'
 
 class LoggedIn extends Component {
+
+  async componentDidMount(){
+    this.props.ownersTrucks(this.props.navigation.state.params.currentUser.id)
+  }
+
+
   viewUser = () => {
     console.log(this.props.navigation.state.params.currentUser);
   }
@@ -39,8 +46,9 @@ class LoggedIn extends Component {
 //   }
 // }
 
-// const mapDispatchToProps = dispatch => bindActionCreators({
-// }, dispatch)
+const mapDispatchToProps = dispatch => bindActionCreators({
+  ownersTrucks
+}, dispatch)
 
 export default connect(
   // mapStateToProps,

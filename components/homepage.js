@@ -9,7 +9,7 @@ export default class App extends Component {
     const { navigate } = this.props.navigation
     return (
       <View style={styles.container}>
-        {/* <Image style={styles.logo} source={require('./images/food-truck.jpg')} /> */}
+        <Image style={styles.logo} source={require('../images/food-truck.jpg')} />
         <Text style={styles.welcome}>Mobile-Food-Finder</Text>
         <TouchableOpacity onPress={() => {navigate('Login')}} style={styles.buttons}>
           <Text style={{ fontSize: 35 }}>Eaters</Text>

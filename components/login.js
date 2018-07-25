@@ -25,12 +25,21 @@ class Login extends Component {
     this.props.logIn(changeView)
   }
 
+  findMeg = () => {
+        console.log(this.props.currentUser);
+  }
+
   render() {
     const { navigate } = this.props.navigation
     return (
       <View style={styles.container}>
         <Text style={styles.header}>Log in</Text>
           <Form type={User} ref={c => this._form = c}/>
+          <Button
+            onPress={this.findMeg}
+            title="find meg"
+            color="#841584"
+          />
           <Button
             onPress={() => this.handleSubmit(navigate)}
             title="Log in"
@@ -62,11 +71,11 @@ const styles = StyleSheet.create({
   }
 })
 
-// const mapStateToProps = state => {
-//   return {
-//
-//   }
-// }
+const mapStateToProps = state => {
+  return {
+    currentUser: state.currentUser
+  }
+}
 
 const mapDispatchToProps = dispatch => bindActionCreators({
   loadTrucks,
