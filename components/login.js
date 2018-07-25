@@ -5,14 +5,15 @@ import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import { loadTrucks, logIn } from '../actions'
 
+///////////////////////////////////////////////////////////////////////////////
 import t from 'tcomb-form-native';
-
 const Form = t.form.Form;
-
 const User = t.struct({
   username: t.String,
   password: t.String
 });
+///////////////////////////////////////////////////////////////////////////////
+
 
 class Login extends Component {
 
@@ -26,7 +27,10 @@ class Login extends Component {
   }
 
   findMeg = () => {
-        console.log(this.props.currentUser);
+    // this.setState({
+    //   currentUser: 'meg'
+    // })
+        console.log(this.props);
   }
 
   render() {
@@ -55,6 +59,23 @@ class Login extends Component {
   }
 }
 
+const mapStateToProps = state => {
+  return {
+    currentUser: state.currentUser
+  }
+}
+
+const mapDispatchToProps = dispatch => bindActionCreators({
+  loadTrucks,
+  logIn
+}, dispatch)
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(Login);
+
+///////////////////////////////////////////////////////////////////////////////
 const styles = StyleSheet.create({
   container: {
     flex: 1,
@@ -70,20 +91,4 @@ const styles = StyleSheet.create({
     height: 75
   }
 })
-
-const mapStateToProps = state => {
-  return {
-    currentUser: state.currentUser
-  }
-}
-
-const mapDispatchToProps = dispatch => bindActionCreators({
-  loadTrucks,
-  logIn
-}, dispatch)
-
-export default connect(
-  // mapStateToProps,
-  null,
-  mapDispatchToProps
-)(Login);
+///////////////////////////////////////////////////////////////////////////////

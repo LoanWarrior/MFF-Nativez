@@ -7,7 +7,7 @@ import {ownersTrucks} from '../actions'
 class LoggedIn extends Component {
 
   async componentDidMount(){
-    this.props.ownersTrucks(this.props.navigation.state.params.currentUser.id)
+    this.props.ownersTrucks(info.id)
   }
 
 
