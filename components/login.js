@@ -1,11 +1,9 @@
 import React, {Component} from 'react';
 import {Platform, StyleSheet, Text, View, Image, Button, TouchableOpacity} from 'react-native';
-import { createStackNavigator } from 'react-navigation';
 import { FormLabel, FormInput, FormValidationMessage } from 'react-native-elements'
-
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
-import { loadTrucks } from '../actions'
+import { loadTrucks, logIn } from '../actions'
 
 import t from 'tcomb-form-native';
 
@@ -22,29 +20,10 @@ class Login extends Component {
     this.props.loadTrucks()
   }
 
-  async handleSubmit(){
-    const value = await this._form.getValue()
-    console.log(value.username);
-
-    // const userInfo = {
-    //   username: value.username,
-    //   password: value.password
-    // }
-    //
-    // console.log(userInfo);
-    //
-    // const response = await fetch('https://mffapi.herokuapp.com/login/', {
-    //     method: 'POST',
-    //     body: userInfo,
-    //     headers: {
-    //       'Content-Type': 'application/json',
-    //       'Accept': 'application/json'
-    //     }
-    //   })
-    //   const newComment = await response.json()
-    //   console.log(newComment)
+ handleSubmit = (changeView) => {
+    // const value = this._form.getValue()
+    this.props.logIn(changeView)
   }
-
 
   render() {
     const { navigate } = this.props.navigation
@@ -53,7 +32,7 @@ class Login extends Component {
         <Text style={styles.header}>Log in</Text>
           <Form type={User} ref={c => this._form = c}/>
           <Button
-            onPress={this.handleSubmit}
+            onPress={() => this.handleSubmit(navigate)}
             title="Log in"
             color="#841584"
           />
@@ -90,7 +69,8 @@ const styles = StyleSheet.create({
 // }
 
 const mapDispatchToProps = dispatch => bindActionCreators({
-  loadTrucks
+  loadTrucks,
+  logIn
 }, dispatch)
 
 export default connect(
