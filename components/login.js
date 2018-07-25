@@ -3,6 +3,10 @@ import {Platform, StyleSheet, Text, View, Image, Button, TouchableOpacity} from 
 import { createStackNavigator } from 'react-navigation';
 import { FormLabel, FormInput, FormValidationMessage } from 'react-native-elements'
 
+import { connect } from 'react-redux'
+import { bindActionCreators } from 'redux'
+import { loadTrucks } from '../actions'
+
 import t from 'tcomb-form-native';
 
 const Form = t.form.Form;
@@ -12,11 +16,10 @@ const User = t.struct({
   password: t.String
 });
 
-export default class Login extends Component {
+class Login extends Component {
 
   async componentDidMount(){
-    const response = await fetch('https://mffapi.herokuapp.com/trucks/')
-    const trucks = await response.json()
+    this.props.loadTrucks()
   }
 
   async handleSubmit(){
@@ -79,3 +82,19 @@ const styles = StyleSheet.create({
     height: 75
   }
 })
+
+// const mapStateToProps = state => {
+//   return {
+//
+//   }
+// }
+
+const mapDispatchToProps = dispatch => bindActionCreators({
+  loadTrucks
+}, dispatch)
+
+export default connect(
+  // mapStateToProps,
+  null,
+  mapDispatchToProps
+)(Login);

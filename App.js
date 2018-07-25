@@ -8,6 +8,13 @@ import CreateTruck from './components/create-truck'
 import SpecificTruck from './components/specific-truck'
 import LoggedIn from './components/logged-in'
 import MapView from './components/map'
+import rootReducer from './reducers/index'
+
+import { createStore, applyMiddleware } from 'redux'
+import { Provider } from 'react-redux'
+import thunk from 'redux-thunk'
+
+let store = createStore(rootReducer, applyMiddleware(thunk))
 
 const RootStack = createStackNavigator(
   {
@@ -25,8 +32,14 @@ const RootStack = createStackNavigator(
   }
 );
 
+
+
 export default class App extends React.Component {
   render() {
-    return <RootStack />;
+    return(
+      <Provider store={store}>
+        <RootStack />
+      </Provider>
+    )
   }
 }
