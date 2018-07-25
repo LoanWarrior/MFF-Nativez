@@ -20,7 +20,7 @@ export const loadTrucks = () => {
 export const logIn = (navigate) => {
   let user = {
     username: 'saraSmile',
-    password: '12'
+    password: '123'
   }
   return async dispatch => {
     const response = await fetch('https://mffapi.herokuapp.com/login', {
@@ -32,16 +32,19 @@ export const logIn = (navigate) => {
       }
     })
     const newUser = await response.json()
-    console.log(newUser);
     if(newUser.isOwner){
-      navigate('LoggedIn')
+      dispatch ({
+        type: LOG_IN,
+        payload: newUser
+      })
+      navigate('LoggedIn', {currentUser: newUser})
     } else {
       navigate('Home')
+      dispatch ({
+        type: LOG_IN,
+        payload: newUser
+      })
     }
-    dispatch ({
-      type: LOG_IN,
-      payload: newUser
-    })
     // .catch(err => dispatch({
     //   type: LOG_IN_FAILED,
     //   payload: err

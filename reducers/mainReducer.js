@@ -24,11 +24,11 @@ export default (state = initialState, action) => {
    if(action.payload.isOwner){
      return {
        ...state,
-       [state.routes[0].routeName]: 'LoggedIn'
+       currentUser: action.payload.id
      }
    } else {
-     console.log('is eater');
    }
+
      return {
        ...state,
      }
