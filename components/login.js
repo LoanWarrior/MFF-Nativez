@@ -20,26 +20,26 @@ export default class Login extends Component {
   }
 
   async handleSubmit(){
-    // const value = this._form.getValue()
-    // console.log(value.username);
+    const value = await this._form.getValue()
+    console.log(value.username);
 
-    const userInfo = {
-      username: 'saraSmile',
-      password: '123'
-    }
-
+    // const userInfo = {
+    //   username: value.username,
+    //   password: value.password
+    // }
+    //
     // console.log(userInfo);
-
-    const response = await fetch('https://mffapi.herokuapp.com/login/', {
-        method: 'POST',
-        body: userInfo,
-        headers: {
-          'Content-Type': 'application/json',
-          'Accept': 'application/json'
-        }
-      })
-      const newComment = await response.json()
-      console.log(newComment)
+    //
+    // const response = await fetch('https://mffapi.herokuapp.com/login/', {
+    //     method: 'POST',
+    //     body: userInfo,
+    //     headers: {
+    //       'Content-Type': 'application/json',
+    //       'Accept': 'application/json'
+    //     }
+    //   })
+    //   const newComment = await response.json()
+    //   console.log(newComment)
   }
 
 
