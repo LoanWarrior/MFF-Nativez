@@ -1,7 +1,9 @@
 import React, {Component} from 'react';
 import {Platform, StyleSheet, Text, View, Image, Button, TouchableOpacity} from 'react-native';
-import { createStackNavigator } from 'react-navigation';
 import { FormLabel, FormInput, FormValidationMessage } from 'react-native-elements'
+import { connect } from 'react-redux'
+import { bindActionCreators } from 'redux'
+import { loadTrucks, logIn } from '../actions'
 
 import t from 'tcomb-form-native';
 
@@ -12,36 +14,16 @@ const User = t.struct({
   password: t.String
 });
 
-export default class Login extends Component {
+class Login extends Component {
 
   async componentDidMount(){
-    const response = await fetch('https://mffapi.herokuapp.com/trucks/')
-    const trucks = await response.json()
+    this.props.loadTrucks()
   }
 
-  async handleSubmit(){
-    const value = await this._form.getValue()
-    console.log(value.username);
-
-    // const userInfo = {
-    //   username: value.username,
-    //   password: value.password
-    // }
-    //
-    // console.log(userInfo);
-    //
-    // const response = await fetch('https://mffapi.herokuapp.com/login/', {
-    //     method: 'POST',
-    //     body: userInfo,
-    //     headers: {
-    //       'Content-Type': 'application/json',
-    //       'Accept': 'application/json'
-    //     }
-    //   })
-    //   const newComment = await response.json()
-    //   console.log(newComment)
+ handleSubmit = (changeView) => {
+    // const value = this._form.getValue()
+    this.props.logIn(changeView)
   }
-
 
   render() {
     const { navigate } = this.props.navigation
@@ -50,7 +32,7 @@ export default class Login extends Component {
         <Text style={styles.header}>Log in</Text>
           <Form type={User} ref={c => this._form = c}/>
           <Button
-            onPress={this.handleSubmit}
+            onPress={() => this.handleSubmit(navigate)}
             title="Log in"
             color="#841584"
           />
@@ -79,3 +61,20 @@ const styles = StyleSheet.create({
     height: 75
   }
 })
+
+// const mapStateToProps = state => {
+//   return {
+//
+//   }
+// }
+
+const mapDispatchToProps = dispatch => bindActionCreators({
+  loadTrucks,
+  logIn
+}, dispatch)
+
+export default connect(
+  // mapStateToProps,
+  null,
+  mapDispatchToProps
+)(Login);

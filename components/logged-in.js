@@ -1,15 +1,25 @@
 import React, {Component} from 'react';
+import { connect } from 'react-redux'
 import {Platform, StyleSheet, Text, View, Image, Button, TouchableOpacity} from 'react-native';
 import { createStackNavigator } from 'react-navigation';
 
-export default class LoggedIn extends Component {
+class LoggedIn extends Component {
+  viewUser = () => {
+    console.log(this.props.navigation.state.params.currentUser);
+  }
+
   render() {
     const { navigate } = this.props.navigation
     return (
       <View style={styles.container}>
         <Text>This is the Logged in page</Text>
         <Button
-          onPress={() => {navigate('CreateTruck')}}
+          onPress={this.viewUser}
+          title="View User"
+          color="#841784"
+        />
+        <Button
+          onPress={() => {navigate('SpecificTruck')}}
           title="Owner: go to the create a truck page"
           color="#841584"
         />
@@ -22,6 +32,20 @@ export default class LoggedIn extends Component {
     );
   }
 }
+
+// const mapStateToProps = state => {
+//   return {
+//     currentUser: state.currentUser
+//   }
+// }
+
+// const mapDispatchToProps = dispatch => bindActionCreators({
+// }, dispatch)
+
+export default connect(
+  // mapStateToProps,
+  // mapDispatchToProps
+)(LoggedIn);
 
 const styles = StyleSheet.create({
   container: {
