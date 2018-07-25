@@ -1,6 +1,7 @@
 export const LOAD_TRUCK_DATA = 'LOAD_TRUCK_DATA'
 export const LOG_IN = 'LOG_IN'
 export const LOG_IN_FAILED = 'LOG_IN_FAILED'
+export const GET_OWNERS_TRUCKS = 'GET_OWNERS_TRUCKS'
 
 export const loadTrucks = () => {
   return async dispatch => {
@@ -8,6 +9,21 @@ export const loadTrucks = () => {
     const trucks = await response.json()
     dispatch({
         type: LOAD_TRUCK_DATA,
+        payload: trucks
+      })
+      // .catch(err => dispatch({
+      //   type: LOAD_API_DATA_FAILED,
+      //   payload: err
+      // }))
+  }
+}
+
+export const ownersTrucks = (id) => {
+  return async dispatch => {
+    const response = await fetch(`https://mffapi.herokuapp.com/trucks/${id}`)
+    const trucks = await response.json()
+    dispatch({
+        type: GET_OWNERS_TRUCKS,
         payload: trucks
       })
       // .catch(err => dispatch({
