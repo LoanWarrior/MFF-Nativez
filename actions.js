@@ -2,6 +2,7 @@ export const LOAD_TRUCK_DATA = 'LOAD_TRUCK_DATA'
 export const LOG_IN = 'LOG_IN'
 export const LOG_IN_FAILED = 'LOG_IN_FAILED'
 export const GET_OWNERS_TRUCKS = 'GET_OWNERS_TRUCKS'
+export const GET_TRUCK = 'GET_TRUCK'
 
 export const loadTrucks = () => {
   return async dispatch => {
@@ -11,10 +12,6 @@ export const loadTrucks = () => {
         type: LOAD_TRUCK_DATA,
         payload: trucks
       })
-      // .catch(err => dispatch({
-      //   type: LOAD_API_DATA_FAILED,
-      //   payload: err
-      // }))
   }
 }
 
@@ -26,12 +23,20 @@ export const ownersTrucks = (id) => {
         type: GET_OWNERS_TRUCKS,
         payload: trucks
       })
-      // .catch(err => dispatch({
-      //   type: LOAD_API_DATA_FAILED,
-      //   payload: err
-      // }))
   }
 }
+
+export const linkToTruck = (truckId, navigate) => {
+  console.log("outside the retur")
+  return async dispatch => {
+      dispatch({
+        type: GET_TRUCK,
+        payload: truckId
+      })
+      navigate('SpecificTruck')
+  }
+}
+
 
 export const logIn = (value, navigate) => {
   let user = {
@@ -65,9 +70,5 @@ export const logIn = (value, navigate) => {
       })
       navigate('Order')
     }
-    // .catch(err => dispatch({
-    //   type: LOG_IN_FAILED,
-    //   payload: err
-    // }))
   }
 }

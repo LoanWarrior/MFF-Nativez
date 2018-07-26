@@ -1,9 +1,9 @@
 import React, {Component} from 'react';
 import { connect } from 'react-redux'
-import {Platform, StyleSheet, Text, View, Image, Button, TouchableOpacity} from 'react-native';
+import {Platform, StyleSheet, Text, View, Image, Button, TouchableOpacity, FlatList} from 'react-native';
 import { createStackNavigator } from 'react-navigation';
 import { bindActionCreators } from 'redux'
-import { ownersTrucks } from '../actions'
+import { ownersTrucks, linkToTruck } from '../actions'
 
 class LoggedIn extends Component {
 
@@ -18,28 +18,40 @@ class LoggedIn extends Component {
     console.log('current user', this.props.currentUser);
 
     ///map over trucks to generate info cards that will link to seperate page
-    
+
+
     console.log('current trucks', this.props.trucks);
   }
 
   render() {
     const { navigate } = this.props.navigation
+    const ownerTrucks = this.props.trucks
+    let trucks = []
+    if (ownerTrucks[0]) {
+      ownerTrucks.map(truck => {
+        trucks.push({key: truck.name, id: truck.id} )
+      })
+    }
+
     return (
       <View style={styles.container}>
-        <Text>This is the Logged in page</Text>
+        <Text>Welcome Owner Name</Text>
+        <Text>My trucks:</Text>
         <Button
           onPress={this.viewUserAndTrucks}
           title="View User and Trucks"
           color="#841784"
         />
-        <Button
-          onPress={() => {navigate('SpecificTruck')}}
-          title="Owner: go to the create a truck page"
-          color="#841584"
+        <Text>{"\n"}{"\n"}{"\n"}{"\n"}</Text>
+        <FlatList
+          data={trucks}
+          renderItem={({item}) => <Text onPress={() => linkToTruck(item.id, navigate)}>{item.key}</Text>}
+          style={styles.truckList}
         />
+        <Text>{"\n"}{"\n"}{"\n"}{"\n"}</Text>
         <Button
-          onPress={() => {navigate('Map')}}
-          title="Eater: go to the map page"
+          onPress={() => {navigate('CreateTruck')}}
+          title="Create Truck"
           color="#841584"
         />
       </View>
@@ -55,7 +67,8 @@ const mapStateToProps = state => {
 }
 
 const mapDispatchToProps = dispatch => bindActionCreators({
-  ownersTrucks
+  ownersTrucks,
+  linkToTruck
 }, dispatch)
 
 export default connect(
@@ -69,5 +82,11 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     backgroundColor: 'lightblue',
+  },
+  truckList: {
+    // flex: 0.75,
+    width: 300,
+    height: 50,
+    backgroundColor: 'white',
   }
 })

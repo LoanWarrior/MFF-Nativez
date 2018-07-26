@@ -2,17 +2,19 @@ import {
 LOAD_TRUCK_DATA,
 LOG_IN,
 GET_OWNERS_TRUCKS,
+GET_TRUCK
 // LOG_IN_FAILED
 } from '../actions'
 
 let initialState = {
     currentUser: '',
-    trucks: []
+    trucks: [],
+    truck: []
 }
 
 export default (state = initialState, action) => {
  switch (action.type) {
-   /////////switch cases for reducer/////////////
+
    case LOAD_TRUCK_DATA:
      return  state = {
        ...state,
@@ -32,17 +34,18 @@ export default (state = initialState, action) => {
    }
 
    case GET_OWNERS_TRUCKS:
-   // console.log('get owners truck payload', action.payload);
-   //  console.log('state here', state.currentUser.id);
     return{
       ...state,
       trucks: action.payload
     }
 
-     // case LOG_IN_FAILED:
-     //   return {
-     //     ...state,
-     //   }
+    case GET_TRUCK:
+    console.log("get truck reducer", action.payload);
+    return{
+      ...state,
+      truck: action.payload
+    }
+
    default:
        return state
  }
