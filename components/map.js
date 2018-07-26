@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import {Platform, StyleSheet, Text, View, Image, Button, TouchableOpacity} from 'react-native';
 import { createStackNavigator } from 'react-navigation';
 
-export default class MapView extends Component {
+export default class EaterMapView extends Component {
   render() {
     const { navigate } = this.props.navigation
     return (

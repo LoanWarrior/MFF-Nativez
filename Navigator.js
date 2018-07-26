@@ -8,7 +8,7 @@ import Order from './components/order'
 import CreateTruck from './components/create-truck'
 import SpecificTruck from './components/specific-truck'
 import LoggedIn from './components/logged-in'
-import MapView from './components/map'
+import EaterMapView from './components/map'
 
 
 export const middleware = createReactNavigationReduxMiddleware(
@@ -25,7 +25,7 @@ export const Navigator = createStackNavigator(
       CreateTruck: CreateTruck,
       SpecificTruck: SpecificTruck,
       LoggedIn: LoggedIn,
-      Map: MapView,
+      Map: EaterMapView,
 
   },
   {
