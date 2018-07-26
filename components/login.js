@@ -22,15 +22,13 @@ class Login extends Component {
   }
 
  handleSubmit = (changeView) => {
-    // const value = this._form.getValue()
-    this.props.logIn(changeView)
+    const value = this._form.getValue()
+    console.log(value);
+    this.props.logIn(value, changeView)
   }
 
   findMeg = () => {
-    // this.setState({
-    //   currentUser: 'meg'
-    // })
-        console.log(this.props);
+    console.log(this.props.currentUser);
   }
 
   render() {
@@ -61,7 +59,7 @@ class Login extends Component {
 
 const mapStateToProps = state => {
   return {
-    currentUser: state.currentUser
+    currentUser: state.mainReducer.currentUser
   }
 }
 
