@@ -2,17 +2,24 @@ import React, {Component} from 'react';
 import { connect } from 'react-redux'
 import {Platform, StyleSheet, Text, View, Image, Button, TouchableOpacity} from 'react-native';
 import { createStackNavigator } from 'react-navigation';
-import {ownersTrucks} from '../actions'
+import { bindActionCreators } from 'redux'
+import { ownersTrucks } from '../actions'
 
 class LoggedIn extends Component {
 
+//////////////////loading trucks based on user
+
   async componentDidMount(){
-    this.props.ownersTrucks(info.id)
+    this.props.ownersTrucks(this.props.currentUser.id)
   }
 
 
-  viewUser = () => {
-    console.log(this.props.navigation.state.params.currentUser);
+  viewUserAndTrucks = () => {
+    console.log('current user', this.props.currentUser);
+
+    ///map over trucks to generate info cards that will link to seperate page
+    
+    console.log('current trucks', this.props.trucks);
   }
 
   render() {
@@ -21,8 +28,8 @@ class LoggedIn extends Component {
       <View style={styles.container}>
         <Text>This is the Logged in page</Text>
         <Button
-          onPress={this.viewUser}
-          title="View User"
+          onPress={this.viewUserAndTrucks}
+          title="View User and Trucks"
           color="#841784"
         />
         <Button
@@ -40,19 +47,20 @@ class LoggedIn extends Component {
   }
 }
 
-// const mapStateToProps = state => {
-//   return {
-//     currentUser: state.currentUser
-//   }
-// }
+const mapStateToProps = state => {
+  return {
+    currentUser: state.mainReducer.currentUser,
+    trucks: state.mainReducer.trucks
+  }
+}
 
 const mapDispatchToProps = dispatch => bindActionCreators({
   ownersTrucks
 }, dispatch)
 
 export default connect(
-  // mapStateToProps,
-  // mapDispatchToProps
+  mapStateToProps,
+  mapDispatchToProps
 )(LoggedIn);
 
 const styles = StyleSheet.create({

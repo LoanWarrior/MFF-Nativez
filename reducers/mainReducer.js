@@ -1,12 +1,13 @@
 import {
 LOAD_TRUCK_DATA,
 LOG_IN,
-GET_OWNERS_TRUCKS
+GET_OWNERS_TRUCKS,
 // LOG_IN_FAILED
 } from '../actions'
 
 let initialState = {
-    currentUser: ''
+    currentUser: '',
+    trucks: []
 }
 
 export default (state = initialState, action) => {
@@ -22,7 +23,7 @@ export default (state = initialState, action) => {
    if(action.payload.isOwner){
      return {
        ...state,
-       currentUser: action.payload.id
+       currentUser: action.payload
      }
    } else {
      return {
@@ -31,12 +32,12 @@ export default (state = initialState, action) => {
    }
 
    case GET_OWNERS_TRUCKS:
-    console.log('state here', initialState);
+   // console.log('get owners truck payload', action.payload);
+   //  console.log('state here', state.currentUser.id);
     return{
-
+      ...state,
+      trucks: action.payload
     }
-
-
 
      // case LOG_IN_FAILED:
      //   return {
