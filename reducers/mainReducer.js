@@ -16,7 +16,7 @@ export default (state = initialState, action) => {
    case LOAD_TRUCK_DATA:
      return  state = {
        ...state,
-       currentUser: 'meg'
+       currentUser: 'you found meg'
      }
 
    case LOG_IN:
