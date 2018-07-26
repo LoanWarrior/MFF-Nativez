@@ -7,7 +7,7 @@ export default class CreateTruck extends Component {
     const { navigate } = this.props.navigation
     return (
       <View style={styles.container}>
-        <Text>This is the Logged in page</Text>
+        <Text>Owners 1 truck</Text>
         <Button
           onPress={() => {navigate('Order')}}
           title="Go to the order page"
