@@ -4,22 +4,14 @@ import { createStackNavigator } from 'react-navigation';
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import { truckInfo } from '../actions'
+import  Moment  from 'react-moment'
+import 'moment-timezone'
 
 class SpecificTruck extends Component {
-
-  state = {
-
-  }
 
   async componentDidMount(){
     this.props.truckInfo(this.props.navigation.state.params)
   }
-
-  viewTruck(){
-    console.log('view truck',this.props.orders);
-  }
-
-
 
   render() {
     const { navigate } = this.props.navigation
@@ -27,31 +19,25 @@ class SpecificTruck extends Component {
     let orderInfo = []
     if (orders) {
       for ( let order in orders){
+        console.log(orders[order]);
         let items = ''
         let total = 0
-        console.log('almost there', orders[order].items);
         orders[order].items.forEach(item => {
           items += `${item.name} ${item.price} ${"\n"}`
           total += item.price
         })
-        // items = `${orders[order].items.toString()}`
-        orderInfo.push({key: order, name: orders[order].name, tel: orders[order].tel, items: items, total: total})
+        orderInfo.push({key: order, name: orders[order].name, tel: orders[order].tel, items: items, total: total, created_at: orders[order].created_at})
       }
     }
     return (
       <View style={styles.container}>
-        <Text>{}</Text>
-        <Button
-          onPress={() => this.viewTruck()}
-          title="viewTruck"
-          color="#841584"
-        />
         <Text>{"\n"}{"\n"}{"\n"}{"\n"}</Text>
         <FlatList
           data={orderInfo}
           renderItem={({item}) =>
           <View>
-            <Text>{item.key} {item.name} {"\n"}{item.tel}</Text>
+            <Text>{item.key} {item.name} {"\n"} Order Placed: <Moment element={Text} fromNow>{item.created_at}</Moment> {"\n"}{item.tel}</Text>
+
             <Text> {"\n"}{item.items}</Text>
             <Text>Total {item.total}{"\n"}</Text>
           </View>
