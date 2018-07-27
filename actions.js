@@ -5,14 +5,14 @@ export const TRUCK_INFO = 'TRUCK_INFO'
 //log-in action, get user info, hardcoded for owner///
 
 export const logIn = (value, navigate) => {
-  // let user = {
-  //   username: value.username.toLowerCase(),
-  //   password: value.password
-  // }
   let user = {
-    username: 'sarasmile',
-    password: '123'
+    username: value.username.toLowerCase(),
+    password: value.password
   }
+  // let user = {
+  //   username: 'sarasmile',
+  //   password: '123'
+  // }
   return async dispatch => {
     const response = await fetch('https://mffapi.herokuapp.com/login', {
       method: 'POST',
@@ -36,7 +36,7 @@ export const logIn = (value, navigate) => {
         type: LOG_IN,
         payload: newUser
       })
-      navigate('Order')
+      navigate('LoggedInEater')
     }
   }
 }
