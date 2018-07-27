@@ -16,8 +16,9 @@ class LoggedIn extends Component {
     const myTrucks = this.props.myTrucks
     let trucksInfo = []
     if (myTrucks[0]) {
-      myTrucks.map(truck => {
-        trucksInfo.push({key: truck.name, id: truck.id})
+      myTrucks.forEach(truck => {
+        // console.log(truck);
+        trucksInfo.push({key: truck.truckName, id: truck.id})
       })
     }
 
@@ -30,6 +31,7 @@ class LoggedIn extends Component {
           data={trucksInfo}
           renderItem={({item}) => <Text onPress={() => linkToTruck(item.id, navigate)}>{item.key}</Text>}
           style={styles.truckList}
+          keyExtractor={(item, index) => index.toString()}
         />
         <Text>{"\n"}{"\n"}{"\n"}{"\n"}</Text>
         <Button

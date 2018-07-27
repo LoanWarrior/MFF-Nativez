@@ -46,6 +46,7 @@ export const logIn = (value, navigate) => {
 export const ownersTrucks = (id) => {
   return async dispatch => {
     const response = await fetch(`https://mffapi.herokuapp.com/trucks/${id}`)
+    // const response = await fetch(`http://localhost:5445/trucks/${id}`)
     const trucks = await response.json()
     dispatch({
         type: GET_OWNERS_TRUCKS,
@@ -64,7 +65,9 @@ export const linkToTruck = (truckId, navigate) => {
 
 export const truckInfo = (truckId) => {
     return async dispatch => {
-      const response = await fetch(`http://localhost:5445/trucks/${truckId}`)
+      const response = await fetch(`https://mffapi.herokuapp.com/trucks/orders/${truckId}`)
+      // const response = await fetch(`http://localhost:5445/trucks/orders/${truckId}`)
+
       const orders = await response.json()
       console.log('truckinfo, orders', orders);
       dispatch({
