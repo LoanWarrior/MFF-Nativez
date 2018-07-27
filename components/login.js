@@ -3,7 +3,7 @@ import {Platform, StyleSheet, Text, View, Image, Button, TouchableOpacity} from 
 import { FormLabel, FormInput, FormValidationMessage } from 'react-native-elements'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
-import { loadTrucks, logIn } from '../actions'
+import { logIn } from '../actions'
 
 ///////////////////////////////////////////////////////////////////////////////
 import t from 'tcomb-form-native';
@@ -17,18 +17,9 @@ const User = t.struct({
 
 class Login extends Component {
 
-  async componentDidMount(){
-    this.props.loadTrucks()
-  }
-
  handleSubmit = (changeView) => {
     const value = this._form.getValue()
-    console.log(value);
     this.props.logIn(value, changeView)
-  }
-
-  findMeg = () => {
-    console.log(this.props.currentUser);
   }
 
   render() {
@@ -37,11 +28,6 @@ class Login extends Component {
       <View style={styles.container}>
         <Text style={styles.header}>Log in</Text>
           <Form type={User} ref={c => this._form = c}/>
-          <Button
-            onPress={this.findMeg}
-            title="find meg"
-            color="#841584"
-          />
           <Button
             onPress={() => this.handleSubmit(navigate)}
             title="Log in"
@@ -64,7 +50,6 @@ const mapStateToProps = state => {
 }
 
 const mapDispatchToProps = dispatch => bindActionCreators({
-  loadTrucks,
   logIn
 }, dispatch)
 
