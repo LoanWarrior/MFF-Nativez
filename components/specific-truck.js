@@ -7,6 +7,10 @@ import { truckInfo } from '../actions'
 
 class SpecificTruck extends Component {
 
+  state = {
+
+  }
+
   async componentDidMount(){
     this.props.truckInfo(this.props.navigation.state.params)
   }
@@ -15,21 +19,25 @@ class SpecificTruck extends Component {
     console.log('view truck',this.props.orders);
   }
 
+
+
   render() {
     const { navigate } = this.props.navigation
     const orders = this.props.orders
     let orderInfo = []
-    let itemList = []
     if (orders) {
       for ( let order in orders){
-        console.log('order on view', orders[order].items);
-        orderInfo.push({key: order, name: orders[order].name, tel: orders[order].tel})
+        let items = ''
+        let total = 0
+        console.log('almost there', orders[order].items);
         orders[order].items.forEach(item => {
-          itemList.push({key: item.name, price: item.price})
+          items += `${item.name} ${item.price} ${"\n"}`
+          total += item.price
         })
+        // items = `${orders[order].items.toString()}`
+        orderInfo.push({key: order, name: orders[order].name, tel: orders[order].tel, items: items, total: total})
       }
     }
-    console.log('orderInfo', itemList);
     return (
       <View style={styles.container}>
         <Text>{}</Text>
@@ -43,11 +51,9 @@ class SpecificTruck extends Component {
           data={orderInfo}
           renderItem={({item}) =>
           <View>
-            <Text>{item.key} {item.name} {item.tel}</Text>
-            <FlatList
-              data={itemList}
-              renderItem={({item}) => <Text>{item.key} {item.price}</Text>}
-            />
+            <Text>{item.key} {item.name} {"\n"}{item.tel}</Text>
+            <Text> {"\n"}{item.items}</Text>
+            <Text>Total {item.total}{"\n"}</Text>
           </View>
           }
           style={styles.truckList}
