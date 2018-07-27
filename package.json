@@ -6,7 +6,9 @@
     "start": "node node_modules/react-native/local-cli/cli.js start"
   },
   "dependencies": {
+    "moment-timezone": "^0.5.21",
     "react": "16.4.1",
+    "react-moment": "^0.7.9",
     "react-native": "0.56.0",
     "react-native-elements": "^0.19.1",
     "react-native-vector-icons": "^4.6.0",
