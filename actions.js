@@ -1,6 +1,20 @@
 export const LOG_IN = 'LOG_IN'
 export const GET_OWNERS_TRUCKS = 'GET_OWNERS_TRUCKS'
 export const TRUCK_INFO = 'TRUCK_INFO'
+export const OPEN_TRUCKS  = 'OPEN_TRUCKS'
+
+//get open trucks
+export const getOpenTrucks = (id) => {
+  return async dispatch => {
+    // const response = await fetch(`https://mffapi.herokuapp.com/trucks`)
+    const response = await fetch(`http://localhost:5445/trucks`)
+    const trucks = await response.json()
+    dispatch({
+        type: OPEN_TRUCKS,
+        payload: trucks
+      })
+  }
+}
 
 //log-in action, get user info, hardcoded for owner///
 
