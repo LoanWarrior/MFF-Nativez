@@ -10,6 +10,8 @@ import SpecificTruck from './components/specific-truck'
 import LoggedIn from './components/logged-in'
 import EaterMapView from './components/map'
 import LoggedInEater from './components/logged-in-eater'
+import EaterTruckMenu from './components/eater-truck-menu'
+
 
 
 
@@ -28,7 +30,8 @@ export const Navigator = createStackNavigator(
       SpecificTruck: SpecificTruck,
       LoggedIn: LoggedIn,
       Map: EaterMapView,
-      LoggedInEater: LoggedInEater
+      LoggedInEater: LoggedInEater,
+      EaterTruckMenu: EaterTruckMenu
 
   },
   {

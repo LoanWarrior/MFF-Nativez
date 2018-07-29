@@ -1,13 +1,17 @@
 import {
 LOG_IN,
 GET_OWNERS_TRUCKS,
-TRUCK_INFO
+TRUCK_INFO,
+OPEN_TRUCKS,
+TRUCK_MENU
 } from '../actions'
 
 let initialState = {
     currentUser: '',
+    openTrucks: [],
     trucks: [],
-    orders: []
+    orders: [],
+    menu: []
 }
 
 export default (state = initialState, action) => {
@@ -23,6 +27,18 @@ export default (state = initialState, action) => {
      return {
        ...state,
      }
+   }
+
+   case TRUCK_MENU:
+   return{
+     ...state,
+     menu: action.payload
+   }
+
+   case OPEN_TRUCKS:
+   return{
+     ...state,
+     openTrucks: action.payload
    }
 
 
