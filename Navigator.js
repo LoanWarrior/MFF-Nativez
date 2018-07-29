@@ -11,6 +11,7 @@ import LoggedIn from './components/logged-in'
 import EaterMapView from './components/map'
 import LoggedInEater from './components/logged-in-eater'
 import EaterTruckMenu from './components/eater-truck-menu'
+import Register from './components/register-user'
 
 
 
@@ -25,6 +26,7 @@ export const Navigator = createStackNavigator(
   {
       Home: Homepage,
       Login: Login,
+      Register: Register,
       Order: Order,
       CreateTruck: CreateTruck,
       SpecificTruck: SpecificTruck,

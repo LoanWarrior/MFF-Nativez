@@ -3,12 +3,14 @@ export const GET_OWNERS_TRUCKS = 'GET_OWNERS_TRUCKS'
 export const TRUCK_INFO = 'TRUCK_INFO'
 export const OPEN_TRUCKS  = 'OPEN_TRUCKS'
 export const TRUCK_MENU = 'TRUCK-MENU'
+export const COMPLETE_ORDER = 'COMPLETE_ORDER'
+export const REGISTER_USER = 'REGISTER_USER'
 
 //get open trucks
 export const getOpenTrucks = (id) => {
   return async dispatch => {
-    // const response = await fetch(`https://mffapi.herokuapp.com/trucks`)
-    const response = await fetch(`http://localhost:5445/trucks`)
+    const response = await fetch(`https://mffapi.herokuapp.com/trucks`)
+    // const response = await fetch(`http://localhost:5445/trucks`)
     const trucks = await response.json()
     dispatch({
         type: OPEN_TRUCKS,
@@ -20,8 +22,8 @@ export const getOpenTrucks = (id) => {
 //get trucks menu
 export const truckMenu = (id) => {
   return async dispatch => {
-    // const response = await fetch(`https://mffapi.herokuapp.com/trucks/menu/${id}`)
-    const response = await fetch(`http://localhost:5445/trucks/menu/${id}`)
+    const response = await fetch(`https://mffapi.herokuapp.com/trucks/menu/${id}`)
+    // const response = await fetch(`http://localhost:5445/trucks/menu/${id}`)
     const menu = await response.json()
     dispatch({
         type: TRUCK_MENU,
@@ -38,7 +40,7 @@ export const logIn = (value, navigate) => {
   //   password: value.password
   // }
   let user = {
-    username: 'jslay',
+    username: 'sarasmile',
     password: '123'
   }
   return async dispatch => {
@@ -73,8 +75,8 @@ export const logIn = (value, navigate) => {
 
 export const ownersTrucks = (id) => {
   return async dispatch => {
-    // const response = await fetch(`https://mffapi.herokuapp.com/trucks/${id}`)
-    const response = await fetch(`http://localhost:5445/trucks/${id}`)
+    const response = await fetch(`https://mffapi.herokuapp.com/trucks/${id}`)
+    // const response = await fetch(`http://localhost:5445/trucks/${id}`)
     const trucks = await response.json()
     dispatch({
         type: GET_OWNERS_TRUCKS,
@@ -93,12 +95,32 @@ export const linkToTruck = (truckId, navigate) => {
 
 export const truckInfo = (truckId) => {
     return async dispatch => {
-      // const response = await fetch(`https://mffapi.herokuapp.com/trucks/orders/${truckId}`)
-      const response = await fetch(`http://localhost:5445/trucks/orders/${truckId}`)
+      const response = await fetch(`https://mffapi.herokuapp.com/trucks/orders/${truckId}`)
+      // const response = await fetch(`http://localhost:5445/trucks/orders/${truckId}`)
       const orders = await response.json()
       dispatch({
         type: TRUCK_INFO,
         payload: orders
       })
     }
+}
+
+//mark an order complete which will delete that order from the data base
+
+export const completeOrder = (orderId) => {
+  console.log('order id is:', orderId);
+  return async dispatch => {
+    // const response = await fetch(`https://mffapi.herokuapp.com/trucks/orders/${truckId}`)
+    const response = await fetch(`http://localhost:5445/orders/order/${orderId}`)
+    const orders = await response.json()
+    dispatch({
+      type: COMPLETE_ORDER,
+      payload: orderId
+    })
+  }
+}
+
+export const registerUser = (userData, navigate) => {
+  console.log(userData);
+  //why is this function not defined??
 }
