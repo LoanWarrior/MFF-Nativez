@@ -5,6 +5,7 @@ export const OPEN_TRUCKS  = 'OPEN_TRUCKS'
 export const TRUCK_MENU = 'TRUCK-MENU'
 export const COMPLETE_ORDER = 'COMPLETE_ORDER'
 export const REGISTER_USER = 'REGISTER_USER'
+export const CREATE_TRUCK = 'CREATE_TRUCK'
 
 //get open trucks
 export const getOpenTrucks = (id) => {
@@ -105,8 +106,9 @@ export const truckInfo = (truckId) => {
     }
 }
 
-//mark an order complete which will delete that order from the data base
+///////////////NEEDS TO BE COMPLETE////////////////////////
 
+//mark an order complete which will delete that order from the data base
 export const completeOrder = (orderId) => {
   console.log('order id is:', orderId);
   return async dispatch => {
@@ -120,7 +122,28 @@ export const completeOrder = (orderId) => {
   }
 }
 
+// create a new user
 export const registerUser = (userData, navigate) => {
   console.log(userData);
   //why is this function not defined??
+  //post request to make a new user
+  dispatch({
+    type: REGISTER_USER,
+    payload: orderId
+  })
+}
+
+//create a new truck as a owner
+export const createTruck = (truckData, navigate) => {
+  console.log(truckData, navigate);
+  //why is this function not defined??
+  //post request to make a new truck
+  dispatch({
+    type: CREATE_TRUCK,
+    payload: orderId
+  })
+///////////////NEEDS TO BE COMPLETE////////////////////////
+
+
+
 }
