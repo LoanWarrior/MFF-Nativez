@@ -15,7 +15,6 @@ class LoggedInEater extends Component {
     const { navigate } = this.props.navigation
     const openTrucks = this.props.openTrucks
     let allOpenTrucks = []
-    console.log('all open trucks', allOpenTrucks);
     if (openTrucks[0]) {
       openTrucks.forEach(truck => {
         allOpenTrucks.push({key: truck.truckName, id: truck.id})
@@ -24,15 +23,10 @@ class LoggedInEater extends Component {
     return (
       <View style={styles.container}>
         <Text>This is the Logged in eater page</Text>
-        <Button
-          onPress={() => {navigate('Map')}}
-          title="Go to the Map page"
-          color="#841584"
-        />
         <Text>{"\n"}{"\n"}{"\n"}{"\n"}</Text>
         <FlatList
           data={allOpenTrucks}
-          renderItem={({item}) => <Text>{item.key}</Text>}
+          renderItem={({item}) => <Text onPress={() => navigate('EaterTruckMenu', item.id)}>{item.key}</Text>}
           style={styles.truckList}
           keyExtractor={(item, index) => index.toString()}
         />
