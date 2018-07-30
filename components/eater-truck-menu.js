@@ -7,32 +7,38 @@ import { truckMenu } from '../actions'
 
 class EaterTruckMenu extends Component {
   state = {
-    thing: 'qpwiebfpwie'
+    total: 0
   }
 
   async componentDidMount(){
     this.props.truckMenu(this.props.navigation.state.params)
   }
 
-  changeQuantity(quantity, value){
+  changeQuantity(quantity, price, value){
     if (value){
       if(this.state[quantity]){
         this.state[quantity]++
-        this.setState({[quantity]: this.state[quantity]})
+        this.state.total += price
+        this.setState({
+          [quantity]: this.state[quantity],
+          total: this.state.total
+        })
       } else {
-        this.setState({[quantity]: 1})
+        this.setState({
+          [quantity]: 1,
+          total: price
+        })
       }
-      console.log(quantity)
-      console.log(this.state)
     } else {
       if(this.state[quantity]){
         if(this.state[quantity] > 0){
           this.state[quantity]--
+          this.state.total -= price
           this.setState({[quantity]: this.state[quantity]})
         }
       }
       console.log(quantity)
-      console.log(this.state)
+      console.log(this.state.total)
     }
   }
 
@@ -54,30 +60,20 @@ class EaterTruckMenu extends Component {
           renderItem={({item}) =>
           <View>
             <Text> {"\n"}{item.key} {item.price} {item.quantity}<Text onPress={() => {
-              this.changeQuantity(item.key, true)
+              this.changeQuantity(item.key, item.price, true)
               console.log('pressed the button +')}
             }
               > + </Text>
               <Text onPress={() => {
-                this.changeQuantity(item.key, false)
+                this.changeQuantity(item.key, item.price, false)
                 console.log('pressed the button -')}
               }
                 > - </Text></Text>
+                <Text>{"\n"}{"\n"}{"\n"}{"\n"} Total {this.state.total}</Text>
           </View>
           }
           style={styles.truckList}
         />
-        <Text>{"\n"}{"\n"}{"\n"}{"\n"}</Text>
-        <Text>These are my ordered items</Text>
-
-        {/* order flatList */}
-        <FlatList
-          data={[{key: 'taco', id: 1}]}
-          renderItem={({item}) => <Text onPress={() => navigate('EaterTruckMenu', item.id)}>{item.key}</Text>}
-          style={styles.truckList}
-          keyExtractor={(item, index) => index.toString()}
-        />
-        <Text>{"\n"}{"\n"}{"\n"}{"\n"}</Text>
       </View>
     );
   }
