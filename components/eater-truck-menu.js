@@ -20,7 +20,6 @@ class EaterTruckMenu extends Component {
         generateMenu.push({key: menu[item].name, price: menu[item].price})
       }
     }
-    console.log(generateMenu);
     return (
       <View style={styles.container}>
         <Text>{"\n"}{"\n"}{"\n"}{"\n"} MENU</Text>

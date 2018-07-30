@@ -17,7 +17,6 @@ class LoggedIn extends Component {
     let trucksInfo = []
     if (myTrucks[0]) {
       myTrucks.forEach(truck => {
-        // console.log(truck);
         trucksInfo.push({key: truck.truckName, id: truck.id})
       })
     }
