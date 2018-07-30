@@ -7,8 +7,8 @@ export const TRUCK_MENU = 'TRUCK-MENU'
 //get open trucks
 export const getOpenTrucks = (id) => {
   return async dispatch => {
-    // const response = await fetch(`https://mffapi.herokuapp.com/trucks`)
-    const response = await fetch(`http://localhost:5445/trucks`)
+    const response = await fetch(`https://mffapi.herokuapp.com/trucks`)
+    // const response = await fetch(`http://localhost:5445/trucks`)
     const trucks = await response.json()
     dispatch({
         type: OPEN_TRUCKS,
@@ -20,8 +20,8 @@ export const getOpenTrucks = (id) => {
 //get trucks menu
 export const truckMenu = (id) => {
   return async dispatch => {
-    // const response = await fetch(`https://mffapi.herokuapp.com/trucks/menu/${id}`)
-    const response = await fetch(`http://localhost:5445/trucks/menu/${id}`)
+    const response = await fetch(`https://mffapi.herokuapp.com/trucks/menu/${id}`)
+    // const response = await fetch(`http://localhost:5445/trucks/menu/${id}`)
     const menu = await response.json()
     dispatch({
         type: TRUCK_MENU,
