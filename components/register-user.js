@@ -3,7 +3,7 @@ import {Platform, StyleSheet, Text, View, Image, Button, TouchableOpacity} from 
 import { FormLabel, FormInput, FormValidationMessage } from 'react-native-elements'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
-import registerUser from '../actions'
+import { registerUser } from '../actions'
 
 ///////////////////////////////////////////////////////////////////////////////
 import t from 'tcomb-form-native';
@@ -13,16 +13,16 @@ const User = t.struct({
   email: t.String,
   tel: t.String,
   password: t.String,
-  owner: t.Boolean
+  is_owner: t.Boolean
 });
 ///////////////////////////////////////////////////////////////////////////////
 
 
 class Register extends Component {
 
- handleSubmit = (changeView) => {
+ handleSubmit = (navigate) => {
     const value = this._form.getValue()
-    this.props.registerUser(value, changeView)
+    this.props.registerUser(value, navigate)
   }
 
   render() {

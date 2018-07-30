@@ -45,7 +45,8 @@ export const logIn = (value, navigate) => {
     password: '123'
   }
   return async dispatch => {
-    const response = await fetch('https://mffapi.herokuapp.com/login', {
+    // const response = await fetch('https://mffapi.herokuapp.com/login', {
+      const response = await fetch('http://localhost:5445/login', {
       method: 'POST',
       body: JSON.stringify(user),
       headers: {
@@ -54,9 +55,10 @@ export const logIn = (value, navigate) => {
       }
     })
     const newUser = await response.json()
+    console.log('58 new user', newUser);
     if(newUser.errorMessage){
       alert(newUser.errorMessage)
-    } else if (newUser.isOwner) {
+    } else if (newUser.is_owner) {
       dispatch ({
         type: LOG_IN,
         payload: newUser
@@ -130,18 +132,39 @@ export const completeOrder = (orderId) => {
 
 // create a new user
 export const registerUser = (userData, navigate) => {
-  console.log(userData);
-  //why is this function not defined??
-  //post request to make a new user
-  dispatch({
-    type: REGISTER_USER,
-    payload: orderId
-  })
+  return async dispatch => {
+    const response = await fetch('http://localhost:5445/users', {
+      method: 'POST',
+      body: JSON.stringify(userData),
+      headers: {
+        'Content-Type': 'application/json',
+        'Accept': 'application/json'
+      }
+    })
+    const newUserId = await response.json()
+    if(newUserId.errorMessage){
+      console.log('error handle', newUserId.errorMessage);
+      // alert(newUserId.errorMessage)
+    } else if (userData.is_owner) {
+      dispatch ({
+        type: LOG_IN,
+        payload: newUserId
+      })
+      navigate('LoggedIn')
+    }
+    // } else {
+    //   dispatch ({
+    //     type: REGISTER_USER,
+    //     payload: user
+    //   })
+    //   navigate('LoggedInEater')
+    // }
+  }
 }
 
 //create a new truck as a owner
 export const createTruck = (truckData, navigate) => {
-  console.log(truckData, navigate);
+  // console.log(truckData);
   //why is this function not defined??
   //post request to make a new truck
   dispatch({
@@ -149,7 +172,5 @@ export const createTruck = (truckData, navigate) => {
     payload: orderId
   })
 ///////////////NEEDS TO BE COMPLETE////////////////////////
-
-
 
 }
