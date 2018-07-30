@@ -6,6 +6,21 @@ export const TRUCK_MENU = 'TRUCK-MENU'
 export const COMPLETE_ORDER = 'COMPLETE_ORDER'
 export const REGISTER_USER = 'REGISTER_USER'
 export const CREATE_TRUCK = 'CREATE_TRUCK'
+export const ADD_TO_CART = 'ADD_TO_CART'
+// export const UPDATE_QUANTITY = 'UPDATE_QUANTITY'
+
+quantityCount = (name, price, tof) => {
+  // return async dispatch => {
+    console.log('name', name, 'price', price, 'tof', tof);
+    // const response = await fetch(`https://mffapi.herokuapp.com/trucks/orders/${truckId}`)
+    // const response = await fetch(`http://localhost:5445/trucks/orders/${truckId}`)
+    // const orders = await response.json()
+    // dispatch({
+      // type: TRUCK_INFO,
+      // payload: orders
+    // })
+  // }
+}
 
 //get open trucks
 export const getOpenTrucks = (id) => {
@@ -41,7 +56,7 @@ export const logIn = (value, navigate) => {
   //   password: value.password
   // }
   let user = {
-    username: 'sarasmile',
+    username: 'jslay',
     password: '123'
   }
   return async dispatch => {
@@ -104,6 +119,33 @@ export const truckInfo = (truckId) => {
         payload: orders
       })
     }
+}
+
+//as an eater, add specific trucks menu item to order
+export const makeOrder = (item, user, truck) => {
+  console.log('heres the item', item);
+  console.log('here is the user', user);
+  console.log('here is the trucks id', truck);
+  let newOrder = {
+    // "id": 2,
+    "truck_id": truck,
+    "eater_id": user,
+  }
+  return async dispatch => {
+    const response = await fetch('https://mffapi.herokuapp.com/orders', {
+      method: 'POST',
+      body: JSON.stringify(newOrder),
+      headers: {
+        'Content-Type': 'application/json',
+        'Accept': 'application/json'
+      }
+    })
+    const addItem = await response.json()
+    dispatch({
+        type: ADD_TO_CART,
+        payload: addItem
+      })
+  }
 }
 
 ///////////////NEEDS TO BE COMPLETE////////////////////////

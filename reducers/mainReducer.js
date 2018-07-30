@@ -6,7 +6,8 @@ OPEN_TRUCKS,
 TRUCK_MENU,
 COMPLETE_ORDER,
 REGISTER_USER,
-CREATE_TRUCK
+CREATE_TRUCK,
+ADD_TO_CART
 } from '../actions'
 
 let initialState = {
@@ -29,6 +30,7 @@ export default (state = initialState, action) => {
    } else {
      return {
        ...state,
+       currentUser: action.payload
      }
    }
 
@@ -52,6 +54,13 @@ export default (state = initialState, action) => {
    }
 
    case TRUCK_INFO:
+   return {
+     ...state,
+     orders: action.payload
+   }
+
+   case ADD_TO_CART:
+   console.log('action payload here', action.payload);
    return {
      ...state,
      orders: action.payload
