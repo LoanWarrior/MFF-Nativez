@@ -3,35 +3,37 @@ import {Platform, StyleSheet, Text, View, Image, Button, TouchableOpacity} from 
 import { FormLabel, FormInput, FormValidationMessage } from 'react-native-elements'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
-import createTruck from '../actions'
+import registerUser from '../actions'
 
 ///////////////////////////////////////////////////////////////////////////////
 import t from 'tcomb-form-native';
 const Form = t.form.Form;
 const User = t.struct({
-  truckName: t.String,
-  veggieFriendly: t.Boolean,
-  imageUrl: t.String,
+  username: t.String,
+  email: t.String,
+  tel: t.String,
+  password: t.String,
+  owner: t.Boolean
 });
 ///////////////////////////////////////////////////////////////////////////////
 
 
-class CreateTruck extends Component {
+class Register extends Component {
 
  handleSubmit = (changeView) => {
     const value = this._form.getValue()
-    this.props.createTruck(value, changeView)
+    this.props.registerUser(value, changeView)
   }
 
   render() {
     const { navigate } = this.props.navigation
     return (
       <View style={styles.container}>
-        <Text style={styles.header}>Create a new truck{'\n'}{'\n'}</Text>
+        <Text style={styles.header}>Register</Text>
           <Form type={User} ref={c => this._form = c}/>
           <Button
             onPress={() => this.handleSubmit(navigate)}
-            title="Create Truck"
+            title="Create Account"
             color="#841584"
           />
       </View>
@@ -39,20 +41,21 @@ class CreateTruck extends Component {
   }
 }
 
-const mapStateToProps = state => {
-  return {
-    currentUser: state.mainReducer.currentUser
-  }
-}
+// const mapStateToProps = state => {
+//   return {
+//     currentUser: state.mainReducer.currentUser
+//   }
+// }
 
 const mapDispatchToProps = dispatch => bindActionCreators({
-  createTruck
+  registerUser
 }, dispatch)
 
 export default connect(
-  mapStateToProps,
+  // mapStateToProps,
+  null,
   mapDispatchToProps
-)(CreateTruck);
+)(Register);
 
 const styles = StyleSheet.create({
   container: {
@@ -62,6 +65,10 @@ const styles = StyleSheet.create({
     backgroundColor: 'lightblue',
   },
   header: {
-    fontSize: 30
+    fontSize: 50
+  },
+  inputs: {
+    width: 300,
+    height: 75
   }
 })

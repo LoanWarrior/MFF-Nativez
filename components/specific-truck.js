@@ -3,7 +3,7 @@ import {Platform, StyleSheet, Text, View, Image, Button, TouchableOpacity, FlatL
 import { createStackNavigator } from 'react-navigation';
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
-import { truckInfo } from '../actions'
+import { truckInfo, completeOrder } from '../actions'
 import  Moment  from 'react-moment'
 import 'moment-timezone'
 
@@ -16,6 +16,7 @@ class SpecificTruck extends Component {
   render() {
     const { navigate } = this.props.navigation
     const orders = this.props.orders
+    console.log('jelloo', orders);
     let orderInfo = []
     if (orders) {
       for ( let order in orders){
@@ -40,6 +41,11 @@ class SpecificTruck extends Component {
 
             <Text> {"\n"}{item.items}</Text>
             <Text>Total {item.total}{"\n"}</Text>
+            <Button
+            onPress={() => this.props.completeOrder(item.key)}
+            title="Complete Order"
+            color="#841584"
+            />
           </View>
           }
           style={styles.truckList}
@@ -57,7 +63,8 @@ const mapStateToProps = state => {
 }
 
 const mapDispatchToProps = dispatch => bindActionCreators({
-  truckInfo
+  truckInfo,
+  completeOrder
 }, dispatch)
 
 export default connect(

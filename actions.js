@@ -3,6 +3,9 @@ export const GET_OWNERS_TRUCKS = 'GET_OWNERS_TRUCKS'
 export const TRUCK_INFO = 'TRUCK_INFO'
 export const OPEN_TRUCKS  = 'OPEN_TRUCKS'
 export const TRUCK_MENU = 'TRUCK-MENU'
+export const COMPLETE_ORDER = 'COMPLETE_ORDER'
+export const REGISTER_USER = 'REGISTER_USER'
+export const CREATE_TRUCK = 'CREATE_TRUCK'
 
 //get open trucks
 export const getOpenTrucks = (id) => {
@@ -38,7 +41,7 @@ export const logIn = (value, navigate) => {
   //   password: value.password
   // }
   let user = {
-    username: 'jslay',
+    username: 'sarasmile',
     password: '123'
   }
   return async dispatch => {
@@ -101,4 +104,52 @@ export const truckInfo = (truckId) => {
         payload: orders
       })
     }
+}
+
+///////////////NEEDS TO BE COMPLETE////////////////////////
+
+//mark an order complete which will delete that order from the data base
+export const completeOrder = (orderId) => {
+  console.log('order id is:', orderId);
+  return async dispatch => {
+    // const response = await fetch(`https://mffapi.herokuapp.com/trucks/orders/${truckId}`)
+    const response = await fetch(`http://localhost:5445/orders/order/${orderId}`, {
+      method: 'DELETE',
+      headers: {
+        'Content-Type': 'application/json',
+        'Accept': 'application/json'
+      }
+    })
+    const orders = await response.json()
+    console.log("orders vari here", orders);
+    dispatch({
+      type: COMPLETE_ORDER,
+    })
+  }
+}
+
+// create a new user
+export const registerUser = (userData, navigate) => {
+  console.log(userData);
+  //why is this function not defined??
+  //post request to make a new user
+  dispatch({
+    type: REGISTER_USER,
+    payload: orderId
+  })
+}
+
+//create a new truck as a owner
+export const createTruck = (truckData, navigate) => {
+  console.log(truckData, navigate);
+  //why is this function not defined??
+  //post request to make a new truck
+  dispatch({
+    type: CREATE_TRUCK,
+    payload: orderId
+  })
+///////////////NEEDS TO BE COMPLETE////////////////////////
+
+
+
 }

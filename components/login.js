@@ -34,7 +34,7 @@ class Login extends Component {
             color="#841584"
           />
           <Button
-            onPress={() => {navigate('LoggedIn')}}
+            onPress={() => {navigate('Register')}}
             title="New User"
             color="#841584"
           />
