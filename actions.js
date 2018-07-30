@@ -163,14 +163,30 @@ export const registerUser = (userData, navigate) => {
 }
 
 //create a new truck as a owner
-export const createTruck = (truckData, navigate) => {
-  // console.log(truckData);
-  //why is this function not defined??
-  //post request to make a new truck
-  dispatch({
-    type: CREATE_TRUCK,
-    payload: orderId
-  })
+export const createTruck = (truckData, navigate, id) => {
+  // console.log(, id)
+  // truckData.user_id = id
+  let truckInfo = {
+    name: truckData.name,
+    veggieFriendly: truckData.veggieFriendly,
+    imageUrl: truckData.imageUrl,
+    takes_orders: truckData.takes_orders,
+    owner_id: id
+  }
+  return async dispatch => {
+    const response = await fetch('http://localhost:5445/trucks', {
+      method: 'POST',
+      body: JSON.stringify(truckInfo),
+      headers: {
+        'Content-Type': 'application/json',
+        'Accept': 'application/json'
+      }
+    })
+    const truck = await response.json()
+    console.log(truck)
+    dispatch({
+      type: CREATE_TRUCK
+    })
+  }
 ///////////////NEEDS TO BE COMPLETE////////////////////////
-
 }
