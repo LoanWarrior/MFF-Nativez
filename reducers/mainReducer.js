@@ -60,7 +60,7 @@ export default (state = initialState, action) => {
 ///////////////NEEDS TO BE COMPLETE////////////////////////
    case COMPLETE_ORDER:
    console.log('complete order action payload', action.payload)
-   console.log('here is the state of oreders', state)
+   console.log('here is the state of oreders', this.state)
    return {
      ...state,
      // orders: action.payload

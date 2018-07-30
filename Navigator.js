@@ -2,7 +2,6 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { createStackNavigator, addNavigationHelpers } from 'react-navigation'
 import { reduxifyNavigator, createReactNavigationReduxMiddleware } from 'react-navigation-redux-helpers'
-import Homepage from './components/homepage'
 import Login from './components/login'
 import Order from './components/order'
 import CreateTruck from './components/create-truck'
@@ -24,7 +23,6 @@ export const middleware = createReactNavigationReduxMiddleware(
 
 export const Navigator = createStackNavigator(
   {
-      Home: Homepage,
       Login: Login,
       Register: Register,
       Order: Order,

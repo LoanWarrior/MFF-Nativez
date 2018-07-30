@@ -63,9 +63,5 @@ const styles = StyleSheet.create({
   },
   header: {
     fontSize: 30
-  },
-  inputs: {
-    width: 300,
-    height: 75
   }
 })
