@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {Platform, StyleSheet, Text, View, Image, Button, TouchableOpacity} from 'react-native';
+import {Platform, StyleSheet, Text, View, Image, Button, TouchableOpacity, StatusBar} from 'react-native';
 import { FormLabel, FormInput, FormValidationMessage } from 'react-native-elements'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
@@ -14,8 +14,17 @@ const User = t.struct({
 });
 ///////////////////////////////////////////////////////////////////////////////
 
-
 class Login extends Component {
+  static navigationOptions = {
+    title: 'MFF',
+    headerTitleStyle: {
+      fontSize: 40
+    },
+    headerTintColor: '#4592C1',
+    headerStyle: {
+      backgroundColor: '#1A3647'
+    },
+  };
 
  handleSubmit = (changeView) => {
     const value = this._form.getValue()
@@ -23,21 +32,31 @@ class Login extends Component {
   }
 
   render() {
+
     const { navigate } = this.props.navigation
     return (
       <View style={styles.container}>
+        <StatusBar
+          barStyle= "light-content"
+          hidden = {false}
+        />
+        {/* <Image source={require('../images/food-truck.jpg')}/> */}
         <Text style={styles.header}>Log in</Text>
           <Form type={User} ref={c => this._form = c}/>
-          <Button
-            onPress={() => this.handleSubmit(navigate)}
-            title="Log in"
-            color="#841584"
-          />
-          <Button
-            onPress={() => {navigate('Register')}}
-            title="New User"
-            color="#841584"
-          />
+          <View style={styles.buttonContainer}>
+            <Button
+              onPress={() => this.handleSubmit(navigate)}
+              title="Log in"
+              color="#1A3647"
+            />
+          </View>
+          <View style={styles.buttonContainer}>
+            <Button
+              onPress={() => {navigate('Register')}}
+              title="New User"
+              color="#1A3647"
+            />
+          </View>
       </View>
     );
   }
@@ -64,14 +83,24 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: 'lightblue',
+    backgroundColor: '#4592C1'
   },
   header: {
-    fontSize: 50
+    fontSize: 50,
+    color: '#E6E167'
   },
-  inputs: {
-    width: 300,
-    height: 75
+  buttonContainer: {
+    marginBottom: 10,
+    backgroundColor: '#E6E167',
+    borderRadius: 10,
+    padding: 2,
+    shadowColor: '#000000',
+    shadowOffset: {
+      width: 0,
+      height: 3
+    },
+    shadowRadius: 10,
+    shadowOpacity: 0.25
   }
 })
 ///////////////////////////////////////////////////////////////////////////////

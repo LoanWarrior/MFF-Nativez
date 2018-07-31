@@ -19,6 +19,16 @@ const User = t.struct({
 
 
 class Register extends Component {
+  static navigationOptions = {
+    title: 'MFF',
+    headerTitleStyle: {
+      fontSize: 40
+    },
+    headerTintColor: '#4592C1',
+    headerStyle: {
+      backgroundColor: '#1A3647'
+    },
+  };
 
  handleSubmit = (navigate) => {
     const value = this._form.getValue()

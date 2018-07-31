@@ -3,6 +3,17 @@ import {Platform, StyleSheet, Text, View, Image, Button, TouchableOpacity} from 
 import { createStackNavigator } from 'react-navigation';
 
 export default class EaterMapView extends Component {
+  static navigationOptions = {
+    title: 'MFF',
+    headerTitleStyle: {
+      fontSize: 40
+    },
+    headerTintColor: '#4592C1',
+    headerStyle: {
+      backgroundColor: '#1A3647'
+    },
+  };
+
   render() {
     const { navigate } = this.props.navigation
     return (
