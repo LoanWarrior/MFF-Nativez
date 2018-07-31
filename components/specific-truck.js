@@ -51,6 +51,11 @@ class SpecificTruck extends Component {
           style={styles.truckList}
         />
         <Text>{"\n"}{"\n"}{"\n"}{"\n"}</Text>
+        <Button
+          onPress={() => {navigate('ChangeMenu')}}
+          title="Change Menu"
+          color="#841584"
+        />
       </View>
     );
   }

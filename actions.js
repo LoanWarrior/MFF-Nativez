@@ -45,8 +45,8 @@ export const logIn = (value, navigate) => {
     password: '123'
   }
   return async dispatch => {
-    // const response = await fetch('https://mffapi.herokuapp.com/login', {
-      const response = await fetch('http://localhost:5445/login', {
+    const response = await fetch('https://mffapi.herokuapp.com/login', {
+      // const response = await fetch('http://localhost:5445/login', {
       method: 'POST',
       body: JSON.stringify(user),
       headers: {
@@ -77,8 +77,8 @@ export const logIn = (value, navigate) => {
 
 export const ownersTrucks = (id) => {
   return async dispatch => {
-    // const response = await fetch(`https://mffapi.herokuapp.com/trucks/${id}`)
-    const response = await fetch(`http://localhost:5445/trucks/${id}`)
+    const response = await fetch(`https://mffapi.herokuapp.com/trucks/${id}`)
+    // const response = await fetch(`http://localhost:5445/trucks/${id}`)
     const trucks = await response.json()
     dispatch({
         type: GET_OWNERS_TRUCKS,
@@ -97,8 +97,8 @@ export const linkToTruck = (truckId, navigate) => {
 
 export const truckInfo = (truckId) => {
     return async dispatch => {
-      // const response = await fetch(`https://mffapi.herokuapp.com/trucks/orders/${truckId}`)
-      const response = await fetch(`http://localhost:5445/trucks/orders/${truckId}`)
+      const response = await fetch(`https://mffapi.herokuapp.com/trucks/orders/${truckId}`)
+      // const response = await fetch(`http://localhost:5445/trucks/orders/${truckId}`)
       const orders = await response.json()
       dispatch({
         type: TRUCK_INFO,
@@ -113,8 +113,8 @@ export const truckInfo = (truckId) => {
 export const completeOrder = (orderId) => {
   console.log('order id is:', orderId);
   return async dispatch => {
-    // const response = await fetch(`https://mffapi.herokuapp.com/trucks/orders/${truckId}`)
-    const response = await fetch(`http://localhost:5445/orders/order/${orderId}`, {
+    const response = await fetch(`https://mffapi.herokuapp.com/trucks/orders/${truckId}`, {
+    // const response = await fetch(`http://localhost:5445/orders/order/${orderId}`, {
       method: 'DELETE',
       headers: {
         'Content-Type': 'application/json',
@@ -188,4 +188,28 @@ export const createTruck = (truckData, navigate, id) => {
     })
   }
 ///////////////NEEDS TO BE COMPLETE////////////////////////
+}
+
+export const createMenuItem = (dishData, navigate) => {
+  // console.log(truckData);
+  //why is this function not defined??
+  //post request to make a new truck
+  dispatch({
+    type: CREATE_TRUCK,
+    payload: orderId
+  })
+///////////////NEEDS TO BE COMPLETE////////////////////////
+
+}
+
+export const removeMenuItem = (dishData, navigate) => {
+  // console.log(truckData);
+  //why is this function not defined??
+  //post request to make a new truck
+  dispatch({
+    type: CREATE_TRUCK,
+    payload: orderId
+  })
+///////////////NEEDS TO BE COMPLETE////////////////////////
+
 }
