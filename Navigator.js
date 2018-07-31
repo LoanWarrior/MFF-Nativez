@@ -6,6 +6,7 @@ import Login from './components/login'
 import Order from './components/order'
 import CreateTruck from './components/create-truck'
 import SpecificTruck from './components/specific-truck'
+import ChangeMenu from './components/specific-truck-menu'
 import LoggedIn from './components/logged-in'
 import EaterMapView from './components/map'
 import LoggedInEater from './components/logged-in-eater'
@@ -28,6 +29,7 @@ export const Navigator = createStackNavigator(
       Order: Order,
       CreateTruck: CreateTruck,
       SpecificTruck: SpecificTruck,
+      ChangeMenu: ChangeMenu,
       LoggedIn: LoggedIn,
       Map: EaterMapView,
       LoggedInEater: LoggedInEater,

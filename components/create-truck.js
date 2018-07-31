@@ -3,15 +3,16 @@ import {Platform, StyleSheet, Text, View, Image, Button, TouchableOpacity} from 
 import { FormLabel, FormInput, FormValidationMessage } from 'react-native-elements'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
-import createTruck from '../actions'
+import { createTruck } from '../actions'
 
 ///////////////////////////////////////////////////////////////////////////////
 import t from 'tcomb-form-native';
 const Form = t.form.Form;
 const User = t.struct({
-  truckName: t.String,
+  name: t.String,
   veggieFriendly: t.Boolean,
   imageUrl: t.String,
+  takes_orders: t.Boolean
 });
 ///////////////////////////////////////////////////////////////////////////////
 
@@ -19,8 +20,9 @@ const User = t.struct({
 class CreateTruck extends Component {
 
  handleSubmit = (changeView) => {
+   console.log(this.props.currentUser.id)
     const value = this._form.getValue()
-    this.props.createTruck(value, changeView)
+    this.props.createTruck(value, changeView, this.props.currentUser.id)
   }
 
   render() {

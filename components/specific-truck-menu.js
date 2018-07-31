@@ -3,37 +3,34 @@ import {Platform, StyleSheet, Text, View, Image, Button, TouchableOpacity} from 
 import { FormLabel, FormInput, FormValidationMessage } from 'react-native-elements'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
-import { registerUser } from '../actions'
+import createMenuItem from '../actions'
 
-///////////////////////////////////////////////////////////////////////////////
+
 import t from 'tcomb-form-native';
 const Form = t.form.Form;
 const User = t.struct({
-  username: t.String,
-  email: t.String,
-  tel: t.String,
-  password: t.String,
-  is_owner: t.Boolean
+  dishName: t.String,
+  dishPrice: t.String,
+  imageUrl: t.String,
 });
-///////////////////////////////////////////////////////////////////////////////
 
 
-class Register extends Component {
+class ChangeMenu extends Component {
 
- handleSubmit = (navigate) => {
+ handleSubmit = (changeView) => {
     const value = this._form.getValue()
-    this.props.registerUser(value, navigate)
+    this.props.createTruck(value, changeView)
   }
 
   render() {
     const { navigate } = this.props.navigation
     return (
       <View style={styles.container}>
-        <Text style={styles.header}>Register</Text>
+        <Text style={styles.header}>Add a new Dish{'\n'}{'\n'}</Text>
           <Form type={User} ref={c => this._form = c}/>
           <Button
             onPress={() => this.handleSubmit(navigate)}
-            title="Create Account"
+            title="Add Dish"
             color="#841584"
           />
       </View>
@@ -41,21 +38,21 @@ class Register extends Component {
   }
 }
 
-// const mapStateToProps = state => {
-//   return {
-//     currentUser: state.mainReducer.currentUser
-//   }
-// }
+
+const mapStateToProps = state => {
+  return {
+    orders: state.mainReducer.orders
+  }
+}
 
 const mapDispatchToProps = dispatch => bindActionCreators({
-  registerUser
+  createMenuItem
 }, dispatch)
 
 export default connect(
-  // mapStateToProps,
-  null,
+  mapStateToProps,
   mapDispatchToProps
-)(Register);
+)(ChangeMenu);
 
 const styles = StyleSheet.create({
   container: {
@@ -63,12 +60,5 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     backgroundColor: 'lightblue',
-  },
-  header: {
-    fontSize: 50
-  },
-  inputs: {
-    width: 300,
-    height: 75
   }
 })

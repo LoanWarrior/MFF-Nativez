@@ -6,18 +6,50 @@ import { bindActionCreators } from 'redux'
 import { truckMenu, makeOrder, quantityCount } from '../actions'
 
 class EaterTruckMenu extends Component {
+  state = {
+    total: 0
+  }
 
   async componentDidMount(){
     this.props.truckMenu(this.props.navigation.state.params)
   }
 
-  constructor(props) {
-    super(props);
-    this.state = {
-      order: [],
-      quantity: 0
+  changeQuantity(quantity, price, value){
+    if (value){
+      if(this.state.total === 0){
+        this.setState({
+          total: price
+        })
+      } else {
+        this.state.total += price
+        this.setState({
+          total: this.state.total
+        })
+      }
+      if(this.state[quantity]){
+        this.state[quantity]++
+        this.state.total += price
+        this.setState({
+          [quantity]: this.state[quantity],
+        })
+      } else {
+        this.setState({
+          [quantity]: 1
+        })
+      }
+    } else {
+      if(this.state[quantity]){
+        if(this.state[quantity] > 0){
+          this.state[quantity]--
+          this.state.total -= price
+          this.setState({[quantity]: this.state[quantity]})
+        }
+      }
+      console.log(quantity)
+      console.log(this.state.total)
     }
-  };
+  }
+>>>>>>> a62c4a74eeba9333193abbaa4514ed2f3aca623d
 
   render() {
     const { navigate } = this.props.navigation
@@ -26,10 +58,10 @@ class EaterTruckMenu extends Component {
     let truckId = this.props.navigation.state.params
     if (menu) {
       for ( let item in menu){
-        generateMenu.push({key: menu[item].name, price: menu[item].price})
+        generateMenu.push({key: menu[item].name, price: menu[item].price, quantity: this.state[menu[item].name]})
       }
     }
-    console.log('this.state.quantity', this.state.quantity);
+
     return (
       <View style={styles.container}>
         <Text>{"\n"}{"\n"}{"\n"}{"\n"} MENU</Text>
@@ -37,20 +69,23 @@ class EaterTruckMenu extends Component {
           data={generateMenu}
           renderItem={({item}) =>
           <View>
-            <Text>{"\n"}{item.key} {item.price}</Text>
-              <View style={{flexDirection:'row', flexWrap:'wrap'}}>
-                {/* <Text onPress={() => this.setState({quantity: this.state.quantity++})}>+</Text> */}
-                <Text onPress={() => this.props.quantityCount(item.key, item.price, false)}>-</Text>
-                <Text>{"\n"}quantity: {this.state.quantity}</Text>
-              </View>
+
+            <Text> {"\n"}{item.key} {item.price} {item.quantity}<Text onPress={() => {
+              this.changeQuantity(item.key, item.price, true)
+              console.log('pressed the button +')}
+            }
+              > + </Text>
+              <Text onPress={() => {
+                this.changeQuantity(item.key, item.price, false)
+                console.log('pressed the button -')}
+              }
+                > - </Text></Text>
           </View>
-        }/>
-        <Text>{"\n"}{"\n"}{"\n"}{"\n"}</Text>
-        <Button
-        onPress={() => this.props.makeOrder()}
-        title="Confirm Order"
+          }
+          style={styles.truckList}
         />
-        <Text>{"\n"}{"\n"}{"\n"}{"\n"}{"\n"}{"\n"}{"\n"}</Text>
+        <Text>{"\n"}{"\n"}Total {this.state.total}{"\n"}{"\n"} </Text>
+>>>>>>> a62c4a74eeba9333193abbaa4514ed2f3aca623d
       </View>
     );
   }

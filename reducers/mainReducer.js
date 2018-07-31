@@ -21,6 +21,7 @@ let initialState = {
 export default (state = initialState, action) => {
  switch (action.type) {
 
+///// logs in registered user / login
    case LOG_IN:
    if(action.payload.isOwner){
      return {
@@ -30,7 +31,11 @@ export default (state = initialState, action) => {
    } else {
      return {
        ...state,
+<<<<<<< HEAD
        currentUser: action.payload
+=======
+      currentUser: action.payload
+>>>>>>> a62c4a74eeba9333193abbaa4514ed2f3aca623d
      }
    }
 
@@ -75,10 +80,6 @@ export default (state = initialState, action) => {
      // orders: action.payload
    }
 
-   case REGISTER_USER:
-   return {
-     ...state,
-   }
 
    case CREATE_TRUCK:
    return {
