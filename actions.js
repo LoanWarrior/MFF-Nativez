@@ -8,11 +8,32 @@ export const REGISTER_USER = 'REGISTER_USER'
 export const CREATE_TRUCK = 'CREATE_TRUCK'
 export const ADD_TO_CART = 'ADD_TO_CART'
 export const PLACE_ORDER = 'PLACE_ORDER'
+export const DELETE_ITEM = 'DELETE_ITEM'
+
+export const deleteItem = (itemId, truckId) => {
+  return async dispatch => {
+  const response = await fetch(`http://localhost:5445/items/${itemId}/truck/${truckId}`, {
+    method: 'DELETE',
+    // body: JSON.stringify(truckId),
+    headers: {
+      'Content-Type': 'application/json',
+      'Accept': 'application/json'
+    }
+  })
+  const items = await response.json()
+  console.log('after delete', items);
+  dispatch({
+      type: DELETE_ITEM,
+      payload: items
+    })
+  }
+}
 
 export const placeOrder = (newOrder, orderArray, total) => {
   newOrder.total = total
-  console.log(newOrder);
+  console.log('newOrder here', newOrder);
   return async dispatch => {
+    console.log('made it in the something');
   const response = await fetch('http://localhost:5445/orders', {
     method: 'POST',
     body: JSON.stringify(newOrder),
@@ -63,6 +84,7 @@ export const truckMenu = (id) => {
     const response = await fetch(`https://mffapi.herokuapp.com/trucks/menu/${id}`)
     // const response = await fetch(`http://localhost:5445/trucks/menu/${id}`)
     const menu = await response.json()
+    console.log('66 actions', menu);
     dispatch({
         type: TRUCK_MENU,
         payload: menu
