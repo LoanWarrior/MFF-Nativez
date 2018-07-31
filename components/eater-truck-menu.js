@@ -9,6 +9,16 @@ class EaterTruckMenu extends Component {
   state = {
     total: 0
   }
+  static navigationOptions = {
+    title: 'MFF',
+    headerTitleStyle: {
+      fontSize: 40
+    },
+    headerTintColor: '#4592C1',
+    headerStyle: {
+      backgroundColor: '#1A3647'
+    },
+  };
 
   async componentDidMount(){
     this.props.truckMenu(this.props.navigation.state.params)

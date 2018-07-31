@@ -1,15 +1,41 @@
 import React, {Component} from 'react';
 import { connect } from 'react-redux'
 import {Platform, StyleSheet, Text, View, Image, Button, TouchableOpacity, FlatList} from 'react-native';
-import { createStackNavigator } from 'react-navigation';
+import { createStackNavigator } from 'react-navigation'
 import { bindActionCreators } from 'redux'
 import { ownersTrucks, linkToTruck } from '../actions'
+import Carousel from 'react-native-snap-carousel'
 
 class LoggedIn extends Component {
+  static navigationOptions = {
+    title: 'MFF',
+    headerTitleStyle: {
+      fontSize: 40
+    },
+    headerTintColor: '#4592C1',
+    headerStyle: {
+      backgroundColor: '#1A3647'
+    },
+  };
 
   async componentDidMount(){
     this.props.ownersTrucks(this.props.currentUser.id)
   }
+
+  renderItem = ({item, index}) => {
+        const { navigate } = this.props.navigation
+        return (
+            <View style={styles.slide}>
+                <View style={styles.slideInnerContainer}>
+                  <Image source={require('../images/food-truck.jpg')}/>
+                </View>
+                <Text>{item.key}</Text>
+                <View style={styles.buttonContainer2}>
+                  <Text onPress = {() => linkToTruck(item.id, navigate)}>Go To Truck</Text>
+                </View>
+            </View>
+        );
+    }
 
   render() {
     const { navigate } = this.props.navigation
@@ -20,24 +46,25 @@ class LoggedIn extends Component {
         trucksInfo.push({key: truck.truckName, id: truck.id})
       })
     }
-
     return (
       <View style={styles.container}>
         <Text>Welcome Owner Name</Text>
         <Text>My trucks:</Text>
         <Text>{"\n"}{"\n"}{"\n"}{"\n"}</Text>
-        <FlatList
+        <Carousel
           data={trucksInfo}
-          renderItem={({item}) => <Text onPress={() => linkToTruck(item.id, navigate)}>{item.key}</Text>}
-          style={styles.truckList}
-          keyExtractor={(item, index) => index.toString()}
+          renderItem={this.renderItem}
+          sliderWidth={sliderWidth}
+          itemWidth={itemWidth}
         />
         <Text>{"\n"}{"\n"}{"\n"}{"\n"}</Text>
-        <Button
-          onPress={() => {navigate('CreateTruck')}}
-          title="Create Truck"
-          color="#841584"
-        />
+        <View style={styles.buttonContainer}>
+          <Button
+            onPress={() => {navigate('CreateTruck')}}
+            title="Create Truck"
+            color="#1A3647"
+          />
+        </View>
       </View>
     );
   }
@@ -49,6 +76,13 @@ const mapStateToProps = state => {
     myTrucks: state.mainReducer.trucks
   }
 }
+
+const horizontalMargin = 5;
+const slideWidth = 280;
+
+const sliderWidth = 360;
+const itemWidth = slideWidth + horizontalMargin * 2;
+const itemHeight = 440;
 
 const mapDispatchToProps = dispatch => bindActionCreators({
   ownersTrucks,
@@ -65,12 +99,70 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: 'lightblue',
+    backgroundColor: '#4592C1',
   },
   truckList: {
     // flex: 0.75,
     width: 300,
     height: 50,
     backgroundColor: 'white',
+  },
+  buttonContainer: {
+    marginBottom: 10,
+    backgroundColor: '#E6E167',
+    borderRadius: 10,
+    padding: 2,
+    shadowColor: '#000000',
+    shadowOffset: {
+      width: 0,
+      height: 3
+    },
+    shadowRadius: 10,
+    shadowOpacity: 0.25
+  },
+  buttonContainer2: {
+    marginBottom: 10,
+    backgroundColor: '#D34C47',
+    borderRadius: 10,
+    padding: 2,
+    shadowColor: '#000000',
+    shadowOffset: {
+      width: 0,
+      height: 3
+    },
+    shadowRadius: 10,
+    shadowOpacity: 0.25
+  },
+  slide: {
+    backgroundColor: '#E6E167',
+    borderRadius: 10,
+    padding: 2,
+    shadowColor: '#000000',
+    shadowOffset: {
+      width: 0,
+      height: 3
+    },
+    shadowRadius: 10,
+    shadowOpacity: 0.25,
+    width: itemWidth,
+    height: itemHeight,
+    paddingHorizontal: horizontalMargin
+    // other styles for the item container
+  },
+  slideInnerContainer: {
+    overflow: 'hidden',
+    backgroundColor: '#E6E167',
+    borderRadius: 10,
+    padding: 2,
+    shadowColor: '#000000',
+    shadowOffset: {
+      width: 0,
+      height: 3
+    },
+    shadowRadius: 10,
+    shadowOpacity: 0.25,
+    width: slideWidth,
+    flex: 1
+    // other styles for the inner container
   }
 })

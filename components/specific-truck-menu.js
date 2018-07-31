@@ -16,6 +16,16 @@ const User = t.struct({
 
 
 class ChangeMenu extends Component {
+  static navigationOptions = {
+    title: 'MFF',
+    headerTitleStyle: {
+      fontSize: 40
+    },
+    headerTintColor: '#4592C1',
+    headerStyle: {
+      backgroundColor: '#1A3647'
+    },
+  };
 
  handleSubmit = (changeView) => {
     const value = this._form.getValue()

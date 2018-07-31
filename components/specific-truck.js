@@ -8,6 +8,16 @@ import  Moment  from 'react-moment'
 import 'moment-timezone'
 
 class SpecificTruck extends Component {
+  static navigationOptions = {
+    title: 'MFF',
+    headerTitleStyle: {
+      fontSize: 40
+    },
+    headerTintColor: '#4592C1',
+    headerStyle: {
+      backgroundColor: '#1A3647'
+    },
+  };
 
   async componentDidMount(){
     this.props.truckInfo(this.props.navigation.state.params)
@@ -36,26 +46,30 @@ class SpecificTruck extends Component {
         <FlatList
           data={orderInfo}
           renderItem={({item}) =>
-          <View>
+          <View style={styles.buttonContainer}>
             <Text>{item.key} {item.name} {"\n"} Order Placed: <Moment element={Text} fromNow>{item.created_at}</Moment> {"\n"}{item.tel}</Text>
 
             <Text> {"\n"}{item.items}</Text>
             <Text>Total {item.total}{"\n"}</Text>
-            <Button
-            onPress={() => this.props.completeOrder(item.key)}
-            title="Complete Order"
-            color="#841584"
-            />
+            <View style={styles.buttonContainer2}>
+              <Button
+              onPress={() => this.props.completeOrder(item.key)}
+              title="Complete Order"
+              color="#1A3647"
+              />
+            </View>
           </View>
           }
           style={styles.truckList}
         />
         <Text>{"\n"}{"\n"}{"\n"}{"\n"}</Text>
-        <Button
-          onPress={() => {navigate('ChangeMenu')}}
-          title="Change Menu"
-          color="#841584"
-        />
+        <View style={styles.buttonContainer}>
+          <Button
+            onPress={() => {navigate('ChangeMenu')}}
+            title="Change Menu"
+            color="#1A3647"
+          />
+        </View>
       </View>
     );
   }
@@ -82,6 +96,32 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: 'lightblue',
+    backgroundColor: '#4592C1',
+  },
+  buttonContainer: {
+    marginBottom: 10,
+    backgroundColor: '#E6E167',
+    borderRadius: 10,
+    padding: 2,
+    shadowColor: '#000000',
+    shadowOffset: {
+      width: 0,
+      height: 3
+    },
+    shadowRadius: 10,
+    shadowOpacity: 0.25
+  },
+  buttonContainer2: {
+    marginBottom: 10,
+    backgroundColor: '#D34C47',
+    borderRadius: 10,
+    padding: 2,
+    shadowColor: '#000000',
+    shadowOffset: {
+      width: 0,
+      height: 3
+    },
+    shadowRadius: 10,
+    shadowOpacity: 0.25
   }
 })
