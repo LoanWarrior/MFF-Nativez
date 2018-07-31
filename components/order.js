@@ -8,11 +8,6 @@ export default class Order extends Component {
     return (
       <View style={styles.container}>
         <Text>This is the order page</Text>
-        <Button
-          onPress={() => {navigate('Map')}}
-          title="Go to the Map page"
-          color="#841584"
-        />
       </View>
     );
   }
