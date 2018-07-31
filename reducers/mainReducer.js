@@ -7,7 +7,7 @@ TRUCK_MENU,
 COMPLETE_ORDER,
 REGISTER_USER,
 CREATE_TRUCK,
-ADD_TO_CART
+PLACE_ORDER
 } from '../actions'
 
 let initialState = {
@@ -31,11 +31,7 @@ export default (state = initialState, action) => {
    } else {
      return {
        ...state,
-<<<<<<< HEAD
-       currentUser: action.payload
-=======
       currentUser: action.payload
->>>>>>> a62c4a74eeba9333193abbaa4514ed2f3aca623d
      }
    }
 
@@ -64,17 +60,9 @@ export default (state = initialState, action) => {
      orders: action.payload
    }
 
-   case ADD_TO_CART:
-   console.log('action payload here', action.payload);
-   return {
-     ...state,
-     orders: action.payload
-   }
-
 ///////////////NEEDS TO BE COMPLETE////////////////////////
-   case COMPLETE_ORDER:
-   console.log('complete order action payload', action.payload)
-   console.log('here is the state of oreders', this.state)
+   case PLACE_ORDER:
+   // console.log('complete order action payload', action.payload)
    return {
      ...state,
      // orders: action.payload

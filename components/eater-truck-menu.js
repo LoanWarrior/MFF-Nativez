@@ -3,7 +3,7 @@ import {Platform, StyleSheet, Text, View, Image, Button, TouchableOpacity, FlatL
 import { createStackNavigator } from 'react-navigation';
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
-import { truckMenu, makeOrder, quantityCount } from '../actions'
+import { truckMenu, placeOrder } from '../actions'
 
 class EaterTruckMenu extends Component {
   state = {
@@ -14,7 +14,7 @@ class EaterTruckMenu extends Component {
     this.props.truckMenu(this.props.navigation.state.params)
   }
 
-  changeQuantity(quantity, price, value){
+  changeQuantity(name, price, value){
     if (value){
       if(this.state.total === 0){
         this.setState({
@@ -26,42 +26,46 @@ class EaterTruckMenu extends Component {
           total: this.state.total
         })
       }
-      if(this.state[quantity]){
-        this.state[quantity]++
+      if(this.state[name]){
+        this.state[name]++
         this.state.total += price
         this.setState({
-          [quantity]: this.state[quantity],
+          [name]: this.state[name],
         })
       } else {
         this.setState({
-          [quantity]: 1
+          [name]: 1
         })
       }
     } else {
-      if(this.state[quantity]){
-        if(this.state[quantity] > 0){
-          this.state[quantity]--
+      if(this.state[name]){
+        if(this.state[name] > 0){
+          this.state[name]--
           this.state.total -= price
-          this.setState({[quantity]: this.state[quantity]})
+          this.setState({[name]: this.state[name]})
         }
       }
-      console.log(quantity)
-      console.log(this.state.total)
     }
   }
->>>>>>> a62c4a74eeba9333193abbaa4514ed2f3aca623d
 
   render() {
     const { navigate } = this.props.navigation
     const menu = this.props.menu
     let generateMenu = []
-    let truckId = this.props.navigation.state.params
+    let postItems = []
     if (menu) {
       for ( let item in menu){
         generateMenu.push({key: menu[item].name, price: menu[item].price, quantity: this.state[menu[item].name]})
+        if(this.state[menu[item].name] !== undefined && this.state[menu[item].name] !== 0){
+          postItems.push({item_id: menu[item].id, quantity: this.state[menu[item].name]})
+        }
       }
     }
-
+    let newOrder = {
+      truck_id: this.props.navigation.state.params,
+      eater_id: this.props.currentUser.id,
+    }
+    let items = []
     return (
       <View style={styles.container}>
         <Text>{"\n"}{"\n"}{"\n"}{"\n"} MENU</Text>
@@ -69,23 +73,21 @@ class EaterTruckMenu extends Component {
           data={generateMenu}
           renderItem={({item}) =>
           <View>
-
-            <Text> {"\n"}{item.key} {item.price} {item.quantity}<Text onPress={() => {
-              this.changeQuantity(item.key, item.price, true)
-              console.log('pressed the button +')}
-            }
+            <Text> {"\n"}{item.key} {item.price} {item.quantity}<Text onPress={() =>
+              this.changeQuantity(item.key, item.price, true)}
               > + </Text>
-              <Text onPress={() => {
-                this.changeQuantity(item.key, item.price, false)
-                console.log('pressed the button -')}
-              }
+
+              <Text onPress={() =>
+                this.changeQuantity(item.key, item.price, false)}
                 > - </Text></Text>
           </View>
-          }
-          style={styles.truckList}
+          }/>
+        <Text>Total {this.state.total}{"\n"}{"\n"} </Text>
+        <Button
+          onPress={() => {this.props.placeOrder(newOrder, postItems, this.state.total)}}
+          title="Place Order"
+          color="#841584"
         />
-        <Text>{"\n"}{"\n"}Total {this.state.total}{"\n"}{"\n"} </Text>
->>>>>>> a62c4a74eeba9333193abbaa4514ed2f3aca623d
       </View>
     );
   }
@@ -95,14 +97,12 @@ const mapStateToProps = state => {
   return {
     menu: state.mainReducer.menu,
     currentUser: state.mainReducer.currentUser,
-    quantity: state.mainReducer.quantity
   }
 }
 
 const mapDispatchToProps = dispatch => bindActionCreators({
   truckMenu,
-  makeOrder,
-  quantityCount
+  placeOrder
 }, dispatch)
 
 export default connect(
@@ -116,5 +116,5 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     backgroundColor: 'lightblue',
-  },
+  }
 })

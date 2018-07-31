@@ -7,19 +7,41 @@ export const COMPLETE_ORDER = 'COMPLETE_ORDER'
 export const REGISTER_USER = 'REGISTER_USER'
 export const CREATE_TRUCK = 'CREATE_TRUCK'
 export const ADD_TO_CART = 'ADD_TO_CART'
-// export const UPDATE_QUANTITY = 'UPDATE_QUANTITY'
+export const PLACE_ORDER = 'PLACE_ORDER'
 
-quantityCount = (name, price, tof) => {
-  // return async dispatch => {
-    console.log('name', name, 'price', price, 'tof', tof);
-    // const response = await fetch(`https://mffapi.herokuapp.com/trucks/orders/${truckId}`)
-    // const response = await fetch(`http://localhost:5445/trucks/orders/${truckId}`)
-    // const orders = await response.json()
-    // dispatch({
-      // type: TRUCK_INFO,
-      // payload: orders
-    // })
-  // }
+export const placeOrder = (newOrder, orderArray, total) => {
+  newOrder.total = total
+  console.log(newOrder);
+  return async dispatch => {
+  const response = await fetch('http://localhost:5445/orders', {
+    method: 'POST',
+    body: JSON.stringify(newOrder),
+    headers: {
+      'Content-Type': 'application/json',
+      'Accept': 'application/json'
+    }
+  })
+  const orderId = await response.json()
+
+  orderArray.map(item => {
+    item.order_id = orderId
+  })
+  console.log('yo orderitems', orderArray);
+  const response2 = await fetch('http://localhost:5445/order_items', {
+    method: 'POST',
+    body: JSON.stringify(orderArray),
+    headers: {
+      'Content-Type': 'application/json',
+      'Accept': 'application/json'
+    }
+  })
+  const itemsAdded = await response2.json()
+  // console.log('orderid after post here', itemsAdded);
+  dispatch({
+      type: PLACE_ORDER,
+      payload: orderId
+    })
+}
 }
 
 //get open trucks
