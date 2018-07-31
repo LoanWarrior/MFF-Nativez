@@ -6,6 +6,43 @@ export const TRUCK_MENU = 'TRUCK-MENU'
 export const COMPLETE_ORDER = 'COMPLETE_ORDER'
 export const REGISTER_USER = 'REGISTER_USER'
 export const CREATE_TRUCK = 'CREATE_TRUCK'
+export const ADD_TO_CART = 'ADD_TO_CART'
+export const PLACE_ORDER = 'PLACE_ORDER'
+
+export const placeOrder = (newOrder, orderArray, total) => {
+  newOrder.total = total
+  console.log(newOrder);
+  return async dispatch => {
+  const response = await fetch('http://localhost:5445/orders', {
+    method: 'POST',
+    body: JSON.stringify(newOrder),
+    headers: {
+      'Content-Type': 'application/json',
+      'Accept': 'application/json'
+    }
+  })
+  const orderId = await response.json()
+
+  orderArray.map(item => {
+    item.order_id = orderId
+  })
+  console.log('yo orderitems', orderArray);
+  const response2 = await fetch('http://localhost:5445/order_items', {
+    method: 'POST',
+    body: JSON.stringify(orderArray),
+    headers: {
+      'Content-Type': 'application/json',
+      'Accept': 'application/json'
+    }
+  })
+  const itemsAdded = await response2.json()
+  // console.log('orderid after post here', itemsAdded);
+  dispatch({
+      type: PLACE_ORDER,
+      payload: orderId
+    })
+}
+}
 
 //get open trucks
 export const getOpenTrucks = (id) => {
@@ -105,6 +142,33 @@ export const truckInfo = (truckId) => {
         payload: orders
       })
     }
+}
+
+//as an eater, add specific trucks menu item to order
+export const makeOrder = (item, user, truck) => {
+  console.log('heres the item', item);
+  console.log('here is the user', user);
+  console.log('here is the trucks id', truck);
+  let newOrder = {
+    // "id": 2,
+    "truck_id": truck,
+    "eater_id": user,
+  }
+  return async dispatch => {
+    const response = await fetch('https://mffapi.herokuapp.com/orders', {
+      method: 'POST',
+      body: JSON.stringify(newOrder),
+      headers: {
+        'Content-Type': 'application/json',
+        'Accept': 'application/json'
+      }
+    })
+    const addItem = await response.json()
+    dispatch({
+        type: ADD_TO_CART,
+        payload: addItem
+      })
+  }
 }
 
 ///////////////NEEDS TO BE COMPLETE////////////////////////

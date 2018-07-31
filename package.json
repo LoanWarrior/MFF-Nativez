@@ -6,6 +6,7 @@
     "start": "node node_modules/react-native/local-cli/cli.js start"
   },
   "dependencies": {
+    "@fortawesome/fontawesome-free": "^5.2.0",
     "moment-timezone": "^0.5.21",
     "react": "16.4.1",
     "react-moment": "^0.7.9",

@@ -49,7 +49,8 @@ class LoggedInEater extends Component {
 
 const mapStateToProps = state => {
   return {
-    openTrucks: state.mainReducer.openTrucks
+    openTrucks: state.mainReducer.openTrucks,
+    currentUser: state.mainReducer.currentUser,
   }
 }
 

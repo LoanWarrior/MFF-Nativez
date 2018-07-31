@@ -6,7 +6,8 @@ OPEN_TRUCKS,
 TRUCK_MENU,
 COMPLETE_ORDER,
 REGISTER_USER,
-CREATE_TRUCK
+CREATE_TRUCK,
+PLACE_ORDER
 } from '../actions'
 
 let initialState = {
@@ -60,9 +61,8 @@ export default (state = initialState, action) => {
    }
 
 ///////////////NEEDS TO BE COMPLETE////////////////////////
-   case COMPLETE_ORDER:
-   console.log('complete order action payload', action.payload)
-   console.log('here is the state of oreders', this.state)
+   case PLACE_ORDER:
+   // console.log('complete order action payload', action.payload)
    return {
      ...state,
      // orders: action.payload
