@@ -16,17 +16,25 @@ class EaterTruckMenu extends Component {
 
   changeQuantity(quantity, price, value){
     if (value){
+      if(this.state.total === 0){
+        this.setState({
+          total: price
+        })
+      } else {
+        this.state.total += price
+        this.setState({
+          total: this.state.total
+        })
+      }
       if(this.state[quantity]){
         this.state[quantity]++
         this.state.total += price
         this.setState({
           [quantity]: this.state[quantity],
-          total: this.state.total
         })
       } else {
         this.setState({
-          [quantity]: 1,
-          total: price
+          [quantity]: 1
         })
       }
     } else {
@@ -69,11 +77,11 @@ class EaterTruckMenu extends Component {
                 console.log('pressed the button -')}
               }
                 > - </Text></Text>
-                <Text>{"\n"}{"\n"}{"\n"}{"\n"} Total {this.state.total}</Text>
           </View>
           }
           style={styles.truckList}
         />
+        <Text>{"\n"}{"\n"}Total {this.state.total}{"\n"}{"\n"} </Text>
       </View>
     );
   }
