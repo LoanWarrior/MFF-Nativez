@@ -16,11 +16,9 @@ class SpecificTruck extends Component {
   render() {
     const { navigate } = this.props.navigation
     const orders = this.props.orders
-    console.log('jelloo', orders);
     let orderInfo = []
     if (orders) {
       for ( let order in orders){
-        console.log(orders[order]);
         let items = ''
         let total = 0
         orders[order].items.forEach(item => {
@@ -52,7 +50,7 @@ class SpecificTruck extends Component {
         />
         <Text>{"\n"}{"\n"}{"\n"}{"\n"}</Text>
         <Button
-          onPress={() => {navigate('ChangeMenu')}}
+          onPress={() => {navigate('ChangeMenu', this.props.navigation.state.params)}}
           title="Change Menu"
           color="#841584"
         />

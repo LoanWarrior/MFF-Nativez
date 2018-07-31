@@ -1,9 +1,9 @@
 import React, {Component} from 'react';
-import {Platform, StyleSheet, Text, View, Image, Button, TouchableOpacity} from 'react-native';
+import {Platform, StyleSheet, Text, View, Image, Button, TouchableOpacity, FlatList} from 'react-native';
 import { FormLabel, FormInput, FormValidationMessage } from 'react-native-elements'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
-import createMenuItem from '../actions'
+import { createMenuItem, truckMenu, deleteItem } from '../actions'
 
 
 import t from 'tcomb-form-native';
@@ -17,6 +17,10 @@ const User = t.struct({
 
 class ChangeMenu extends Component {
 
+  async componentDidMount(){
+    this.props.truckMenu(this.props.navigation.state.params)
+  }
+
  handleSubmit = (changeView) => {
     const value = this._form.getValue()
     this.props.createTruck(value, changeView)
@@ -24,8 +28,23 @@ class ChangeMenu extends Component {
 
   render() {
     const { navigate } = this.props.navigation
+    const menu = this.props.menu
+    let generateMenu = []
+    if (menu) {
+      for ( let item in menu){
+        generateMenu.push({key: menu[item].name, price: menu[item].price, id: menu[item].id})
+      }
+    }
+
     return (
       <View style={styles.container}>
+        <FlatList
+          data={generateMenu}
+          renderItem={({item}) =>
+          <View>
+            <Text> {"\n"}{item.key} {item.price} {item.quantity}        <Text onPress={() => this.props.deleteItem(item.id, this.props.navigation.state.params)}>X</Text></Text>
+          </View>
+          }/>
         <Text style={styles.header}>Add a new Dish{'\n'}{'\n'}</Text>
           <Form type={User} ref={c => this._form = c}/>
           <Button
@@ -41,12 +60,15 @@ class ChangeMenu extends Component {
 
 const mapStateToProps = state => {
   return {
-    orders: state.mainReducer.orders
+    orders: state.mainReducer.orders,
+    menu: state.mainReducer.menu
   }
 }
 
 const mapDispatchToProps = dispatch => bindActionCreators({
-  createMenuItem
+  createMenuItem,
+  truckMenu,
+  deleteItem
 }, dispatch)
 
 export default connect(
