@@ -31,12 +31,10 @@ class SpecificTruck extends Component {
     if (orders) {
       for ( let order in orders){
         let items = ''
-        let total = 0
         orders[order].items.forEach(item => {
-          items += `${item.name} ${item.price} ${"\n"}`
-          total += item.price
+          items += `${item.name} ...$${item.price}           ${item.quantity} ${"\n"}`
         })
-        orderInfo.push({key: order, name: orders[order].name, tel: orders[order].tel, items: items, total: total, created_at: orders[order].created_at})
+        orderInfo.push({key: order, name: orders[order].name, tel: orders[order].tel, items: items, total: orders[order].total, created_at: orders[order].created_at})
       }
     }
     return (
@@ -46,7 +44,7 @@ class SpecificTruck extends Component {
           data={orderInfo}
           renderItem={({item}) =>
           <View style={styles.buttonContainer}>
-            <Text>{item.key} {item.name} {"\n"} Order Placed: <Moment element={Text} fromNow>{item.created_at}</Moment> {"\n"}{item.tel}</Text>
+            <Text>{item.key} {item.name}{"\n"} Order Placed: <Moment element={Text} fromNow>{item.created_at}</Moment> {"\n"}{item.tel}</Text>
 
             <Text> {"\n"}{item.items}</Text>
             <Text>Total {item.total}{"\n"}</Text>
