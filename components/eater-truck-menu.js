@@ -85,13 +85,13 @@ class EaterTruckMenu extends Component {
           renderItem={({item}) =>
           <View style={styles.buttonContainer2}>
             <View>
-              <Text style={styles.anyText} > {item.key} {item.price} {item.quantity}<Text style={styles.anyText} onPress={() =>
+              <Text style={styles.anyText} > {item.key}{"\n"}price ${item.price}        Qty:{item.quantity} <Text style={styles.anyText} onPress={() =>
                 this.changeQuantity(item.key, item.price, true)}
                 > + </Text>
 
               <Text style={styles.anyText} onPress={() =>
                 this.changeQuantity(item.key, item.price, false)}
-                > - </Text></Text>
+                > - {"\n"}</Text></Text>
             </View>
           </View>
           }/>

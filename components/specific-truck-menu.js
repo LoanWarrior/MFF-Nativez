@@ -52,6 +52,8 @@ class ChangeMenu extends Component {
 
     return (
       <View style={styles.container}>
+        <View style={styles.mom}>
+
           <FlatList
             data={generateMenu}
             renderItem={({item}) =>
@@ -60,7 +62,9 @@ class ChangeMenu extends Component {
                 <Text style={styles.anyText}> {"\n"}{item.key} {item.price} {item.quantity}        <Text onPress={() => this.props.deleteItem(item.id, this.props.navigation.state.params)}>X</Text></Text>
               </View>
             </View>
-            }/>
+          }/>
+
+        </View>
         <Text style={styles.header}>Add a new Dish</Text>
           <Form type={User} ref={c => this._form = c}/>
           <View style={styles.buttonContainer}>
@@ -132,5 +136,9 @@ const styles = StyleSheet.create({
     },
     shadowRadius: 10,
     shadowOpacity: 0.25
+  },
+  mom: {
+    height: 300,
+    // width:
   }
 })
