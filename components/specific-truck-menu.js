@@ -114,6 +114,7 @@ const styles = StyleSheet.create({
     color: '#1A3647'
   },
   buttonContainer: {
+    marginBottom: 10,
     backgroundColor: '#E6E167',
     borderRadius: 10,
     padding: 2,
@@ -126,6 +127,7 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.25
   },
   menuContainer: {
+    marginBottom: 5,
     backgroundColor: '#E6E167',
     borderRadius: 10,
     padding: 2,
