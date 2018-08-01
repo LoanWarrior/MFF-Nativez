@@ -11,7 +11,7 @@ const Form = t.form.Form;
 const User = t.struct({
   username: t.String,
   email: t.String,
-  tel: t.String,
+  phoneNumber: t.String,
   password: t.String,
   is_owner: t.Boolean
 });
@@ -39,13 +39,16 @@ class Register extends Component {
     const { navigate } = this.props.navigation
     return (
       <View style={styles.container}>
-        <Text style={styles.header}>Register</Text>
+        <Text style={styles.header}>Register {"\n"}</Text>
           <Form type={User} ref={c => this._form = c}/>
-          <Button
-            onPress={() => this.handleSubmit(navigate)}
-            title="Create Account"
-            color="#841584"
-          />
+          <Text>{"\n"}</Text>
+          <View style={styles.buttonContainer}>
+            <Button
+              onPress={() => this.handleSubmit(navigate)}
+              title="Create Account"
+              color="#1A3647"
+            />
+          </View>
       </View>
     );
   }
@@ -72,13 +75,23 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: 'lightblue',
+    backgroundColor: '#4592C1',
   },
   header: {
-    fontSize: 50
+    fontSize: 50,
+    color: '#E6E167'
   },
-  inputs: {
-    width: 300,
-    height: 75
+  buttonContainer: {
+    marginBottom: 10,
+    backgroundColor: '#E6E167',
+    borderRadius: 10,
+    padding: 2,
+    shadowColor: '#000000',
+    shadowOffset: {
+      width: 0,
+      height: 3
+    },
+    shadowRadius: 10,
+    shadowOpacity: 0.25
   }
 })

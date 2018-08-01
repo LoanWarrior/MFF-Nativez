@@ -52,11 +52,11 @@ class Login extends Component {
             />
           </View>
           <Text>{"\n"}{"\n"}{"\n"}{"\n"}{"\n"}{"\n"}{"\n"}{"\n"}</Text>
-          <Text style={styles.anyText}>Or if you are new here click this {"\n"}</Text>
+          <Text style={styles.anyText}>Don't have an account?{"\n"}</Text>
           <View style={styles.buttonContainer}>
             <Button
               onPress={() => {navigate('Register')}}
-              title="New User"
+              title="Create Account"
               color="#1A3647"
             />
           </View>
