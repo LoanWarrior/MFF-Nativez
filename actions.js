@@ -23,7 +23,7 @@ export const completeOrder = (orderId, truckId) => {
       }
     })
     const orders = await response.json()
-    console.log('orders are:', orders);
+    console.log('after delete', orders);
     dispatch({
       type: COMPLETE_ORDER,
       payload: orders
