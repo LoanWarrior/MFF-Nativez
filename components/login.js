@@ -44,6 +44,7 @@ class Login extends Component {
         {/* <Image source={require('../images/food-truck.jpg')}/> */}
         <Text>{"\n"}{"\n"}{"\n"}{"\n"}{"\n"}{"\n"}{"\n"}{"\n"}</Text>
         <Text style={styles.header}>Log in</Text>
+        <Text>{"\n"}</Text>
           <Form type={User} ref={c => this._form = c}/>
           <View style={styles.buttonContainer}>
             <Button
