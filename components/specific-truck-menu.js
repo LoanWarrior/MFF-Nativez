@@ -57,7 +57,7 @@ class ChangeMenu extends Component {
             renderItem={({item}) =>
             <View style={styles.menuContainer}>
               <View>
-                <Text> {"\n"}{item.key} {item.price} {item.quantity}        <Text onPress={() => this.props.deleteItem(item.id, this.props.navigation.state.params)}>X</Text></Text>
+                <Text style={styles.anyText}> {"\n"}{item.key} {item.price} {item.quantity}        <Text onPress={() => this.props.deleteItem(item.id, this.props.navigation.state.params)}>X</Text></Text>
               </View>
             </View>
             }/>
@@ -104,6 +104,10 @@ const styles = StyleSheet.create({
   header: {
     fontSize: 30,
     color: '#E6E167'
+  },
+  anyText: {
+    fontSize: 24,
+    color: '#1A3647'
   },
   buttonContainer: {
     backgroundColor: '#E6E167',

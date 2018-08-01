@@ -29,9 +29,9 @@ class LoggedIn extends Component {
                 <View style={styles.slideInnerContainer}>
                   <Image source={require('../images/food-truck.jpg')}/>
                 </View>
-                <Text>{item.key}</Text>
+                <Text style={styles.anyText}>{item.key}</Text>
                 <View style={styles.buttonContainer2}>
-                  <Text onPress = {() => linkToTruck(item.id, navigate)}>Go To Truck</Text>
+                  <Text  style={styles.anyText} onPress = {() => linkToTruck(item.id, navigate)}>Go To Truck</Text>
                 </View>
             </View>
         );
@@ -48,8 +48,8 @@ class LoggedIn extends Component {
     }
     return (
       <View style={styles.container}>
-        <Text>{`Welcome ${this.props.currentUser.username}`}</Text>
-        <Text>My trucks:</Text>
+        <Text style={styles.anyText}>{`Welcome ${this.props.currentUser.username}`}</Text>
+        <Text style={styles.anyText}>My trucks:</Text>
         <Text>{"\n"}{"\n"}{"\n"}{"\n"}</Text>
         <Carousel
           data={trucksInfo}
@@ -106,6 +106,10 @@ const styles = StyleSheet.create({
     width: 300,
     height: 50,
     backgroundColor: 'white',
+  },
+  anyText: {
+    fontSize: 24,
+    color: '#1A3647'
   },
   buttonContainer: {
     marginBottom: 10,
