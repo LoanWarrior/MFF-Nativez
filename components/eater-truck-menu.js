@@ -95,7 +95,7 @@ class EaterTruckMenu extends Component {
         <Text>Total {this.state.total}{"\n"}{"\n"} </Text>
         <View style={styles.buttonContainer}>
           <Button
-            onPress={() => {this.props.placeOrder(newOrder, postItems, this.state.total)}}
+            onPress={() => {this.props.placeOrder(newOrder, postItems, this.state.total, navigate)}}
             title="Place Order"
             color="#1A3647"
           />

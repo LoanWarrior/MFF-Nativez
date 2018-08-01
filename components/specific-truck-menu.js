@@ -52,17 +52,6 @@ class ChangeMenu extends Component {
 
     return (
       <View style={styles.container}>
-<<<<<<< HEAD
-        <FlatList
-          data={generateMenu}
-          renderItem={({item}) =>
-          <View>
-            <Text> {"\n"}{item.key} {item.price} {item.quantity}
-            <Text onPress={() => this.props.deleteItem(item.id, this.props.navigation.state.params)}>X</Text></Text>
-          </View>
-          }/>
-        <Text style={styles.header}>Add a new Dish{'\n'}{'\n'}</Text>
-=======
           <FlatList
             data={generateMenu}
             renderItem={({item}) =>
@@ -73,7 +62,6 @@ class ChangeMenu extends Component {
             </View>
             }/>
         <Text style={styles.header}>Add a new Dish</Text>
->>>>>>> 854bf6cbb016f313b6129a552fae03c9223b0e62
           <Form type={User} ref={c => this._form = c}/>
           <View style={styles.buttonContainer}>
             <Button

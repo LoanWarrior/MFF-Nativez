@@ -50,13 +50,8 @@ class LoggedInEater extends Component {
       <View style={styles.container}>
         <Text>This is the Logged in eater page</Text>
         <Text>{"\n"}{"\n"}{"\n"}{"\n"}</Text>
-<<<<<<< HEAD
-        <Text>This is the trucks online</Text>
-        <FlatList
-=======
         <Text>This is the Menu</Text>
         <Carousel
->>>>>>> 854bf6cbb016f313b6129a552fae03c9223b0e62
           data={allOpenTrucks}
           renderItem={this.renderItem}
           sliderWidth={sliderWidth}

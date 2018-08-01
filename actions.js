@@ -6,7 +6,6 @@ export const TRUCK_MENU = 'TRUCK-MENU'
 export const COMPLETE_ORDER = 'COMPLETE_ORDER'
 export const REGISTER_USER = 'REGISTER_USER'
 export const CREATE_TRUCK = 'CREATE_TRUCK'
-export const ADD_TO_CART = 'ADD_TO_CART'
 export const PLACE_ORDER = 'PLACE_ORDER'
 export const DELETE_ITEM = 'DELETE_ITEM'
 export const CREATE_ITEM = 'CREATE_ITEM'
@@ -50,8 +49,9 @@ export const deleteItem = (itemId, truckId) => {
 }
 
 //eater placing order
-export const placeOrder = (newOrder, orderArray, total) => {
+export const placeOrder = (newOrder, orderArray, total, navigate) => {
   newOrder.total = total
+  navigate('LoggedInEater')
   return async dispatch => {
   const response = await fetch('http://localhost:5445/orders', {
     method: 'POST',
@@ -177,31 +177,6 @@ export const truckInfo = (truckId) => {
     }
 }
 
-//as an eater, add specific trucks menu item to order
-export const makeOrder = (item, user, truck) => {
-  let newOrder = {
-    "truck_id": truck,
-    "eater_id": user,
-  }
-  return async dispatch => {
-    // const response = await fetch('https://mffapi.herokuapp.com/orders', {
-      const response = await fetch('http://localhost:5445/orders', {
-
-      method: 'POST',
-      body: JSON.stringify(newOrder),
-      headers: {
-        'Content-Type': 'application/json',
-        'Accept': 'application/json'
-      }
-    })
-    const addItem = await response.json()
-    dispatch({
-        type: ADD_TO_CART,
-        payload: addItem
-      })
-  }
-}
-
 // create a new user
 export const registerUser = (userData, navigate) => {
   return async dispatch => {
@@ -222,13 +197,6 @@ export const registerUser = (userData, navigate) => {
       })
       navigate('LoggedIn')
     }
-    // } else {
-    //   dispatch ({
-    //     type: REGISTER_USER,
-    //     payload: user
-    //   })
-    //   navigate('LoggedInEater')
-    // }
   }
 }
 
