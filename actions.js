@@ -14,7 +14,7 @@ export const UPDATED  = 'UPDATED'
 
 //mark an order complete which will delete that order from the data base
 
-const HerokuAPI = 'https://mffapi.herokuapp.com/'
+const HerokuAPI = 'https://mffapi.herokuapp.com'
 const LocalAPI =  'http://localhost:5445'
 
 const API = LocalAPI
