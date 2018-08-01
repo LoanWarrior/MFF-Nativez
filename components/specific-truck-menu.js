@@ -53,7 +53,7 @@ class ChangeMenu extends Component {
     return (
       <View style={styles.container}>
         <View style={styles.mom}>
-          {!generateMenu[0] ? <Text>you currently have no items</Text> : null}
+          {!generateMenu[0] ? <Text style={styles.anyText}>you currently have no items</Text> : null}
 
           <FlatList
             data={generateMenu}
