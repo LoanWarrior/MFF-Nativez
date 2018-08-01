@@ -40,11 +40,13 @@ class CreateTruck extends Component {
       <View style={styles.container}>
         <Text style={styles.header}>Create a new truck{'\n'}{'\n'}</Text>
           <Form type={User} ref={c => this._form = c}/>
-          <Button
-            onPress={() => this.handleSubmit(navigate)}
-            title="Create Truck"
-            color="#841584"
-          />
+          <View style={styles.buttonContainer}>
+            <Button
+              onPress={() => this.handleSubmit(navigate)}
+              title="Create Truck"
+              color="#1A3647"
+            />
+          </View>
       </View>
     );
   }
@@ -70,9 +72,23 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: 'lightblue',
+    backgroundColor: '#4592C1',
   },
   header: {
-    fontSize: 30
+    fontSize: 30,
+    color: '#E6E167'
+  },
+  buttonContainer: {
+    marginBottom: 10,
+    backgroundColor: '#E6E167',
+    borderRadius: 10,
+    padding: 2,
+    shadowColor: '#000000',
+    shadowOffset: {
+      width: 0,
+      height: 3
+    },
+    shadowRadius: 10,
+    shadowOpacity: 0.25
   }
 })

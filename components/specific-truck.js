@@ -51,7 +51,7 @@ class SpecificTruck extends Component {
             <Text>Total {item.total}{"\n"}</Text>
             <View style={styles.buttonContainer2}>
               <Button
-              onPress={() => this.props.completeOrder(item.key)}
+              onPress={() => this.props.completeOrder(item.key, this.props.navigation.state.params)}
               title="Complete Order"
               color="#1A3647"
               />

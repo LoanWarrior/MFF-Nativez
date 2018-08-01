@@ -8,7 +8,8 @@ COMPLETE_ORDER,
 REGISTER_USER,
 CREATE_TRUCK,
 PLACE_ORDER,
-DELETE_ITEM
+DELETE_ITEM,
+CREATE_ITEM
 } from '../actions'
 
 let initialState = {
@@ -36,6 +37,19 @@ export default (state = initialState, action) => {
      }
    }
 
+   case COMPLETE_ORDER:
+   return{
+     ...state,
+     orders: action.payload
+   }
+
+   case DELETE_ITEM:
+   console.log('action payload', action.payload);
+   return {
+     ...state,
+     menu: action.payload
+   }
+
    case TRUCK_MENU:
    return{
      ...state,
@@ -61,11 +75,11 @@ export default (state = initialState, action) => {
      orders: action.payload
    }
 
-   case DELETE_ITEM:
+   case CREATE_ITEM:
    console.log('action payload', action.payload);
    return {
      ...state,
-     menu: action.payload
+     menu: [...state.menu, action.payload]
    }
 
    default:

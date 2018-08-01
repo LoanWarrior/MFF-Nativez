@@ -9,6 +9,27 @@ export const CREATE_TRUCK = 'CREATE_TRUCK'
 export const ADD_TO_CART = 'ADD_TO_CART'
 export const PLACE_ORDER = 'PLACE_ORDER'
 export const DELETE_ITEM = 'DELETE_ITEM'
+export const CREATE_ITEM = 'CREATE_ITEM'
+
+//mark an order complete which will delete that order from the data base
+export const completeOrder = (orderId, truckId) => {
+  return async dispatch => {
+    // const response = await fetch(`https://mffapi.herokuapp.com/trucks/orders/${truckId}`, {
+    const response = await fetch(`http://localhost:5445/orders/${orderId}/truck/${truckId}`, {
+      method: 'DELETE',
+      headers: {
+        'Content-Type': 'application/json',
+        'Accept': 'application/json'
+      }
+    })
+    const orders = await response.json()
+    console.log('after delete', orders);
+    dispatch({
+      type: COMPLETE_ORDER,
+      payload: orders
+    })
+  }
+}
 
 //owner deleting item from menu
 export const deleteItem = (itemId, truckId) => {
@@ -88,14 +109,14 @@ export const truckMenu = (id) => {
 
 //log-in action, get user info, hardcoded for owner///
 export const logIn = (value, navigate) => {
-  // let user = {
-  //   username: value.username.toLowerCase(),
-  //   password: value.password
-  // }
   let user = {
-    username: 'jslay',
-    password: '123'
+    username: value.username.toLowerCase(),
+    password: value.password
   }
+  // let user = {
+  //   username: 'sarasmile',
+  //   password: '123'
+  // }
   return async dispatch => {
     // const response = await fetch('https://mffapi.herokuapp.com/login', {
       const response = await fetch('http://localhost:5445/login', {
@@ -146,8 +167,8 @@ export const linkToTruck = (truckId, navigate) => {
 // returns all orders by order id for one truck
 export const truckInfo = (truckId) => {
     return async dispatch => {
-      const response = await fetch(`https://mffapi.herokuapp.com/trucks/orders/${truckId}`)
-      // const response = await fetch(`http://localhost:5445/trucks/orders/${truckId}`)
+      // const response = await fetch(`https://mffapi.herokuapp.com/trucks/orders/${truckId}`)
+      const response = await fetch(`http://localhost:5445/trucks/orders/${truckId}`)
       const orders = await response.json()
       dispatch({
         type: TRUCK_INFO,
@@ -163,7 +184,9 @@ export const makeOrder = (item, user, truck) => {
     "eater_id": user,
   }
   return async dispatch => {
-    const response = await fetch('https://mffapi.herokuapp.com/orders', {
+    // const response = await fetch('https://mffapi.herokuapp.com/orders', {
+      const response = await fetch('http://localhost:5445/orders', {
+
       method: 'POST',
       body: JSON.stringify(newOrder),
       headers: {
@@ -176,24 +199,6 @@ export const makeOrder = (item, user, truck) => {
         type: ADD_TO_CART,
         payload: addItem
       })
-  }
-}
-
-//mark an order complete which will delete that order from the data base
-export const completeOrder = (orderId) => {
-  return async dispatch => {
-    // const response = await fetch(`https://mffapi.herokuapp.com/trucks/orders/${truckId}`, {
-    const response = await fetch(`http://localhost:5445/orders/order/${orderId}`, {
-      method: 'DELETE',
-      headers: {
-        'Content-Type': 'application/json',
-        'Accept': 'application/json'
-      }
-    })
-    const orders = await response.json()
-    dispatch({
-      type: COMPLETE_ORDER,
-    })
   }
 }
 
@@ -224,6 +229,26 @@ export const registerUser = (userData, navigate) => {
     //   })
     //   navigate('LoggedInEater')
     // }
+  }
+}
+
+export const createMenuItem = (dishData, navigate) => {
+  console.log(dishData);
+  return async dispatch => {
+    const response = await fetch('http://localhost:5445/items', {
+      method: 'POST',
+      body: JSON.stringify(dishData),
+      headers: {
+        'Content-Type': 'application/json',
+        'Accept': 'application/json'
+      }
+    })
+    const dish = await response.json()
+    console.log('292 dish', dish)
+    dispatch({
+      type: CREATE_ITEM,
+      payload: dish[0]
+    })
   }
 }
 
