@@ -40,7 +40,7 @@ export default (state = initialState, action) => {
    case COMPLETE_ORDER:
    return{
      ...state,
-     menu: action.payload
+     orders: action.payload
    }
 
    case DELETE_ITEM:
