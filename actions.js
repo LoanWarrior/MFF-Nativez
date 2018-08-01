@@ -6,7 +6,6 @@ export const TRUCK_MENU = 'TRUCK-MENU'
 export const COMPLETE_ORDER = 'COMPLETE_ORDER'
 export const REGISTER_USER = 'REGISTER_USER'
 export const CREATE_TRUCK = 'CREATE_TRUCK'
-export const ADD_TO_CART = 'ADD_TO_CART'
 export const PLACE_ORDER = 'PLACE_ORDER'
 export const DELETE_ITEM = 'DELETE_ITEM'
 export const CREATE_ITEM = 'CREATE_ITEM'
@@ -31,6 +30,7 @@ export const completeOrder = (orderId, truckId) => {
   }
 }
 
+//owner deleting item from menu
 export const deleteItem = (itemId, truckId) => {
   return async dispatch => {
   const response = await fetch(`http://localhost:5445/items/${itemId}/truck/${truckId}`, {
@@ -41,7 +41,6 @@ export const deleteItem = (itemId, truckId) => {
     }
   })
   const items = await response.json()
-  console.log('after delete', items);
   dispatch({
       type: DELETE_ITEM,
       payload: items
@@ -49,11 +48,11 @@ export const deleteItem = (itemId, truckId) => {
   }
 }
 
-export const placeOrder = (newOrder, orderArray, total) => {
+//eater placing order
+export const placeOrder = (newOrder, orderArray, total, navigate) => {
   newOrder.total = total
-  console.log('newOrder here', newOrder);
+  navigate('LoggedInEater')
   return async dispatch => {
-    console.log('made it in the something');
   const response = await fetch('http://localhost:5445/orders', {
     method: 'POST',
     body: JSON.stringify(newOrder),
@@ -63,11 +62,9 @@ export const placeOrder = (newOrder, orderArray, total) => {
     }
   })
   const orderId = await response.json()
-
   orderArray.map(item => {
     item.order_id = orderId
   })
-  console.log('yo orderitems', orderArray);
   const response2 = await fetch('http://localhost:5445/order_items', {
     method: 'POST',
     body: JSON.stringify(orderArray),
@@ -77,21 +74,19 @@ export const placeOrder = (newOrder, orderArray, total) => {
     }
   })
   const itemsAdded = await response2.json()
-  // console.log('orderid after post here', itemsAdded);
   dispatch({
       type: PLACE_ORDER,
       payload: orderId
     })
-}
+  }
 }
 
 //get open trucks
 export const getOpenTrucks = (id) => {
   return async dispatch => {
-    const response = await fetch(`https://mffapi.herokuapp.com/trucks`)
-    // const response = await fetch(`http://localhost:5445/trucks`)
-
-    // const response = await fetch(`http://localhost:5445/trucks`)
+    // const response = await fetch(`https://mffapi.herokuapp.com/trucks`)
+    const response = await fetch(`http://localhost:5445/trucks`)
+   
     const trucks = await response.json()
     dispatch({
         type: OPEN_TRUCKS,
@@ -106,7 +101,6 @@ export const truckMenu = (id) => {
     const response = await fetch(`https://mffapi.herokuapp.com/trucks/menu/${id}`)
     // const response = await fetch(`http://localhost:5445/trucks/menu/${id}`)
     const menu = await response.json()
-    console.log('66 actions', menu);
     dispatch({
         type: TRUCK_MENU,
         payload: menu
@@ -115,7 +109,6 @@ export const truckMenu = (id) => {
 }
 
 //log-in action, get user info, hardcoded for owner///
-
 export const logIn = (value, navigate) => {
   let user = {
     username: value.username.toLowerCase(),
@@ -155,7 +148,6 @@ export const logIn = (value, navigate) => {
 }
 
 //trucks related to one owner
-
 export const ownersTrucks = (id) => {
   return async dispatch => {
     const response = await fetch(`https://mffapi.herokuapp.com/trucks/${id}`)
@@ -169,13 +161,11 @@ export const ownersTrucks = (id) => {
 }
 
 // changes view to specific truck
-
 export const linkToTruck = (truckId, navigate) => {
   navigate('SpecificTruck', truckId)
 }
 
 // returns all orders by order id for one truck
-
 export const truckInfo = (truckId) => {
     return async dispatch => {
       const response = await fetch(`https://mffapi.herokuapp.com/trucks/orders/${truckId}`)
@@ -187,38 +177,6 @@ export const truckInfo = (truckId) => {
       })
     }
 }
-
-//as an eater, add specific trucks menu item to order
-export const makeOrder = (item, user, truck) => {
-  console.log('heres the item', item);
-  console.log('here is the user', user);
-  console.log('here is the trucks id', truck);
-  let newOrder = {
-    // "id": 2,
-    "truck_id": truck,
-    "eater_id": user,
-  }
-  return async dispatch => {
-    const response = await fetch('https://mffapi.herokuapp.com/orders', {
-      // const response = await fetch('http://localhost:5445/orders', {
-
-      method: 'POST',
-      body: JSON.stringify(newOrder),
-      headers: {
-        'Content-Type': 'application/json',
-        'Accept': 'application/json'
-      }
-    })
-    const addItem = await response.json()
-    dispatch({
-        type: ADD_TO_CART,
-        payload: addItem
-      })
-  }
-}
-
-///////////////NEEDS TO BE COMPLETE////////////////////////
-
 
 // create a new user
 export const registerUser = (userData, navigate) => {
@@ -233,8 +191,6 @@ export const registerUser = (userData, navigate) => {
     })
     const newUserId = await response.json()
     if(newUserId.errorMessage){
-      console.log('error handle', newUserId.errorMessage);
-      // alert(newUserId.errorMessage)
     } else if (userData.is_owner) {
       dispatch ({
         type: LOG_IN,
@@ -242,13 +198,6 @@ export const registerUser = (userData, navigate) => {
       })
       navigate('LoggedIn')
     }
-    // } else {
-    //   dispatch ({
-    //     type: REGISTER_USER,
-    //     payload: user
-    //   })
-    //   navigate('LoggedInEater')
-    // }
   }
 }
 
@@ -274,8 +223,6 @@ export const createMenuItem = (dishData, navigate) => {
 
 //create a new truck as a owner
 export const createTruck = (truckData, navigate, id) => {
-  // console.log(, id)
-  // truckData.user_id = id
   let truckInfo = {
     name: truckData.name,
     veggieFriendly: truckData.veggieFriendly,
@@ -292,11 +239,9 @@ export const createTruck = (truckData, navigate, id) => {
         'Accept': 'application/json'
       }
     })
-    const truck = await response.json()
     console.log(truck)
     dispatch({
       type: CREATE_TRUCK
     })
   }
-///////////////NEEDS TO BE COMPLETE////////////////////////
 }

@@ -51,18 +51,11 @@ class Register extends Component {
   }
 }
 
-// const mapStateToProps = state => {
-//   return {
-//     currentUser: state.mainReducer.currentUser
-//   }
-// }
-
 const mapDispatchToProps = dispatch => bindActionCreators({
   registerUser
 }, dispatch)
 
 export default connect(
-  // mapStateToProps,
   null,
   mapDispatchToProps
 )(Register);

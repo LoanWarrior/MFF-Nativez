@@ -40,6 +40,7 @@ class Login extends Component {
           barStyle= "light-content"
           hidden = {false}
         />
+
         {/* <Image source={require('../images/food-truck.jpg')}/> */}
         <Text>{"\n"}{"\n"}{"\n"}{"\n"}{"\n"}{"\n"}{"\n"}{"\n"}</Text>
         <Text style={styles.header}>Log in</Text>
