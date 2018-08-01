@@ -17,7 +17,7 @@ export const UPDATED  = 'UPDATED'
 const HerokuAPI = 'https://mffapi.herokuapp.com'
 const LocalAPI =  'http://localhost:5445'
 
-const API = LocalAPI
+const API = HerokuAPI
 
 export const completeOrder = (orderId, truckId) => {
   return async dispatch => {
