@@ -30,7 +30,6 @@ class CreateTruck extends Component {
   };
 
  handleSubmit = (changeView) => {
-   console.log(this.props.currentUser.id)
     const value = this._form.getValue()
     this.props.createTruck(value, changeView, this.props.currentUser.id)
   }

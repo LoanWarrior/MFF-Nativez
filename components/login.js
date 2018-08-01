@@ -40,7 +40,6 @@ class Login extends Component {
           barStyle= "light-content"
           hidden = {false}
         />
-        {/* <Image source={require('../images/food-truck.jpg')}/> */}
         <Text style={styles.header}>Log in</Text>
           <Form type={User} ref={c => this._form = c}/>
           <View style={styles.buttonContainer}>

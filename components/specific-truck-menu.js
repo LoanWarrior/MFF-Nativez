@@ -52,7 +52,8 @@ class ChangeMenu extends Component {
           data={generateMenu}
           renderItem={({item}) =>
           <View>
-            <Text> {"\n"}{item.key} {item.price} {item.quantity}        <Text onPress={() => this.props.deleteItem(item.id, this.props.navigation.state.params)}>X</Text></Text>
+            <Text> {"\n"}{item.key} {item.price} {item.quantity}
+            <Text onPress={() => this.props.deleteItem(item.id, this.props.navigation.state.params)}>X</Text></Text>
           </View>
           }/>
         <Text style={styles.header}>Add a new Dish{'\n'}{'\n'}</Text>
