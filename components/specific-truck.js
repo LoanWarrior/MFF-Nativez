@@ -27,7 +27,6 @@ class SpecificTruck extends Component {
     const { navigate } = this.props.navigation
     const orders = this.props.orders
     let orderInfo = []
-    console.log(orders);
     if (orders) {
       for ( let order in orders){
         let items = ''
