@@ -3,9 +3,16 @@ import {Platform, StyleSheet, Text, View, Image, Button, TouchableOpacity, FlatL
 import { createStackNavigator } from 'react-navigation';
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
-import { truckInfo, completeOrder } from '../actions'
+import { truckInfo, completeOrder, updateOnlineStatus } from '../actions'
 import  Moment  from 'react-moment'
 import 'moment-timezone'
+import t from 'tcomb-form-native';
+////////////////////// truck toggle ///////////////////
+const Form = t.form.Form;
+
+const User = t.struct({
+  online: t.Boolean
+});
 
 class SpecificTruck extends Component {
   static navigationOptions = {
@@ -23,9 +30,16 @@ class SpecificTruck extends Component {
     this.props.truckInfo(this.props.navigation.state.params)
   }
 
+  onlineStatus  = () => {
+    let value = this._form.getValue()
+    let truckId = this.props.navigation.state.params
+    this.props.updateOnlineStatus(value, truckId)
+  }
+
   render() {
     const { navigate } = this.props.navigation
     const orders = this.props.orders
+    let value = true
     let orderInfo = []
     if (orders) {
       for ( let order in orders){
@@ -38,7 +52,9 @@ class SpecificTruck extends Component {
     }
     return (
       <View style={styles.container}>
-        <Text>{"\n"}{"\n"}{"\n"}{"\n"}</Text>
+        <Text>{"\n"}</Text>
+        <Form type={User} ref={c => this._form = c} onChange={() => this.onlineStatus()}/>
+        <Text>{"\n"}{"\n"}</Text>
         <FlatList
           data={orderInfo}
           renderItem={({item}) =>
@@ -79,7 +95,8 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => bindActionCreators({
   truckInfo,
-  completeOrder
+  completeOrder,
+  updateOnlineStatus
 }, dispatch)
 
 export default connect(
