@@ -9,7 +9,8 @@ REGISTER_USER,
 CREATE_TRUCK,
 PLACE_ORDER,
 DELETE_ITEM,
-CREATE_ITEM
+CREATE_ITEM,
+UPDATED
 } from '../actions'
 
 let initialState = {
@@ -36,6 +37,11 @@ export default (state = initialState, action) => {
       currentUser: action.payload
      }
    }
+
+   case UPDATED:
+  return {
+    ...state
+  }
 
    case COMPLETE_ORDER:
    return{

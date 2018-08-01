@@ -9,6 +9,8 @@ export const CREATE_TRUCK = 'CREATE_TRUCK'
 export const PLACE_ORDER = 'PLACE_ORDER'
 export const DELETE_ITEM = 'DELETE_ITEM'
 export const CREATE_ITEM = 'CREATE_ITEM'
+export const UPDATED  = 'UPDATED'
+
 
 //mark an order complete which will delete that order from the data base
 
@@ -32,6 +34,21 @@ export const completeOrder = (orderId, truckId) => {
       payload: orders
     })
   }
+}
+
+export const updateOnlineStatus = (value, truckId) => {
+  return async dispatch => {
+    const response = await fetch(`${API}/trucks/${truckId}/${value.online}`, {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json',
+        'Accept': 'application/json'
+      }
+    })
+    dispatch({
+        type: UPDATED
+      })
+    }
 }
 
 //owner deleting item from menu
