@@ -9,9 +9,8 @@ import { createMenuItem, truckMenu, deleteItem } from '../actions'
 import t from 'tcomb-form-native';
 const Form = t.form.Form;
 const User = t.struct({
-  dishName: t.String,
-  dishPrice: t.String,
-  imageUrl: t.String,
+  name: t.String,
+  price: t.String,
 });
 
 
@@ -33,7 +32,12 @@ class ChangeMenu extends Component {
 
  handleSubmit = (changeView) => {
     const value = this._form.getValue()
-    this.props.createTruck(value, changeView)
+    let createItem = {
+      truck_id: this.props.navigation.state.params,
+      name: value.name,
+      price: value.price
+    }
+    this.props.createMenuItem(createItem, changeView)
   }
 
   render() {
