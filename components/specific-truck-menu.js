@@ -37,7 +37,7 @@ class ChangeMenu extends Component {
       name: value.name,
       price: value.price
     }
-    this.props.createMenuItem(createItem, changeView)
+    this.props.createMenuItem(createItem, this.props.navigation.state.params, changeView)
   }
 
   render() {
@@ -84,7 +84,7 @@ const mapStateToProps = state => {
   return {
     orders: state.mainReducer.orders,
     menu: state.mainReducer.menu
-  }
+    }
 }
 
 const mapDispatchToProps = dispatch => bindActionCreators({

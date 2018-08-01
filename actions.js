@@ -197,14 +197,21 @@ export const registerUser = (userData, navigate) => {
         payload: newUserId
       })
       navigate('LoggedIn')
+    } else {
+      dispatch ({
+        type: LOG_IN,
+        payload: newUserId
+      })
+      navigate('LoggedInEater')
     }
   }
 }
 
-export const createMenuItem = (dishData, navigate) => {
+export const createMenuItem = (dishData, truckId, navigate) => {
   console.log(dishData);
   return async dispatch => {
-    const response = await fetch('https://mffapi.herokuapp.com/items', {
+    // const response = await fetch('https://mffapi.herokuapp.com/items', {
+    const response = await fetch(`http://localhost:5445/items/${truckId}`, {
       method: 'POST',
       body: JSON.stringify(dishData),
       headers: {
@@ -213,7 +220,7 @@ export const createMenuItem = (dishData, navigate) => {
       }
     })
     const dish = await response.json()
-    console.log('292 dish', dish)
+    console.log('223 dish', dish)
     dispatch({
       type: CREATE_ITEM,
       payload: dish[0]
@@ -223,6 +230,7 @@ export const createMenuItem = (dishData, navigate) => {
 
 //create a new truck as a owner
 export const createTruck = (truckData, navigate, id) => {
+  navigate('LoggedIn')
   let truckInfo = {
     name: truckData.name,
     veggieFriendly: truckData.veggieFriendly,
@@ -231,7 +239,7 @@ export const createTruck = (truckData, navigate, id) => {
     owner_id: id
   }
   return async dispatch => {
-    const response = await fetch('https://mffapi.herokuapp.com/trucks', {
+    const response = await fetch(`http://localhost:5445/trucks/${id}`, {
       method: 'POST',
       body: JSON.stringify(truckInfo),
       headers: {
@@ -239,9 +247,10 @@ export const createTruck = (truckData, navigate, id) => {
         'Accept': 'application/json'
       }
     })
-    console.log(truck)
+    const trucks = await response.json()
     dispatch({
-      type: CREATE_TRUCK
+      type: GET_OWNERS_TRUCKS,
+      payload: trucks
     })
   }
 }
