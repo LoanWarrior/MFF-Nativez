@@ -40,6 +40,9 @@ class Login extends Component {
           barStyle= "light-content"
           hidden = {false}
         />
+
+        {/* <Image source={require('../images/food-truck.jpg')}/> */}
+        <Text>{"\n"}{"\n"}{"\n"}{"\n"}{"\n"}{"\n"}{"\n"}{"\n"}</Text>
         <Text style={styles.header}>Log in</Text>
           <Form type={User} ref={c => this._form = c}/>
           <View style={styles.buttonContainer}>
@@ -49,6 +52,8 @@ class Login extends Component {
               color="#1A3647"
             />
           </View>
+          <Text>{"\n"}{"\n"}{"\n"}{"\n"}{"\n"}{"\n"}{"\n"}{"\n"}</Text>
+          <Text style={styles.anyText}>Or if you are new here click this {"\n"}</Text>
           <View style={styles.buttonContainer}>
             <Button
               onPress={() => {navigate('Register')}}
@@ -86,6 +91,10 @@ const styles = StyleSheet.create({
   },
   header: {
     fontSize: 50,
+    color: '#E6E167'
+  },
+  anyText: {
+    fontSize: 16,
     color: '#E6E167'
   },
   buttonContainer: {
