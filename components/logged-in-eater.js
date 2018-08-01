@@ -131,5 +131,18 @@ const styles = StyleSheet.create({
     width: slideWidth,
     flex: 1
     // other styles for the inner container
+  },
+  buttonContainer2: {
+    marginBottom: 10,
+    backgroundColor: '#D34C47',
+    borderRadius: 10,
+    padding: 2,
+    shadowColor: '#000000',
+    shadowOffset: {
+      width: 0,
+      height: 3
+    },
+    shadowRadius: 10,
+    shadowOpacity: 0.25
   }
 })

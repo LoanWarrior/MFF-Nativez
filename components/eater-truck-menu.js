@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {Platform, StyleSheet, Text, View, Image, Button, TouchableOpacity, FlatList} from 'react-native';
+import {Platform, StyleSheet, Text, View, Image, Button, List, TouchableOpacity, FlatList} from 'react-native';
 import { createStackNavigator } from 'react-navigation';
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
@@ -78,24 +78,27 @@ class EaterTruckMenu extends Component {
     let items = []
     return (
       <View style={styles.container}>
-        <Text style={styles.header}>{"\n"}{"\n"}{"\n"}{"\n"} MENU</Text>
+        <Text>{"\n"}{"\n"}{"\n"}{"\n"}</Text>
+        <Text style={styles.header}>MENU</Text>
         <FlatList
           data={generateMenu}
           renderItem={({item}) =>
-          <View>
-            <Text> {"\n"}{item.key} {item.price} {item.quantity}<Text onPress={() =>
-              this.changeQuantity(item.key, item.price, true)}
-              > + </Text>
+          <View style={styles.buttonContainer2}>
+            <View>
+              <Text> {"\n"}{item.key} {item.price} {item.quantity}<Text onPress={() =>
+                this.changeQuantity(item.key, item.price, true)}
+                > + </Text>
 
               <Text onPress={() =>
                 this.changeQuantity(item.key, item.price, false)}
                 > - </Text></Text>
+            </View>
           </View>
           }/>
         <Text>Total {this.state.total}{"\n"}{"\n"} </Text>
         <View style={styles.buttonContainer}>
           <Button
-            onPress={() => {this.props.placeOrder(newOrder, postItems, this.state.total)}}
+            onPress={() => {this.props.placeOrder(newOrder, postItems, this.state.total, navigate)}}
             title="Place Order"
             color="#1A3647"
           />
@@ -141,6 +144,10 @@ const styles = StyleSheet.create({
     },
     shadowRadius: 10,
     shadowOpacity: 0.25
+  },
+  buttonContainer2: {
+    backgroundColor: '#E6E167',
+    padding: 2
   },
   header: {
     fontSize: 30,
