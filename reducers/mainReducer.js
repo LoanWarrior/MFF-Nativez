@@ -44,7 +44,6 @@ export default (state = initialState, action) => {
    }
 
    case DELETE_ITEM:
-   console.log('action payload', action.payload);
    return {
      ...state,
      menu: action.payload
