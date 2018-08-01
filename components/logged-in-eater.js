@@ -34,7 +34,7 @@ class LoggedInEater extends Component {
       <View style={styles.container}>
         <Text>This is the Logged in eater page</Text>
         <Text>{"\n"}{"\n"}{"\n"}{"\n"}</Text>
-        <Text>This is the Menu</Text>
+        <Text>This is the trucks online</Text>
         <FlatList
           data={allOpenTrucks}
           renderItem={({item}) => <Text onPress={() => navigate('EaterTruckMenu', item.id)}>{item.key}</Text>}
