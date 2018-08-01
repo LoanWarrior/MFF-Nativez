@@ -60,7 +60,7 @@ class ChangeMenu extends Component {
             renderItem={({item}) =>
             <View style={styles.menuContainer}>
               <View>
-                <Text style={styles.anyText}> {"\n"}{item.key} {item.price} {item.quantity}        <Text onPress={() => this.props.deleteItem(item.id, this.props.navigation.state.params)}>X</Text></Text>
+                <Text style={styles.anyText}> {"\n"}{item.key} ${item.price} {item.quantity}        <Text onPress={() => this.props.deleteItem(item.id, this.props.navigation.state.params)}>X</Text></Text>
               </View>
             </View>
           }/>
