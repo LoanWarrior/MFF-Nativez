@@ -44,10 +44,10 @@ class SpecificTruck extends Component {
           data={orderInfo}
           renderItem={({item}) =>
           <View style={styles.buttonContainer}>
-            <Text>{item.key} {item.name}{"\n"} Order Placed: <Moment element={Text} fromNow>{item.created_at}</Moment> {"\n"}{item.tel}</Text>
+            <Text style={styles.anyText}>{item.key} {item.name}{"\n"} Order Placed: <Moment element={Text} fromNow>{item.created_at}</Moment> {"\n"}{item.tel}</Text>
 
-            <Text> {"\n"}{item.items}</Text>
-            <Text>Total {item.total}{"\n"}</Text>
+            <Text style={styles.anyText}> {"\n"}{item.items}</Text>
+            <Text style={styles.anyText}>Total {item.total}{"\n"}</Text>
             <View style={styles.buttonContainer2}>
               <Button
               onPress={() => this.props.completeOrder(item.key, this.props.navigation.state.params)}
@@ -94,6 +94,10 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     backgroundColor: '#4592C1',
+  },
+  anyText: {
+    fontSize: 24,
+    color: '#1A3647'
   },
   buttonContainer: {
     marginBottom: 10,
