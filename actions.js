@@ -13,8 +13,8 @@ export const CREATE_ITEM = 'CREATE_ITEM'
 //mark an order complete which will delete that order from the data base
 export const completeOrder = (orderId, truckId) => {
   return async dispatch => {
-    // const response = await fetch(`https://mffapi.herokuapp.com/trucks/orders/${truckId}`, {
-    const response = await fetch(`http://localhost:5445/orders/${orderId}/truck/${truckId}`, {
+    const response = await fetch(`https://mffapi.herokuapp.com/trucks/orders/${truckId}`, {
+    // const response = await fetch(`http://localhost:5445/orders/${orderId}/truck/${truckId}`, {
       method: 'DELETE',
       headers: {
         'Content-Type': 'application/json',
@@ -84,8 +84,8 @@ export const placeOrder = (newOrder, orderArray, total, navigate) => {
 //get open trucks
 export const getOpenTrucks = (id) => {
   return async dispatch => {
-    // const response = await fetch(`https://mffapi.herokuapp.com/trucks`)
-    const response = await fetch(`http://localhost:5445/trucks`)
+    const response = await fetch(`https://mffapi.herokuapp.com/trucks`)
+    // const response = await fetch(`http://localhost:5445/trucks`)
 
     const trucks = await response.json()
     dispatch({
@@ -98,8 +98,8 @@ export const getOpenTrucks = (id) => {
 //get trucks menu
 export const truckMenu = (id) => {
   return async dispatch => {
-    // const response = await fetch(`https://mffapi.herokuapp.com/trucks/menu/${id}`)
-    const response = await fetch(`http://localhost:5445/trucks/menu/${id}`)
+    const response = await fetch(`https://mffapi.herokuapp.com/trucks/menu/${id}`)
+    // const response = await fetch(`http://localhost:5445/trucks/menu/${id}`)
     const menu = await response.json()
     dispatch({
         type: TRUCK_MENU,
@@ -119,8 +119,8 @@ export const logIn = (value, navigate) => {
   //   password: '123'
   // }
   return async dispatch => {
-    // const response = await fetch('https://mffapi.herokuapp.com/login', {
-      const response = await fetch('http://localhost:5445/login', {
+    const response = await fetch('https://mffapi.herokuapp.com/login', {
+      // const response = await fetch('http://localhost:5445/login', {
       method: 'POST',
       body: JSON.stringify(user),
       headers: {
@@ -150,8 +150,8 @@ export const logIn = (value, navigate) => {
 //trucks related to one owner
 export const ownersTrucks = (id) => {
   return async dispatch => {
-    // const response = await fetch(`https://mffapi.herokuapp.com/trucks/${id}`)
-    const response = await fetch(`http://localhost:5445/trucks/${id}`)
+    const response = await fetch(`https://mffapi.herokuapp.com/trucks/${id}`)
+    // const response = await fetch(`http://localhost:5445/trucks/${id}`)
     const trucks = await response.json()
     dispatch({
         type: GET_OWNERS_TRUCKS,
@@ -168,8 +168,8 @@ export const linkToTruck = (truckId, navigate) => {
 // returns all orders by order id for one truck
 export const truckInfo = (truckId) => {
     return async dispatch => {
-      // const response = await fetch(`https://mffapi.herokuapp.com/trucks/orders/${truckId}`)
-      const response = await fetch(`http://localhost:5445/trucks/orders/${truckId}`)
+      const response = await fetch(`https://mffapi.herokuapp.com/trucks/orders/${truckId}`)
+      // const response = await fetch(`http://localhost:5445/trucks/orders/${truckId}`)
       const orders = await response.json()
       dispatch({
         type: TRUCK_INFO,

@@ -85,17 +85,17 @@ class EaterTruckMenu extends Component {
           renderItem={({item}) =>
           <View style={styles.buttonContainer2}>
             <View>
-              <Text> {"\n"}{item.key} {item.price} {item.quantity}<Text onPress={() =>
+              <Text style={styles.anyText} > {item.key} {item.price} {item.quantity}<Text style={styles.anyText} onPress={() =>
                 this.changeQuantity(item.key, item.price, true)}
                 > + </Text>
 
-              <Text onPress={() =>
+              <Text style={styles.anyText} onPress={() =>
                 this.changeQuantity(item.key, item.price, false)}
                 > - </Text></Text>
             </View>
           </View>
           }/>
-        <Text>Total {this.state.total}{"\n"}{"\n"} </Text>
+        <Text style={styles.anyText} >Total {this.state.total}{"\n"}{"\n"} </Text>
         <View style={styles.buttonContainer}>
           <Button
             onPress={() => {this.props.placeOrder(newOrder, postItems, this.state.total, navigate)}}
@@ -131,6 +131,10 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     backgroundColor: '#4592C1',
+  },
+  anyText: {
+    fontSize: 24,
+    color: '#1A3647'
   },
   buttonContainer: {
     marginBottom: 10,

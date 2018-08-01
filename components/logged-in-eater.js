@@ -29,9 +29,9 @@ class LoggedInEater extends Component {
                 <View style={styles.slideInnerContainer}>
                   <Image source={require('../images/food-truck.jpg')}/>
                 </View>
-                <Text>{item.key}</Text>
+                <Text style={styles.anyText} >{item.key}</Text>
                 <View style={styles.buttonContainer2}>
-                  <Text onPress = {() => navigate('EaterTruckMenu', item.id)}>Go To Truck</Text>
+                  <Text style={styles.anyText} onPress = {() => navigate('EaterTruckMenu', item.id)}>Go To Truck</Text>
                 </View>
             </View>
         );
@@ -48,9 +48,9 @@ class LoggedInEater extends Component {
     }
     return (
       <View style={styles.container}>
-        <Text>This is the Logged in eater page</Text>
+        <Text style={styles.anyText} >This is the Logged in eater page</Text>
         <Text>{"\n"}{"\n"}{"\n"}{"\n"}</Text>
-        <Text>This is the Menu</Text>
+        <Text style={styles.anyText} >This is the Menu</Text>
         <Carousel
           data={allOpenTrucks}
           renderItem={this.renderItem}
@@ -99,6 +99,10 @@ const styles = StyleSheet.create({
     width: 300,
     height: 50,
     backgroundColor: 'white',
+  },
+  anyText: {
+    fontSize: 24,
+    color: '#1A3647'
   },
   slide: {
     backgroundColor: '#E6E167',
