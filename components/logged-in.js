@@ -48,7 +48,7 @@ class LoggedIn extends Component {
     }
     return (
       <View style={styles.container}>
-        <Text>Welcome Owner Name</Text>
+        <Text>{`Welcome ${this.props.currentUser.username}`}</Text>
         <Text>My trucks:</Text>
         <Text>{"\n"}{"\n"}{"\n"}{"\n"}</Text>
         <Carousel
