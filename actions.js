@@ -9,12 +9,32 @@ export const CREATE_TRUCK = 'CREATE_TRUCK'
 export const ADD_TO_CART = 'ADD_TO_CART'
 export const PLACE_ORDER = 'PLACE_ORDER'
 export const DELETE_ITEM = 'DELETE_ITEM'
+export const CREATE_ITEM = 'CREATE_ITEM'
+
+//mark an order complete which will delete that order from the data base
+export const completeOrder = (orderId, truckId) => {
+  return async dispatch => {
+    // const response = await fetch(`https://mffapi.herokuapp.com/trucks/orders/${truckId}`, {
+    const response = await fetch(`http://localhost:5445/orders/${orderId}/truck/${truckId}`, {
+      method: 'DELETE',
+      headers: {
+        'Content-Type': 'application/json',
+        'Accept': 'application/json'
+      }
+    })
+    const orders = await response.json()
+    console.log('orders are:', orders);
+    dispatch({
+      type: COMPLETE_ORDER,
+      payload: orders
+    })
+  }
+}
 
 export const deleteItem = (itemId, truckId) => {
   return async dispatch => {
   const response = await fetch(`http://localhost:5445/items/${itemId}/truck/${truckId}`, {
     method: 'DELETE',
-    // body: JSON.stringify(truckId),
     headers: {
       'Content-Type': 'application/json',
       'Accept': 'application/json'
@@ -68,7 +88,9 @@ export const placeOrder = (newOrder, orderArray, total) => {
 //get open trucks
 export const getOpenTrucks = (id) => {
   return async dispatch => {
-    const response = await fetch(`https://mffapi.herokuapp.com/trucks`)
+    // const response = await fetch(`https://mffapi.herokuapp.com/trucks`)
+    const response = await fetch(`http://localhost:5445/trucks`)
+
     // const response = await fetch(`http://localhost:5445/trucks`)
     const trucks = await response.json()
     dispatch({
@@ -81,8 +103,8 @@ export const getOpenTrucks = (id) => {
 //get trucks menu
 export const truckMenu = (id) => {
   return async dispatch => {
-    const response = await fetch(`https://mffapi.herokuapp.com/trucks/menu/${id}`)
-    // const response = await fetch(`http://localhost:5445/trucks/menu/${id}`)
+    // const response = await fetch(`https://mffapi.herokuapp.com/trucks/menu/${id}`)
+    const response = await fetch(`http://localhost:5445/trucks/menu/${id}`)
     const menu = await response.json()
     console.log('66 actions', menu);
     dispatch({
@@ -95,17 +117,17 @@ export const truckMenu = (id) => {
 //log-in action, get user info, hardcoded for owner///
 
 export const logIn = (value, navigate) => {
-  // let user = {
-  //   username: value.username.toLowerCase(),
-  //   password: value.password
-  // }
   let user = {
-    username: 'sarasmile',
-    password: '123'
+    username: value.username.toLowerCase(),
+    password: value.password
   }
+  // let user = {
+  //   username: 'sarasmile',
+  //   password: '123'
+  // }
   return async dispatch => {
-    const response = await fetch('https://mffapi.herokuapp.com/login', {
-      // const response = await fetch('http://localhost:5445/login', {
+    // const response = await fetch('https://mffapi.herokuapp.com/login', {
+      const response = await fetch('http://localhost:5445/login', {
       method: 'POST',
       body: JSON.stringify(user),
       headers: {
@@ -136,8 +158,8 @@ export const logIn = (value, navigate) => {
 
 export const ownersTrucks = (id) => {
   return async dispatch => {
-    const response = await fetch(`https://mffapi.herokuapp.com/trucks/${id}`)
-    // const response = await fetch(`http://localhost:5445/trucks/${id}`)
+    // const response = await fetch(`https://mffapi.herokuapp.com/trucks/${id}`)
+    const response = await fetch(`http://localhost:5445/trucks/${id}`)
     const trucks = await response.json()
     dispatch({
         type: GET_OWNERS_TRUCKS,
@@ -156,8 +178,8 @@ export const linkToTruck = (truckId, navigate) => {
 
 export const truckInfo = (truckId) => {
     return async dispatch => {
-      const response = await fetch(`https://mffapi.herokuapp.com/trucks/orders/${truckId}`)
-      // const response = await fetch(`http://localhost:5445/trucks/orders/${truckId}`)
+      // const response = await fetch(`https://mffapi.herokuapp.com/trucks/orders/${truckId}`)
+      const response = await fetch(`http://localhost:5445/trucks/orders/${truckId}`)
       const orders = await response.json()
       dispatch({
         type: TRUCK_INFO,
@@ -177,7 +199,9 @@ export const makeOrder = (item, user, truck) => {
     "eater_id": user,
   }
   return async dispatch => {
-    const response = await fetch('https://mffapi.herokuapp.com/orders', {
+    // const response = await fetch('https://mffapi.herokuapp.com/orders', {
+      const response = await fetch('http://localhost:5445/orders', {
+
       method: 'POST',
       body: JSON.stringify(newOrder),
       headers: {
@@ -195,25 +219,6 @@ export const makeOrder = (item, user, truck) => {
 
 ///////////////NEEDS TO BE COMPLETE////////////////////////
 
-//mark an order complete which will delete that order from the data base
-export const completeOrder = (orderId) => {
-  console.log('order id is:', orderId);
-  return async dispatch => {
-    const response = await fetch(`https://mffapi.herokuapp.com/trucks/orders/${truckId}`, {
-    // const response = await fetch(`http://localhost:5445/orders/order/${orderId}`, {
-      method: 'DELETE',
-      headers: {
-        'Content-Type': 'application/json',
-        'Accept': 'application/json'
-      }
-    })
-    const orders = await response.json()
-    console.log("orders vari here", orders);
-    dispatch({
-      type: COMPLETE_ORDER,
-    })
-  }
-}
 
 // create a new user
 export const registerUser = (userData, navigate) => {
@@ -247,6 +252,26 @@ export const registerUser = (userData, navigate) => {
   }
 }
 
+export const createMenuItem = (dishData, navigate) => {
+  console.log(dishData);
+  return async dispatch => {
+    const response = await fetch('http://localhost:5445/items', {
+      method: 'POST',
+      body: JSON.stringify(dishData),
+      headers: {
+        'Content-Type': 'application/json',
+        'Accept': 'application/json'
+      }
+    })
+    const dish = await response.json()
+    console.log('292 dish', dish)
+    dispatch({
+      type: CREATE_ITEM,
+      payload: dish[0]
+    })
+  }
+}
+
 //create a new truck as a owner
 export const createTruck = (truckData, navigate, id) => {
   // console.log(, id)
@@ -274,28 +299,4 @@ export const createTruck = (truckData, navigate, id) => {
     })
   }
 ///////////////NEEDS TO BE COMPLETE////////////////////////
-}
-
-export const createMenuItem = (dishData, navigate) => {
-  // console.log(truckData);
-  //why is this function not defined??
-  //post request to make a new truck
-  dispatch({
-    type: CREATE_TRUCK,
-    payload: orderId
-  })
-///////////////NEEDS TO BE COMPLETE////////////////////////
-
-}
-
-export const removeMenuItem = (dishData, navigate) => {
-  // console.log(truckData);
-  //why is this function not defined??
-  //post request to make a new truck
-  dispatch({
-    type: CREATE_TRUCK,
-    payload: orderId
-  })
-///////////////NEEDS TO BE COMPLETE////////////////////////
-
 }
