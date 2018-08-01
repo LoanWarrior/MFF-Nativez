@@ -78,7 +78,7 @@ class EaterTruckMenu extends Component {
     let items = []
     return (
       <View style={styles.container}>
-        <Text>{"\n"}{"\n"}{"\n"}{"\n"} MENU</Text>
+        <Text style={styles.header}>{"\n"}{"\n"}{"\n"}{"\n"} MENU</Text>
         <FlatList
           data={generateMenu}
           renderItem={({item}) =>
@@ -93,11 +93,13 @@ class EaterTruckMenu extends Component {
           </View>
           }/>
         <Text>Total {this.state.total}{"\n"}{"\n"} </Text>
-        <Button
-          onPress={() => {this.props.placeOrder(newOrder, postItems, this.state.total)}}
-          title="Place Order"
-          color="#841584"
-        />
+        <View style={styles.buttonContainer}>
+          <Button
+            onPress={() => {this.props.placeOrder(newOrder, postItems, this.state.total)}}
+            title="Place Order"
+            color="#1A3647"
+          />
+        </View>
       </View>
     );
   }
@@ -125,6 +127,23 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: 'lightblue',
+    backgroundColor: '#4592C1',
+  },
+  buttonContainer: {
+    marginBottom: 10,
+    backgroundColor: '#E6E167',
+    borderRadius: 10,
+    padding: 2,
+    shadowColor: '#000000',
+    shadowOffset: {
+      width: 0,
+      height: 3
+    },
+    shadowRadius: 10,
+    shadowOpacity: 0.25
+  },
+  header: {
+    fontSize: 30,
+    color: '#E6E167'
   }
 })

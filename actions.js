@@ -100,7 +100,7 @@ export const logIn = (value, navigate) => {
   //   password: value.password
   // }
   let user = {
-    username: 'sarasmile',
+    username: 'jslay',
     password: '123'
   }
   return async dispatch => {
