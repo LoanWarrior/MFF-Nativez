@@ -16,7 +16,7 @@ let initialState = {
     currentUser: '',
     openTrucks: [],
     trucks: [],
-    orders: [],
+    orders: {},
     menu: []
 }
 
