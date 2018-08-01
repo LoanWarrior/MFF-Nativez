@@ -33,7 +33,7 @@ export const completeOrder = (orderId, truckId) => {
 //owner deleting item from menu
 export const deleteItem = (itemId, truckId) => {
   return async dispatch => {
-  const response = await fetch(`http://localhost:5445/items/${itemId}/truck/${truckId}`, {
+  const response = await fetch(`https://mffapi.herokuapp.com/items/${itemId}/truck/${truckId}`, {
     method: 'DELETE',
     headers: {
       'Content-Type': 'application/json',
@@ -53,7 +53,7 @@ export const placeOrder = (newOrder, orderArray, total, navigate) => {
   newOrder.total = total
   navigate('LoggedInEater')
   return async dispatch => {
-  const response = await fetch('http://localhost:5445/orders', {
+  const response = await fetch('https://mffapi.herokuapp.com/orders', {
     method: 'POST',
     body: JSON.stringify(newOrder),
     headers: {
@@ -65,7 +65,7 @@ export const placeOrder = (newOrder, orderArray, total, navigate) => {
   orderArray.map(item => {
     item.order_id = orderId
   })
-  const response2 = await fetch('http://localhost:5445/order_items', {
+  const response2 = await fetch('https://mffapi.herokuapp.com/order_items', {
     method: 'POST',
     body: JSON.stringify(orderArray),
     headers: {
@@ -181,7 +181,7 @@ export const truckInfo = (truckId) => {
 // create a new user
 export const registerUser = (userData, navigate) => {
   return async dispatch => {
-    const response = await fetch('http://localhost:5445/users', {
+    const response = await fetch('https://mffapi.herokuapp.com/users', {
       method: 'POST',
       body: JSON.stringify(userData),
       headers: {
