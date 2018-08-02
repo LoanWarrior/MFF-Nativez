@@ -77,7 +77,6 @@ export default (state = initialState, action) => {
    }
 
    case TRUCK_INFO:
-   console.log('red 80', action.payload);
    return {
      ...state,
      orders: action.payload,

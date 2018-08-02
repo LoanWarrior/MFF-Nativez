@@ -24,7 +24,6 @@ export const truckInfo = (truckId) => {
   return async dispatch => {
     const response = await fetch(`${API}/trucks/orders/${truckId}`)
     const orders = await response.json()
-    console.log('184 actions', orders);
     dispatch({
       type: TRUCK_INFO,
       payload: orders,
@@ -146,10 +145,6 @@ export const logIn = (value, navigate) => {
     username: value.username.toLowerCase(),
     password: value.password
   }
-  // let user = {
-  //   username: 'sarasmile',
-  //   password: '123'
-  // }
   return async dispatch => {
       const response = await fetch(`${API}/login`, {
       method: 'POST',
