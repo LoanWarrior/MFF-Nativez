@@ -19,6 +19,20 @@ const LocalAPI =  'http://localhost:5445'
 
 const API = HerokuAPI
 
+// returns all orders by order id for one truck
+export const truckInfo = (truckId) => {
+  return async dispatch => {
+    const response = await fetch(`${API}/trucks/orders/${truckId}`)
+    const orders = await response.json()
+    console.log('184 actions', orders);
+    dispatch({
+      type: TRUCK_INFO,
+      payload: orders,
+      id: truckId
+    })
+  }
+}
+
 export const completeOrder = (orderId, truckId) => {
   return async dispatch => {
     const response = await fetch(`${API}/orders/${orderId}/truck/${truckId}`, {
@@ -32,6 +46,36 @@ export const completeOrder = (orderId, truckId) => {
     dispatch({
       type: COMPLETE_ORDER,
       payload: orders
+    })
+  }
+}
+
+//eater placing order
+export const placeOrder = (newOrder, orderArray, total) => {
+  newOrder.total = total
+  return async dispatch => {
+    const response = await fetch(`${API}/orders`, {
+      method: 'POST',
+      body: JSON.stringify(newOrder),
+      headers: {
+        'Content-Type': 'application/json',
+        'Accept': 'application/json'
+      }
+    })
+    const orderId = await response.json()
+    orderArray.map(item => {
+      item.order_id = orderId
+    })
+    const response2 = await fetch(`${API}/order_items`, {
+      method: 'POST',
+      body: JSON.stringify(orderArray),
+      headers: {
+        'Content-Type': 'application/json',
+        'Accept': 'application/json'
+      }
+    })
+    dispatch({
+      type: UPDATED
     })
   }
 }
@@ -69,38 +113,6 @@ export const deleteItem = (itemId, truckId) => {
   }
 }
 
-//eater placing order
-export const placeOrder = (newOrder, orderArray, total, navigate) => {
-  newOrder.total = total
-  navigate('LoggedInEater')
-  return async dispatch => {
-  const response = await fetch(`${API}/orders`, {
-    method: 'POST',
-    body: JSON.stringify(newOrder),
-    headers: {
-      'Content-Type': 'application/json',
-      'Accept': 'application/json'
-    }
-  })
-  const orderId = await response.json()
-  orderArray.map(item => {
-    item.order_id = orderId
-  })
-  const response2 = await fetch(`${API}/order_items`, {
-    method: 'POST',
-    body: JSON.stringify(orderArray),
-    headers: {
-      'Content-Type': 'application/json',
-      'Accept': 'application/json'
-    }
-  })
-  const itemsAdded = await response2.json()
-  dispatch({
-      type: PLACE_ORDER,
-      payload: orderId
-    })
-  }
-}
 
 //get open trucks
 export const getOpenTrucks = (id) => {
@@ -122,7 +134,8 @@ export const truckMenu = (id) => {
     const menu = await response.json()
     dispatch({
         type: TRUCK_MENU,
-        payload: menu
+        payload: menu,
+        id: id
       })
   }
 }
@@ -177,22 +190,6 @@ export const ownersTrucks = (id) => {
   }
 }
 
-// changes view to specific truck
-export const linkToTruck = (truckId, navigate) => {
-  navigate('SpecificTruck', truckId)
-}
-
-// returns all orders by order id for one truck
-export const truckInfo = (truckId) => {
-    return async dispatch => {
-      const response = await fetch(`${API}/trucks/orders/${truckId}`)
-      const orders = await response.json()
-      dispatch({
-        type: TRUCK_INFO,
-        payload: orders
-      })
-    }
-}
 
 // create a new user
 export const registerUser = (userData, navigate) => {
@@ -242,8 +239,7 @@ export const createMenuItem = (dishData, truckId, navigate) => {
 }
 
 //create a new truck as a owner
-export const createTruck = (truckData, navigate, id) => {
-  navigate('LoggedIn')
+export const createTruck = (truckData, id) => {
   let truckInfo = {
     name: truckData.name,
     veggieFriendly: truckData.veggieFriendly,

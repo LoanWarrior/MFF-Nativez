@@ -29,9 +29,10 @@ class CreateTruck extends Component {
     },
   };
 
- handleSubmit = (changeView) => {
+ handleSubmit = () => {
     const value = this._form.getValue()
-    this.props.createTruck(value, changeView, this.props.currentUser.id)
+    console.log(value);
+    this.props.createTruck(value, this.props.currentUser.id)
   }
 
   render() {
@@ -42,7 +43,7 @@ class CreateTruck extends Component {
           <Form type={User} ref={c => this._form = c}/>
           <View style={styles.buttonContainer}>
             <Button
-              onPress={() => this.handleSubmit(navigate)}
+              onPress={() => {this.handleSubmit(); navigate('LoggedIn')}}
               title="Create Truck"
               color="#1A3647"
             />

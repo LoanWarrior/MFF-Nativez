@@ -3,7 +3,7 @@ import { connect } from 'react-redux'
 import {Platform, StyleSheet, Text, View, Image, Button, TouchableOpacity, FlatList} from 'react-native';
 import { createStackNavigator } from 'react-navigation'
 import { bindActionCreators } from 'redux'
-import { ownersTrucks, linkToTruck } from '../actions'
+import { ownersTrucks, truckInfo} from '../actions'
 import Carousel from 'react-native-snap-carousel'
 
 class LoggedIn extends Component {
@@ -31,7 +31,7 @@ class LoggedIn extends Component {
                 </View>
                 <Text style={styles.anyText}>{item.key}</Text>
                 <View style={styles.buttonContainer2}>
-                  <Text  style={styles.anyText} onPress = {() => linkToTruck(item.id, navigate)}>Go To Truck</Text>
+                  <Text  style={styles.anyText} onPress = {() => {this.props.truckInfo(item.id); navigate('SpecificTruck')}}>Go To Truck</Text>
                 </View>
             </View>
         );
@@ -48,7 +48,7 @@ class LoggedIn extends Component {
     }
     return (
       <View style={styles.container}>
-        <Text style={styles.anyText}>{`Welcome ${this.props.currentUser.username}`}</Text>
+        <Text style={styles.anyText}>Welcome {this.props.currentUser.username}</Text>
         <Text style={styles.anyText}>My trucks:</Text>
         <Text>{"\n"}{"\n"}{"\n"}{"\n"}</Text>
         <Carousel
@@ -86,7 +86,7 @@ const itemHeight = 440;
 
 const mapDispatchToProps = dispatch => bindActionCreators({
   ownersTrucks,
-  linkToTruck
+  truckInfo
 }, dispatch)
 
 export default connect(
