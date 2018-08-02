@@ -71,7 +71,7 @@ class ChangeMenu extends Component {
           <Form type={User} ref={c => this._form = c}/>
           <View style={styles.buttonContainer}>
             <Button
-              onPress={() => this.handleSubmit(navigate)}
+              onPress={() => this.handleSubmit()}
               title="Add Dish"
               color="#1A3647"
             />
