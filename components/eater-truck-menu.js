@@ -56,7 +56,7 @@ class EaterTruckMenu extends Component {
     }
   }
 
-  handleSubmit = (newOrder, postItems, total) => {
+  handleSubmit = (newOrder, postItems, total, navigate) => {
     if (postItems[0]){
       this.props.placeOrder(newOrder, postItems, total)
       alert('Your order has been placed');
@@ -105,7 +105,7 @@ class EaterTruckMenu extends Component {
         <Text style={styles.anyText} >Total {this.state.total}{"\n"}{"\n"} </Text>
         <View style={styles.buttonContainer}>
           <Button
-            onPress={() => {this.props.placeOrder(newOrder, postItems, this.state.total); navigate('LoggedInEater')}}
+            onPress={() => {this.handleSubmit(newOrder, postItems, this.state.total, navigate)}}
             title="Place Order"
             color="#1A3647"
           />

@@ -51,6 +51,7 @@ class LoggedInEater extends Component {
         <Text style={styles.anyText} >Welcome {this.props.currentUser.username}</Text>
         <Text>{"\n"}{"\n"}{"\n"}{"\n"}</Text>
         <Text style={styles.anyText} >Trucks!!!</Text>
+        {!allOpenTrucks[0] ? <View style={{alignItems: 'center'}}><Text style={styles.anyText}>There are no open trucks</Text><Image style={{marginTop: 40}} source={require('../images/burgerLogo4.png')}/></View> : null}
         <Carousel
           data={allOpenTrucks}
           renderItem={this.renderItem}

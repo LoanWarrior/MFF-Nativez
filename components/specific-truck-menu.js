@@ -54,7 +54,7 @@ class ChangeMenu extends Component {
     return (
       <View style={styles.container}>
         <View style={styles.mom}>
-          {!generateMenu[0] ? <Text style={styles.anyText}>you currently have no items</Text> : null}
+          {!generateMenu[0] ? <View style={{alignItems: 'center'}}><Text style={styles.anyText}>you currently have no Items</Text><Image style={{marginTop: 40}} source={require('../images/burgerLogo4.png')}/></View> : null}
 
           <FlatList
             data={generateMenu}

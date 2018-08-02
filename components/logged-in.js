@@ -52,6 +52,7 @@ class LoggedIn extends Component {
         <Text style={styles.anyText}>{`Welcome ${this.props.currentUser.username}`}</Text>
         <Text>{"\n"}{"\n"}{"\n"}{"\n"}</Text>
         <Text style={styles.anyText}>My trucks:</Text>
+        {!trucksInfo[0] ? <View style={{alignItems: 'center'}}><Text style={styles.anyText}>you currently have no trucks</Text><Image style={{marginTop: 40}} source={require('../images/burgerLogo4.png')}/></View> : null}
         <Carousel
           data={trucksInfo}
           renderItem={this.renderItem}

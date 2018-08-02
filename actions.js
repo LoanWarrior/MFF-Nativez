@@ -32,20 +32,6 @@ export const truckInfo = (truckId) => {
   }
 }
 
-// returns all orders by order id for one truck
-export const truckInfo = (truckId) => {
-  return async dispatch => {
-    const response = await fetch(`${API}/trucks/orders/${truckId}`)
-    const orders = await response.json()
-    console.log('184 actions', orders);
-    dispatch({
-      type: TRUCK_INFO,
-      payload: orders,
-      id: truckId
-    })
-  }
-}
-
 export const completeOrder = (orderId, truckId) => {
   return async dispatch => {
     const response = await fetch(`${API}/orders/${orderId}/truck/${truckId}`, {
@@ -247,8 +233,6 @@ export const createMenuItem = (dishData, truckId) => {
     })
   }
 }
-
-//create a new truck as a owner
 export const createTruck = (truckData, id) => {
   let truckInfo = {
     name: truckData.name,
