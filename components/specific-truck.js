@@ -37,12 +37,9 @@ class SpecificTruck extends Component {
     const orders = this.props.orders
     let orderInfo = []
     if (orders) {
-      console.log('40', orders);
       for ( let order in orders){
         let items = ''
-        console.log('43', orders[order]);
         orders[order].items.forEach(item => {
-          console.log('45', item);
           items += `${item.name} ...$${item.price}           ${item.quantity} ${"\n"}`
         })
         orderInfo.push({key: order, name: orders[order].name, tel: orders[order].tel, items: items, total: orders[order].total, created_at: orders[order].created_at})
