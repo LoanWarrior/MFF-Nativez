@@ -3,7 +3,7 @@ import { connect } from 'react-redux'
 import {Platform, StyleSheet, Text, View, Image, Button, TouchableOpacity, FlatList} from 'react-native';
 import { createStackNavigator } from 'react-navigation'
 import { bindActionCreators } from 'redux'
-import { ownersTrucks, linkToTruck } from '../actions'
+import { ownersTrucks, truckInfo} from '../actions'
 import Carousel from 'react-native-snap-carousel'
 
 class LoggedIn extends Component {
@@ -86,7 +86,7 @@ const itemHeight = 440;
 
 const mapDispatchToProps = dispatch => bindActionCreators({
   ownersTrucks,
-  linkToTruck
+  truckInfo
 }, dispatch)
 
 export default connect(

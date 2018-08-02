@@ -27,17 +27,17 @@ class ChangeMenu extends Component {
   };
 
   async componentDidMount(){
-    this.props.truckMenu(this.props.navigation.state.params)
+    this.props.truckMenu(this.props.currentTruckId)
   }
 
  handleSubmit = (changeView) => {
     const value = this._form.getValue()
     let createItem = {
-      truck_id: this.props.navigation.state.params,
+      truck_id: this.props.currentTruckId,
       name: value.name,
       price: value.price
     }
-    this.props.createMenuItem(createItem, this.props.navigation.state.params, changeView)
+    this.props.createMenuItem(createItem, this.props.currentTruckId, changeView)
   }
 
   render() {
@@ -53,13 +53,14 @@ class ChangeMenu extends Component {
     return (
       <View style={styles.container}>
         <View style={styles.mom}>
+          {!generateMenu[0] ? <Text style={styles.anyText}>you currently have no items</Text> : null}
 
           <FlatList
             data={generateMenu}
             renderItem={({item}) =>
             <View style={styles.menuContainer}>
               <View>
-                <Text style={styles.anyText}> {"\n"}{item.key} {item.price} {item.quantity}        <Text onPress={() => this.props.deleteItem(item.id, this.props.navigation.state.params)}>X</Text></Text>
+                <Text style={styles.anyText}> {"\n"}{item.key} {item.price} {item.quantity}        <Text onPress={() => this.props.deleteItem(item.id, this.props.currentTruckId)}>X</Text></Text>
               </View>
             </View>
           }/>
@@ -83,7 +84,8 @@ class ChangeMenu extends Component {
 const mapStateToProps = state => {
   return {
     orders: state.mainReducer.orders,
-    menu: state.mainReducer.menu
+    menu: state.mainReducer.menu,
+    currentTruckId: state.mainReducer.currentTruckId
     }
 }
 
@@ -114,6 +116,7 @@ const styles = StyleSheet.create({
     color: '#1A3647'
   },
   buttonContainer: {
+    marginBottom: 10,
     backgroundColor: '#E6E167',
     borderRadius: 10,
     padding: 2,
@@ -126,6 +129,7 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.25
   },
   menuContainer: {
+    marginBottom: 5,
     backgroundColor: '#E6E167',
     borderRadius: 10,
     padding: 2,

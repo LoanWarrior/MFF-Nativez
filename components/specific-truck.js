@@ -26,25 +26,23 @@ class SpecificTruck extends Component {
     },
   };
 
-  async componentDidMount(){
-    this.props.truckInfo(this.props.navigation.state.params)
-  }
-
   onlineStatus  = () => {
     let value = this._form.getValue()
-    let truckId = this.props.navigation.state.params
+    let truckId = this.props.currentTruckId
     this.props.updateOnlineStatus(value, truckId)
   }
 
   render() {
     const { navigate } = this.props.navigation
     const orders = this.props.orders
-    let value = true
     let orderInfo = []
     if (orders) {
+      console.log('40', orders);
       for ( let order in orders){
         let items = ''
+        console.log('43', orders[order]);
         orders[order].items.forEach(item => {
+          console.log('45', item);
           items += `${item.name} ...$${item.price}           ${item.quantity} ${"\n"}`
         })
         orderInfo.push({key: order, name: orders[order].name, tel: orders[order].tel, items: items, total: orders[order].total, created_at: orders[order].created_at})
@@ -55,7 +53,7 @@ class SpecificTruck extends Component {
         <Text>{"\n"}</Text>
         <Form type={User} ref={c => this._form = c} onChange={() => this.onlineStatus()}/>
         <Text>{"\n"}{"\n"}</Text>
-        {!orderInfo[0] ? <Text>you currently have no orders</Text> : null}
+        {!orderInfo[0] ? <Text style={styles.anyText}>you currently have no orders</Text> : null}
         <FlatList
           data={orderInfo}
           renderItem={({item}) =>
@@ -66,7 +64,7 @@ class SpecificTruck extends Component {
             <Text style={styles.anyText}>Total {item.total}{"\n"}</Text>
             <View style={styles.buttonContainer2}>
               <Button
-              onPress={() => this.props.completeOrder(item.key, this.props.navigation.state.params)}
+              onPress={() => this.props.completeOrder(item.key, this.props.currentTruckId)}
               title="Complete Order"
               color="#1A3647"
               />
@@ -78,7 +76,7 @@ class SpecificTruck extends Component {
         <Text>{"\n"}{"\n"}{"\n"}{"\n"}</Text>
         <View style={styles.buttonContainer}>
           <Button
-            onPress={() => {navigate('ChangeMenu', this.props.navigation.state.params)}}
+            onPress={() => {navigate('ChangeMenu', this.props.currentTruckId)}}
             title="Change Menu"
             color="#1A3647"
           />
@@ -90,7 +88,8 @@ class SpecificTruck extends Component {
 
 const mapStateToProps = state => {
   return {
-    orders: state.mainReducer.orders
+    orders: state.mainReducer.orders,
+    currentTruckId: state.mainReducer.currentTruckId
   }
 }
 
