@@ -233,8 +233,6 @@ export const createMenuItem = (dishData, truckId) => {
     })
   }
 }
-
-//create a new truck as a owner
 export const createTruck = (truckData, id) => {
   let truckInfo = {
     name: truckData.name,
