@@ -24,6 +24,16 @@ class Login extends Component {
     headerStyle: {
       backgroundColor: '#1A3647'
     },
+    icon: require('../images/burgerLogo4.png')
+  };
+
+  static navigatorButtons = {
+    rightButtons: [
+      {
+        icon: require('../images/burgerLogo4.png'),
+        id: 'add'
+      }
+    ]
   };
 
  handleSubmit = (changeView) => {

@@ -27,17 +27,17 @@ class ChangeMenu extends Component {
   };
 
   async componentDidMount(){
-    this.props.truckMenu(this.props.navigation.state.params)
+    this.props.truckMenu(this.props.currentTruckId)
   }
 
  handleSubmit = (changeView) => {
     const value = this._form.getValue()
     let createItem = {
-      truck_id: this.props.navigation.state.params,
+      truck_id: this.props.currentTruckId,
       name: value.name,
       price: value.price
     }
-    this.props.createMenuItem(createItem, this.props.navigation.state.params, changeView)
+    this.props.createMenuItem(createItem, this.props.currentTruckId, changeView)
   }
 
   render() {
@@ -60,7 +60,7 @@ class ChangeMenu extends Component {
             renderItem={({item}) =>
             <View style={styles.menuContainer}>
               <View>
-                <Text style={styles.anyText}> {"\n"}{item.key} ${item.price} {item.quantity}        <Text onPress={() => this.props.deleteItem(item.id, this.props.navigation.state.params)}>X</Text></Text>
+                <Text style={styles.anyText}> {"\n"}{item.key} {item.price} {item.quantity}        <Text onPress={() => this.props.deleteItem(item.id, this.props.currentTruckId)}>X</Text></Text>
               </View>
             </View>
           }/>
@@ -84,7 +84,8 @@ class ChangeMenu extends Component {
 const mapStateToProps = state => {
   return {
     orders: state.mainReducer.orders,
-    menu: state.mainReducer.menu
+    menu: state.mainReducer.menu,
+    currentTruckId: state.mainReducer.currentTruckId
     }
 }
 

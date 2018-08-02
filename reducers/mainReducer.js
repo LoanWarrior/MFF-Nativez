@@ -10,11 +10,12 @@ CREATE_TRUCK,
 PLACE_ORDER,
 DELETE_ITEM,
 CREATE_ITEM,
-UPDATED
+UPDATED,
 } from '../actions'
 
 let initialState = {
     currentUser: '',
+    currentTruckId: 0,
     openTrucks: [],
     trucks: [],
     orders: {},
@@ -58,7 +59,8 @@ export default (state = initialState, action) => {
    case TRUCK_MENU:
    return{
      ...state,
-     menu: action.payload
+     menu: action.payload,
+     currentTruckId: action.id
    }
 
    case OPEN_TRUCKS:
@@ -75,13 +77,14 @@ export default (state = initialState, action) => {
    }
 
    case TRUCK_INFO:
+   console.log('red 80', action.payload);
    return {
      ...state,
-     orders: action.payload
+     orders: action.payload,
+     currentTruckId: action.id
    }
 
    case CREATE_ITEM:
-   console.log('action payload', action.payload);
    return {
      ...state,
      menu: [...state.menu, action.payload]

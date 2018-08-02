@@ -3,7 +3,7 @@ import { connect } from 'react-redux'
 import {Platform, StyleSheet, Text, View, Image, Button, TouchableOpacity, FlatList} from 'react-native';
 import { createStackNavigator } from 'react-navigation'
 import { bindActionCreators } from 'redux'
-import { ownersTrucks, linkToTruck } from '../actions'
+import { ownersTrucks, truckInfo} from '../actions'
 import Carousel from 'react-native-snap-carousel'
 
 class LoggedIn extends Component {
@@ -27,11 +27,12 @@ class LoggedIn extends Component {
         return (
             <View style={styles.slide}>
                 <View style={styles.slideInnerContainer}>
-                  <Image source={require('../images/food-truck.jpg')}/>
+                  <Image style={{marginTop: 40}}source={require('../images/burgerLogo4.png')}/>
                 </View>
-                <Text style={styles.anyText}>{item.key}</Text>
+                <Text style={styles.anyText2}>{item.key}</Text>
+                <Text>{"\n"}</Text>
                 <View style={styles.buttonContainer2}>
-                  <Text  style={styles.anyText} onPress = {() => linkToTruck(item.id, navigate)}>Go To Truck</Text>
+                  <Text  style={styles.anyText} onPress = {() => {this.props.truckInfo(item.id); navigate('SpecificTruck')}}>Go To Truck</Text>
                 </View>
             </View>
         );
@@ -49,15 +50,14 @@ class LoggedIn extends Component {
     return (
       <View style={styles.container}>
         <Text style={styles.anyText}>{`Welcome ${this.props.currentUser.username}`}</Text>
-        <Text style={styles.anyText}>My trucks:</Text>
         <Text>{"\n"}{"\n"}{"\n"}{"\n"}</Text>
+        <Text style={styles.anyText}>My trucks:</Text>
         <Carousel
           data={trucksInfo}
           renderItem={this.renderItem}
           sliderWidth={sliderWidth}
           itemWidth={itemWidth}
         />
-        <Text>{"\n"}{"\n"}{"\n"}{"\n"}</Text>
         <View style={styles.buttonContainer}>
           <Button
             onPress={() => {navigate('CreateTruck')}}
@@ -86,7 +86,7 @@ const itemHeight = 440;
 
 const mapDispatchToProps = dispatch => bindActionCreators({
   ownersTrucks,
-  linkToTruck
+  truckInfo
 }, dispatch)
 
 export default connect(
@@ -109,7 +109,12 @@ const styles = StyleSheet.create({
   },
   anyText: {
     fontSize: 24,
-    color: '#1A3647'
+    color: '#1A3647',
+  },
+  anyText2: {
+    fontSize: 24,
+    color: '#1A3647',
+    marginTop: 18
   },
   buttonContainer: {
     marginBottom: 10,
@@ -125,7 +130,7 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.25
   },
   buttonContainer2: {
-    marginBottom: 10,
+    marginBottom: 6,
     backgroundColor: '#D34C47',
     borderRadius: 10,
     padding: 2,
@@ -135,7 +140,8 @@ const styles = StyleSheet.create({
       height: 3
     },
     shadowRadius: 10,
-    shadowOpacity: 0.25
+    shadowOpacity: 0.25,
+    alignItems: 'center'
   },
   slide: {
     backgroundColor: '#E6E167',
@@ -150,7 +156,8 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.25,
     width: itemWidth,
     height: itemHeight,
-    paddingHorizontal: horizontalMargin
+    paddingHorizontal: horizontalMargin,
+    alignItems: 'center',
     // other styles for the item container
   },
   slideInnerContainer: {
@@ -166,7 +173,8 @@ const styles = StyleSheet.create({
     shadowRadius: 10,
     shadowOpacity: 0.25,
     width: slideWidth,
-    flex: 1
+    flex: 1,
+    alignItems: 'center'
     // other styles for the inner container
   }
 })

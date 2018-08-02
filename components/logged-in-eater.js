@@ -3,7 +3,7 @@ import { connect } from 'react-redux'
 import {Platform, StyleSheet, Text, View, Image, Button, TouchableOpacity, FlatList} from 'react-native'
 import { createStackNavigator } from 'react-navigation'
 import { bindActionCreators } from 'redux'
-import { getOpenTrucks, linkToTruck } from '../actions'
+import { getOpenTrucks, truckMenu} from '../actions'
 import Carousel from 'react-native-snap-carousel'
 
 class LoggedInEater extends Component {
@@ -27,11 +27,11 @@ class LoggedInEater extends Component {
         return (
             <View style={styles.slide}>
                 <View style={styles.slideInnerContainer}>
-                  <Image source={require('../images/food-truck.jpg')}/>
+                  <Image style={{marginTop: 40}} source={require('../images/burgerLogo4.png')}/>
                 </View>
-                <Text style={styles.anyText} >{item.key}</Text>
+                <Text style={styles.anyText2} >{item.key}</Text>
                 <View style={styles.buttonContainer2}>
-                  <Text style={styles.anyText} onPress = {() => navigate('EaterTruckMenu', item.id)}>Go To Truck</Text>
+                  <Text style={styles.anyText} onPress = {() => {this.props.truckMenu(item.id) ;navigate('EaterTruckMenu')}}>Go To Truck</Text>
                 </View>
             </View>
         );
@@ -48,9 +48,9 @@ class LoggedInEater extends Component {
     }
     return (
       <View style={styles.container}>
-        <Text style={styles.anyText} >This is the Logged in eater page</Text>
+        <Text style={styles.anyText} >Welcome {this.props.currentUser.username}</Text>
         <Text>{"\n"}{"\n"}{"\n"}{"\n"}</Text>
-        <Text style={styles.anyText} >This is the Menu</Text>
+        <Text style={styles.anyText} >Trucks!!!</Text>
         <Carousel
           data={allOpenTrucks}
           renderItem={this.renderItem}
@@ -72,7 +72,7 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => bindActionCreators({
   getOpenTrucks,
-  linkToTruck
+  truckMenu
 }, dispatch)
 
 export default connect(
@@ -104,6 +104,12 @@ const styles = StyleSheet.create({
     fontSize: 24,
     color: '#1A3647'
   },
+  anyText2: {
+    fontSize: 24,
+    color: '#1A3647',
+    marginTop: 18,
+    marginBottom: 18
+  },
   slide: {
     backgroundColor: '#E6E167',
     borderRadius: 10,
@@ -117,7 +123,8 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.25,
     width: itemWidth,
     height: itemHeight,
-    paddingHorizontal: horizontalMargin
+    paddingHorizontal: horizontalMargin,
+    alignItems: 'center'
     // other styles for the item container
   },
   slideInnerContainer: {
@@ -133,11 +140,12 @@ const styles = StyleSheet.create({
     shadowRadius: 10,
     shadowOpacity: 0.25,
     width: slideWidth,
-    flex: 1
+    flex: 1,
+    alignItems: 'center'
     // other styles for the inner container
   },
   buttonContainer2: {
-    marginBottom: 10,
+    marginBottom: 6,
     backgroundColor: '#D34C47',
     borderRadius: 10,
     padding: 2,
@@ -147,6 +155,7 @@ const styles = StyleSheet.create({
       height: 3
     },
     shadowRadius: 10,
-    shadowOpacity: 0.25
+    shadowOpacity: 0.25,
+    alignItems: 'center'
   }
 })
