@@ -32,7 +32,7 @@ class LoggedIn extends Component {
                 <Text style={styles.anyText2}>{item.key}</Text>
                 <Text>{"\n"}</Text>
                 <View style={styles.buttonContainer2}>
-                  <Text style={styles.anyText} onPress = {() => linkToTruck(item.id, navigate)}>       Go To Truck Orders       </Text>
+                  <Text  style={styles.anyText} onPress = {() => {this.props.truckInfo(item.id); navigate('SpecificTruck')}}>Go To Truck</Text>
                 </View>
             </View>
         );
