@@ -27,7 +27,7 @@ class LoggedInEater extends Component {
         return (
             <View style={styles.slide}>
                 <View style={styles.slideInnerContainer}>
-                  <Image source={require('../images/food-truck.jpg')}/>
+                  <Image style={{marginTop: 40}} source={require('../images/burgerLogo4.png')}/>
                 </View>
                 <Text style={styles.anyText2} >{item.key}</Text>
                 <View style={styles.buttonContainer2}>
@@ -140,7 +140,8 @@ const styles = StyleSheet.create({
     shadowRadius: 10,
     shadowOpacity: 0.25,
     width: slideWidth,
-    flex: 1
+    flex: 1,
+    alignItems: 'center'
     // other styles for the inner container
   },
   buttonContainer2: {
