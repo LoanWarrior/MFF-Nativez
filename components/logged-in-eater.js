@@ -31,7 +31,7 @@ class LoggedInEater extends Component {
                 </View>
                 <Text style={styles.anyText2} >{item.key}</Text>
                 <View style={styles.buttonContainer2}>
-                  <Text style={styles.anyText} onPress = {() => {this.props.truckMenu(item.id) ;navigate('EaterTruckMenu')}}>Go To Truck</Text>
+                  <Text style={styles.anyText} onPress = {() => {this.props.truckMenu(item.id); navigate('EaterTruckMenu')}}>Go To Truck</Text>
                 </View>
             </View>
         );
