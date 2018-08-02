@@ -17,7 +17,7 @@ export const UPDATED  = 'UPDATED'
 const HerokuAPI = 'https://mffapi.herokuapp.com'
 const LocalAPI =  'http://localhost:5445'
 
-const API = HerokuAPI
+const API = LocalAPI
 
 // returns all orders by order id for one truck
 export const truckInfo = (truckId) => {
@@ -199,6 +199,7 @@ export const registerUser = (userData, navigate) => {
     })
     const newUserId = await response.json()
     if(newUserId.errorMessage){
+      alert(newUserId.errorMessage)
     } else if (userData.is_owner) {
       dispatch ({
         type: LOG_IN,
@@ -215,7 +216,7 @@ export const registerUser = (userData, navigate) => {
   }
 }
 
-export const createMenuItem = (dishData, truckId, navigate) => {
+export const createMenuItem = (dishData, truckId) => {
   return async dispatch => {
     const response = await fetch(`${API}/items/${truckId}`, {
       method: 'POST',

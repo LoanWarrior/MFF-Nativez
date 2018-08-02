@@ -13,7 +13,6 @@ const User = t.struct({
   price: t.String,
 });
 
-
 class ChangeMenu extends Component {
   static navigationOptions = {
     title: 'MFF',
@@ -32,12 +31,14 @@ class ChangeMenu extends Component {
 
  handleSubmit = (changeView) => {
     const value = this._form.getValue()
-    let createItem = {
-      truck_id: this.props.currentTruckId,
-      name: value.name,
-      price: value.price
+    if (value) {
+      let createItem = {
+        truck_id: this.props.currentTruckId,
+        name: value.name,
+        price: value.price
+      }
+      this.props.createMenuItem(createItem, this.props.currentTruckId, changeView)
     }
-    this.props.createMenuItem(createItem, this.props.currentTruckId, changeView)
   }
 
   render() {
