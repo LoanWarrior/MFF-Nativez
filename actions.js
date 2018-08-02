@@ -10,6 +10,7 @@ export const PLACE_ORDER = 'PLACE_ORDER'
 export const DELETE_ITEM = 'DELETE_ITEM'
 export const CREATE_ITEM = 'CREATE_ITEM'
 export const UPDATED  = 'UPDATED'
+export const CURRENT_TRUCK = 'CURRENT_TRUCK'
 
 
 //mark an order complete which will delete that order from the data base
@@ -70,9 +71,8 @@ export const deleteItem = (itemId, truckId) => {
 }
 
 //eater placing order
-export const placeOrder = (newOrder, orderArray, total, navigate) => {
+export const placeOrder = (newOrder, orderArray, total) => {
   newOrder.total = total
-  navigate('LoggedInEater')
   return async dispatch => {
   const response = await fetch(`${API}/orders`, {
     method: 'POST',
@@ -117,6 +117,7 @@ export const getOpenTrucks = (id) => {
 
 //get trucks menu
 export const truckMenu = (id) => {
+  console.log(id);
   return async dispatch => {
     const response = await fetch(`${API}/trucks/menu/${id}`)
     const menu = await response.json()
@@ -178,20 +179,26 @@ export const ownersTrucks = (id) => {
 }
 
 // changes view to specific truck
-export const linkToTruck = (truckId, navigate) => {
-  navigate('SpecificTruck', truckId)
-}
+// export const linkToTruck = (truckId) => {
+//   console.log('got it in actions', truckId);
+// return {
+//         type: CURRENT_TRUCK,
+//         payload: truckId
+//       }
+// }
 
 // returns all orders by order id for one truck
 export const truckInfo = (truckId) => {
-    return async dispatch => {
-      const response = await fetch(`${API}/trucks/orders/${truckId}`)
-      const orders = await response.json()
-      dispatch({
-        type: TRUCK_INFO,
-        payload: orders
-      })
-    }
+  console.log('clicked');
+  return async dispatch => {
+    const response = await fetch(`${API}/trucks/orders/${truckId}`)
+    const orders = await response.json()
+    dispatch({
+      type: TRUCK_INFO,
+      payload: orders,
+      id: truckId
+    })
+  }
 }
 
 // create a new user

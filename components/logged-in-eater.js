@@ -3,7 +3,7 @@ import { connect } from 'react-redux'
 import {Platform, StyleSheet, Text, View, Image, Button, TouchableOpacity, FlatList} from 'react-native'
 import { createStackNavigator } from 'react-navigation'
 import { bindActionCreators } from 'redux'
-import { getOpenTrucks, linkToTruck } from '../actions'
+import { getOpenTrucks, truckMenu} from '../actions'
 import Carousel from 'react-native-snap-carousel'
 
 class LoggedInEater extends Component {
@@ -31,7 +31,7 @@ class LoggedInEater extends Component {
                 </View>
                 <Text style={styles.anyText} >{item.key}</Text>
                 <View style={styles.buttonContainer2}>
-                  <Text style={styles.anyText} onPress = {() => navigate('EaterTruckMenu', item.id)}>Go To Truck</Text>
+                  <Text style={styles.anyText} onPress = {() => {this.props.truckMenu(item.id) ;navigate('EaterTruckMenu')}}>Go To Truck</Text>
                 </View>
             </View>
         );
@@ -48,9 +48,9 @@ class LoggedInEater extends Component {
     }
     return (
       <View style={styles.container}>
-        <Text style={styles.anyText} >This is the Logged in eater page</Text>
+        <Text style={styles.anyText} >Welcome {this.props.currentUser.username}</Text>
         <Text>{"\n"}{"\n"}{"\n"}{"\n"}</Text>
-        <Text style={styles.anyText} >This is the Menu</Text>
+        <Text style={styles.anyText} >Trucks!!!</Text>
         <Carousel
           data={allOpenTrucks}
           renderItem={this.renderItem}
@@ -72,7 +72,7 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => bindActionCreators({
   getOpenTrucks,
-  linkToTruck
+  truckMenu
 }, dispatch)
 
 export default connect(

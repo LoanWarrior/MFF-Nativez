@@ -20,10 +20,6 @@ class EaterTruckMenu extends Component {
     },
   };
 
-  async componentDidMount(){
-    this.props.truckMenu(this.props.navigation.state.params)
-  }
-
   changeQuantity(name, price, value){
     if (value){
       if(this.state.total === 0){
@@ -72,7 +68,7 @@ class EaterTruckMenu extends Component {
       }
     }
     let newOrder = {
-      truck_id: this.props.navigation.state.params,
+      truck_id: this.props.currentTruckId,
       eater_id: this.props.currentUser.id,
     }
     let items = []
@@ -85,20 +81,20 @@ class EaterTruckMenu extends Component {
           renderItem={({item}) =>
           <View style={styles.buttonContainer2}>
             <View>
-              <Text style={styles.anyText} > {item.key}{"\n"}price ${item.price}        Qty:{item.quantity} <Text style={styles.anyText} onPress={() =>
+              <Text style={styles.anyText} > {item.key}{"\n"}${item.price}                         <Text style={styles.anyText} onPress={() =>
                 this.changeQuantity(item.key, item.price, true)}
                 > + </Text>
 
               <Text style={styles.anyText} onPress={() =>
                 this.changeQuantity(item.key, item.price, false)}
-                > - {"\n"}</Text></Text>
+                > - </Text>  {item.quantity}</Text>
             </View>
           </View>
           }/>
         <Text style={styles.anyText} >Total {this.state.total}{"\n"}{"\n"} </Text>
         <View style={styles.buttonContainer}>
           <Button
-            onPress={() => {this.props.placeOrder(newOrder, postItems, this.state.total, navigate)}}
+            onPress={() => {{this.props.placeOrder(newOrder, postItems, this.state.total); navigate('LoggedInEater')}}}
             title="Place Order"
             color="#1A3647"
           />
@@ -112,6 +108,7 @@ const mapStateToProps = state => {
   return {
     menu: state.mainReducer.menu,
     currentUser: state.mainReducer.currentUser,
+    currentTruckId: state.mainReducer.currentTruckId,
   }
 }
 
@@ -151,7 +148,8 @@ const styles = StyleSheet.create({
   },
   buttonContainer2: {
     backgroundColor: '#E6E167',
-    padding: 2
+    padding: 2,
+    width: 260,
   },
   header: {
     fontSize: 30,
