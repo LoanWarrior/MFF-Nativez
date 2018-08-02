@@ -8,13 +8,39 @@ import { registerUser } from '../actions'
 ///////////////////////////////////////////////////////////////////////////////
 import t from 'tcomb-form-native';
 const Form = t.form.Form;
+
+const Email = t.subtype(t.Str, (email) => {
+  const reg = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+  return reg.test(email);
+})
+
+const Phone = t.subtype(t.Num, (phoneNumber) => {
+  const reg2 = /^[0-9()-]+$/
+  return reg2.test(phoneNumber)
+})
+
 const User = t.struct({
   username: t.String,
-  email: t.String,
-  phoneNumber: t.String,
+  email: Email,
+  phoneNumber: Phone,
   password: t.String,
   is_owner: t.Boolean
-});
+})
+
+
+let options = {
+  fields: {
+    username: {
+      placeholder: 'Username'
+    },
+    password: {
+      password: true,
+      secureTextEntry: true,
+      placeholder: 'Password'
+    }
+  }
+}
+
 ///////////////////////////////////////////////////////////////////////////////
 
 
@@ -32,7 +58,7 @@ class Register extends Component {
 
  handleSubmit = (navigate) => {
     const value = this._form.getValue()
-    this.props.registerUser(value, navigate)
+    value ? this.props.registerUser(value, navigate) : null
   }
 
   render() {
@@ -40,7 +66,7 @@ class Register extends Component {
     return (
       <View style={styles.container}>
         <Text style={styles.header}>Register {"\n"}</Text>
-          <Form type={User} ref={c => this._form = c}/>
+          <Form type={User} ref={c => this._form = c} options={options}/>
           <Text>{"\n"}</Text>
           <View style={styles.buttonContainer}>
             <Button

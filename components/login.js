@@ -11,7 +11,21 @@ const Form = t.form.Form;
 const User = t.struct({
   username: t.String,
   password: t.String
-});
+})
+
+let options = {
+  fields: {
+    username: {
+      placeholder: 'Username'
+    },
+    password: {
+      password: true,
+      secureTextEntry: true,
+      placeholder: 'Password'
+    }
+  }
+}
+
 ///////////////////////////////////////////////////////////////////////////////
 
 class Login extends Component {
@@ -38,7 +52,7 @@ class Login extends Component {
 
  handleSubmit = (changeView) => {
     const value = this._form.getValue()
-    this.props.logIn(value, changeView)
+    value ? this.props.logIn(value, changeView) : null
   }
 
   render() {
@@ -55,7 +69,7 @@ class Login extends Component {
         <Text>{"\n"}</Text>
         <Text style={styles.header}>Log in</Text>
         <Text>{"\n"}</Text>
-          <Form type={User} ref={c => this._form = c}/>
+          <Form type={User} ref={c => this._form = c} options={options}/>
           <View style={styles.buttonContainer}>
             <Button
               onPress={() => this.handleSubmit(navigate)}

@@ -52,6 +52,7 @@ class SpecificTruck extends Component {
       <View style={styles.container}>
         <Text>{"\n"}</Text>
         <Form type={User} ref={c => this._form = c} onChange={() => this.onlineStatus()}/>
+        <Text> orders: {orderInfo.length} </Text>
         <Text>{"\n"}{"\n"}</Text>
         {!orderInfo[0] ? <Text style={styles.anyText}>you currently have no orders</Text> : null}
         <FlatList
