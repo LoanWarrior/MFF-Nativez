@@ -29,9 +29,9 @@ class LoggedInEater extends Component {
                 <View style={styles.slideInnerContainer}>
                   <Image source={require('../images/food-truck.jpg')}/>
                 </View>
-                <Text style={styles.anyText} >{item.key}</Text>
+                <Text style={styles.anyText2} >{item.key}</Text>
                 <View style={styles.buttonContainer2}>
-                  <Text style={styles.anyText} onPress = {() => navigate('EaterTruckMenu', item.id)}>Go To Truck</Text>
+                  <Text style={styles.anyText} onPress = {() => navigate('EaterTruckMenu', item.id)}>      Go To Truck Menu      </Text>
                 </View>
             </View>
         );
@@ -104,6 +104,12 @@ const styles = StyleSheet.create({
     fontSize: 24,
     color: '#1A3647'
   },
+  anyText2: {
+    fontSize: 24,
+    color: '#1A3647',
+    marginTop: 18,
+    marginBottom: 18
+  },
   slide: {
     backgroundColor: '#E6E167',
     borderRadius: 10,
@@ -117,7 +123,8 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.25,
     width: itemWidth,
     height: itemHeight,
-    paddingHorizontal: horizontalMargin
+    paddingHorizontal: horizontalMargin,
+    alignItems: 'center'
     // other styles for the item container
   },
   slideInnerContainer: {
@@ -137,7 +144,7 @@ const styles = StyleSheet.create({
     // other styles for the inner container
   },
   buttonContainer2: {
-    marginBottom: 10,
+    marginBottom: 6,
     backgroundColor: '#D34C47',
     borderRadius: 10,
     padding: 2,
@@ -147,6 +154,7 @@ const styles = StyleSheet.create({
       height: 3
     },
     shadowRadius: 10,
-    shadowOpacity: 0.25
+    shadowOpacity: 0.25,
+    alignItems: 'center'
   }
 })
