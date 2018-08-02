@@ -41,7 +41,7 @@ class Login extends Component {
           hidden = {false}
         />
         <Text>{"\n"}{"\n"}</Text>
-        <Image source={require('../images/absKermit.png')}/>
+        <Image source={require('../images/burgerLogo4.png')}/>
         <Text>{"\n"}</Text>
         <Text style={styles.header}>Log in</Text>
         <Text>{"\n"}</Text>
@@ -91,7 +91,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#4592C1'
   },
   header: {
-    fontSize: 50,
+    fontSize: 38,
     color: '#E6E167'
   },
   anyText: {
