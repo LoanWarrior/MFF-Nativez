@@ -40,9 +40,9 @@ class Login extends Component {
           barStyle= "light-content"
           hidden = {false}
         />
-
-        {/* <Image source={require('../images/food-truck.jpg')}/> */}
-        <Text>{"\n"}{"\n"}{"\n"}{"\n"}{"\n"}{"\n"}{"\n"}{"\n"}</Text>
+        <Text>{"\n"}{"\n"}</Text>
+        <Image source={require('../images/absKermit.png')}/>
+        <Text>{"\n"}</Text>
         <Text style={styles.header}>Log in</Text>
         <Text>{"\n"}</Text>
           <Form type={User} ref={c => this._form = c}/>
@@ -53,7 +53,7 @@ class Login extends Component {
               color="#1A3647"
             />
           </View>
-          <Text>{"\n"}{"\n"}{"\n"}{"\n"}{"\n"}{"\n"}{"\n"}{"\n"}</Text>
+          <Text>{"\n"}</Text>
           <Text style={styles.anyText}>Don't have an account?{"\n"}</Text>
           <View style={styles.buttonContainer}>
             <Button
