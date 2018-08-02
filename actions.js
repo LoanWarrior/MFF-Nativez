@@ -17,14 +17,13 @@ export const UPDATED  = 'UPDATED'
 const HerokuAPI = 'https://mffapi.herokuapp.com'
 const LocalAPI =  'http://localhost:5445'
 
-const API = HerokuAPI
+const API = LocalAPI
 
 // returns all orders by order id for one truck
 export const truckInfo = (truckId) => {
   return async dispatch => {
     const response = await fetch(`${API}/trucks/orders/${truckId}`)
     const orders = await response.json()
-    console.log('184 actions', orders);
     dispatch({
       type: TRUCK_INFO,
       payload: orders,
@@ -146,10 +145,6 @@ export const logIn = (value, navigate) => {
     username: value.username.toLowerCase(),
     password: value.password
   }
-  // let user = {
-  //   username: 'sarasmile',
-  //   password: '123'
-  // }
   return async dispatch => {
       const response = await fetch(`${API}/login`, {
       method: 'POST',
@@ -204,6 +199,7 @@ export const registerUser = (userData, navigate) => {
     })
     const newUserId = await response.json()
     if(newUserId.errorMessage){
+      alert(newUserId.errorMessage)
     } else if (userData.is_owner) {
       dispatch ({
         type: LOG_IN,
@@ -220,7 +216,7 @@ export const registerUser = (userData, navigate) => {
   }
 }
 
-export const createMenuItem = (dishData, truckId, navigate) => {
+export const createMenuItem = (dishData, truckId) => {
   return async dispatch => {
     const response = await fetch(`${API}/items/${truckId}`, {
       method: 'POST',
