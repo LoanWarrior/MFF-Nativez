@@ -10,7 +10,6 @@ export const PLACE_ORDER = 'PLACE_ORDER'
 export const DELETE_ITEM = 'DELETE_ITEM'
 export const CREATE_ITEM = 'CREATE_ITEM'
 export const UPDATED  = 'UPDATED'
-export const CURRENT_TRUCK = 'CURRENT_TRUCK'
 
 
 //mark an order complete which will delete that order from the data base
@@ -19,6 +18,20 @@ const HerokuAPI = 'https://mffapi.herokuapp.com'
 const LocalAPI =  'http://localhost:5445'
 
 const API = LocalAPI
+
+// returns all orders by order id for one truck
+export const truckInfo = (truckId) => {
+  return async dispatch => {
+    const response = await fetch(`${API}/trucks/orders/${truckId}`)
+    const orders = await response.json()
+    console.log('184 actions', orders);
+    dispatch({
+      type: TRUCK_INFO,
+      payload: orders,
+      id: truckId
+    })
+  }
+}
 
 export const completeOrder = (orderId, truckId) => {
   return async dispatch => {
@@ -33,6 +46,36 @@ export const completeOrder = (orderId, truckId) => {
     dispatch({
       type: COMPLETE_ORDER,
       payload: orders
+    })
+  }
+}
+
+//eater placing order
+export const placeOrder = (newOrder, orderArray, total) => {
+  newOrder.total = total
+  return async dispatch => {
+    const response = await fetch(`${API}/orders`, {
+      method: 'POST',
+      body: JSON.stringify(newOrder),
+      headers: {
+        'Content-Type': 'application/json',
+        'Accept': 'application/json'
+      }
+    })
+    const orderId = await response.json()
+    orderArray.map(item => {
+      item.order_id = orderId
+    })
+    const response2 = await fetch(`${API}/order_items`, {
+      method: 'POST',
+      body: JSON.stringify(orderArray),
+      headers: {
+        'Content-Type': 'application/json',
+        'Accept': 'application/json'
+      }
+    })
+    dispatch({
+      type: UPDATED
     })
   }
 }
@@ -70,37 +113,6 @@ export const deleteItem = (itemId, truckId) => {
   }
 }
 
-//eater placing order
-export const placeOrder = (newOrder, orderArray, total) => {
-  newOrder.total = total
-  return async dispatch => {
-  const response = await fetch(`${API}/orders`, {
-    method: 'POST',
-    body: JSON.stringify(newOrder),
-    headers: {
-      'Content-Type': 'application/json',
-      'Accept': 'application/json'
-    }
-  })
-  const orderId = await response.json()
-  orderArray.map(item => {
-    item.order_id = orderId
-  })
-  const response2 = await fetch(`${API}/order_items`, {
-    method: 'POST',
-    body: JSON.stringify(orderArray),
-    headers: {
-      'Content-Type': 'application/json',
-      'Accept': 'application/json'
-    }
-  })
-  const itemsAdded = await response2.json()
-  dispatch({
-      type: PLACE_ORDER,
-      payload: orderId
-    })
-  }
-}
 
 //get open trucks
 export const getOpenTrucks = (id) => {
@@ -117,13 +129,13 @@ export const getOpenTrucks = (id) => {
 
 //get trucks menu
 export const truckMenu = (id) => {
-  console.log(id);
   return async dispatch => {
     const response = await fetch(`${API}/trucks/menu/${id}`)
     const menu = await response.json()
     dispatch({
         type: TRUCK_MENU,
-        payload: menu
+        payload: menu,
+        id: id
       })
   }
 }
@@ -178,28 +190,6 @@ export const ownersTrucks = (id) => {
   }
 }
 
-// changes view to specific truck
-// export const linkToTruck = (truckId) => {
-//   console.log('got it in actions', truckId);
-// return {
-//         type: CURRENT_TRUCK,
-//         payload: truckId
-//       }
-// }
-
-// returns all orders by order id for one truck
-export const truckInfo = (truckId) => {
-  console.log('clicked');
-  return async dispatch => {
-    const response = await fetch(`${API}/trucks/orders/${truckId}`)
-    const orders = await response.json()
-    dispatch({
-      type: TRUCK_INFO,
-      payload: orders,
-      id: truckId
-    })
-  }
-}
 
 // create a new user
 export const registerUser = (userData, navigate) => {
@@ -249,8 +239,7 @@ export const createMenuItem = (dishData, truckId, navigate) => {
 }
 
 //create a new truck as a owner
-export const createTruck = (truckData, navigate, id) => {
-  navigate('LoggedIn')
+export const createTruck = (truckData, id) => {
   let truckInfo = {
     name: truckData.name,
     veggieFriendly: truckData.veggieFriendly,

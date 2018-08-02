@@ -6,9 +6,11 @@ import { bindActionCreators } from 'redux'
 import { truckMenu, placeOrder } from '../actions'
 
 class EaterTruckMenu extends Component {
+
   state = {
     total: 0
   }
+
   static navigationOptions = {
     title: 'MFF',
     headerTitleStyle: {
@@ -94,7 +96,7 @@ class EaterTruckMenu extends Component {
         <Text style={styles.anyText} >Total {this.state.total}{"\n"}{"\n"} </Text>
         <View style={styles.buttonContainer}>
           <Button
-            onPress={() => {{this.props.placeOrder(newOrder, postItems, this.state.total); navigate('LoggedInEater')}}}
+            onPress={() => {this.props.placeOrder(newOrder, postItems, this.state.total); navigate('LoggedInEater')}}
             title="Place Order"
             color="#1A3647"
           />
