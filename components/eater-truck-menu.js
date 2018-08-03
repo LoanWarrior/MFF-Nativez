@@ -46,12 +46,10 @@ class EaterTruckMenu extends Component {
         })
       }
     } else {
-      if(this.state[name]){
-        if(this.state[name] > 0){
-          this.state[name]--
-          this.state.total -= price
-          this.setState({[name]: this.state[name]})
-        }
+      if(this.state[name] > 0){
+        this.state[name]--
+        this.state.total -= price
+        this.setState({[name]: this.state[name]})
       }
     }
   }
@@ -59,7 +57,7 @@ class EaterTruckMenu extends Component {
   handleSubmit = (newOrder, postItems, total, navigate) => {
     if (postItems[0]){
       this.props.placeOrder(newOrder, postItems, total)
-      alert('Your order has been placed');
+      alert('Your order has been placed')
       navigate('LoggedInEater')
     } else {
       alert('Please enter items')
