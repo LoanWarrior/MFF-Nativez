@@ -4,6 +4,7 @@ import { createStackNavigator, addNavigationHelpers } from 'react-navigation'
 import { reduxifyNavigator, createReactNavigationReduxMiddleware } from 'react-navigation-redux-helpers'
 import Login from './components/login'
 import Order from './components/order'
+import OrderPlaced from './components/order-placed'
 import CreateTruck from './components/create-truck'
 import SpecificTruck from './components/specific-truck'
 import ChangeMenu from './components/specific-truck-menu'
@@ -27,6 +28,7 @@ export const Navigator = createStackNavigator(
       Login: Login,
       Register: Register,
       Order: Order,
+      OrderPlaced: OrderPlaced,
       CreateTruck: CreateTruck,
       SpecificTruck: SpecificTruck,
       ChangeMenu: ChangeMenu,
