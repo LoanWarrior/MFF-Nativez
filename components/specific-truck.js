@@ -40,7 +40,7 @@ class SpecificTruck extends Component {
       for (let order in orders){
         let items = ''
         orders[order].items.forEach(item => {
-          items += `${item.name} ...$${item.price}           ${item.quantity} ${"\n"}`
+          items += `${item.name}       $${item.price}       ${item.quantity} ${"\n"}`
         })
         orderInfo.push({key: order, name: orders[order].name, tel: orders[order].tel, items: items, total: orders[order].total, created_at: orders[order].created_at})
       }
@@ -52,15 +52,16 @@ class SpecificTruck extends Component {
         <Text style={styles.anyText}> Orders: {orderInfo.length} </Text>
         <Text>{"\n"}{"\n"}</Text>
         {!orderInfo[0] ?
-          <View style={{alignItems: 'center'}}><Text style={styles.anyText}>You currently have no orders</Text><Image style={{marginTop: 40}} source={require('../images/burgerLogo8.png')}/></View> : 
+          <View style={{alignItems: 'center'}}><Text style={styles.anyText}>You currently have no orders</Text><Image style={{marginTop: 40}} source={require('../images/burgerLogo8.png')}/></View> :
           <FlatList
             data={orderInfo}
             renderItem={({item}) =>
             <View style={styles.buttonContainer}>
-              <Text style={styles.anyText}>{item.key} {item.name}{"\n"} Order placed: <Moment element={Text} fromNow>{item.created_at}</Moment> {"\n"}{item.tel}</Text>
-
+              <Text style={styles.anyText}>{item.name}</Text>
+              <Text style={styles.anyText}>Order placed: <Moment element={Text} fromNow>{item.created_at}</Moment></Text>
+              <Text style={styles.anyText}>Tel:{item.tel}</Text>
               <Text style={styles.anyText}> {"\n"}{item.items}</Text>
-              <Text style={styles.anyText}>Total {item.total}{"\n"}</Text>
+              <Text style={styles.anyText}>Total ${item.total}{"\n"}</Text>
               <View style={styles.buttonContainer2}>
                 <Button
                 onPress={() => this.props.completeOrder(item.key, this.props.currentTruckId)}
@@ -116,6 +117,7 @@ const styles = StyleSheet.create({
     color: '#1A3647'
   },
   buttonContainer: {
+    alignItems: 'center',
     marginBottom: 10,
     backgroundColor: '#E6E167',
     borderRadius: 8,
