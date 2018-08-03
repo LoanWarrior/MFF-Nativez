@@ -46,12 +46,10 @@ class EaterTruckMenu extends Component {
         })
       }
     } else {
-      if(this.state[name]){
-        if(this.state[name] > 0){
-          this.state[name]--
-          this.state.total -= price
-          this.setState({[name]: this.state[name]})
-        }
+      if(this.state[name] > 0){
+        this.state[name]--
+        this.state.total -= price
+        this.setState({[name]: this.state[name]})
       }
     }
   }
@@ -59,7 +57,7 @@ class EaterTruckMenu extends Component {
   handleSubmit = (newOrder, postItems, total, navigate) => {
     if (postItems[0]){
       this.props.placeOrder(newOrder, postItems, total)
-      alert('Your order has been placed');
+      alert('Your order has been placed')
       navigate('LoggedInEater')
     } else {
       alert('Please enter items')
@@ -86,22 +84,21 @@ class EaterTruckMenu extends Component {
     return (
       <View style={styles.container}>
         <Text>{"\n"}{"\n"}{"\n"}{"\n"}</Text>
-        <Text style={styles.header}>MENU</Text>
+        <Text style={styles.header}>MENU{"\n"}</Text>
         <FlatList
           data={generateMenu}
           renderItem={({item}) =>
-          <View style={styles.buttonContainer2}>
-            <View>
-              <Text style={styles.anyText} > {item.key}{"\n"}${item.price}                         <Text style={styles.anyText} onPress={() =>
-                this.changeQuantity(item.key, item.price, true)}
-                > + </Text>
-
-              <Text style={styles.anyText} onPress={() =>
-                this.changeQuantity(item.key, item.price, false)}
-                > - </Text>  {item.quantity}</Text>
+            <View style={styles.buttonContainer2}>
+                <Text style={styles.anyText}>{item.key}</Text>
+                <Text style={styles.anyText}>${item.price}
+                <Text>            </Text>
+                {item.quantity}
+                <Text>            </Text>
+                <Text style={styles.anyText} onPress={() => this.changeQuantity(item.key, item.price, true)}> + </Text>
+                <Text style={styles.anyText} onPress={() => this.changeQuantity(item.key, item.price, false)}> - </Text>
+                </Text>
             </View>
-          </View>
-          }/>
+        }/>
         <Text style={styles.anyText} >Total {this.state.total}{"\n"}{"\n"} </Text>
         <View style={styles.buttonContainer}>
           <Button
@@ -147,7 +144,7 @@ const styles = StyleSheet.create({
   buttonContainer: {
     marginBottom: 10,
     backgroundColor: '#E6E167',
-    borderRadius: 10,
+    borderRadius: 8,
     padding: 2,
     shadowColor: '#000000',
     shadowOffset: {
@@ -161,6 +158,9 @@ const styles = StyleSheet.create({
     backgroundColor: '#E6E167',
     padding: 2,
     width: 260,
+    marginBottom: 10,
+    borderRadius: 8,
+    alignItems: 'center',
   },
   header: {
     fontSize: 30,

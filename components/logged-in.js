@@ -30,7 +30,6 @@ class LoggedIn extends Component {
                   <Image style={{marginTop: 40}}source={require('../images/burgerLogo8.png')}/>
                 </View>
                 <Text style={styles.anyText2}>{item.key}</Text>
-                <Text>{"\n"}</Text>
                 <View style={styles.buttonContainer2}>
                   <Text  style={styles.anyText} onPress = {() => {this.props.truckInfo(item.id); navigate('SpecificTruck')}}>Go To Truck</Text>
                 </View>
@@ -49,17 +48,21 @@ class LoggedIn extends Component {
     }
     return (
       <View style={styles.container}>
+        <Text>{"\n"}{"\n"}</Text>
         <Text style={styles.anyText}>{`Welcome ${this.props.currentUser.username}`}</Text>
-        <Text>{"\n"}{"\n"}{"\n"}{"\n"}</Text>
-        <Text style={styles.anyText}>My trucks:</Text>
-        {!trucksInfo[0] ? <View style={{alignItems: 'center'}}><Text style={styles.anyText}>you currently have no trucks</Text><Image style={{marginTop: 40}} source={require('../images/burgerLogo4.png')}/></View> : null}
+        <Text>{"\n"}</Text>
+        {trucksInfo[0] ?
+          <Text style={styles.anyText2}>My Trucks</Text> :
+           <View style={{alignItems: 'center'}}><Text style={styles.anyText}>You currently have no trucks</Text>
+           <Image style={{marginTop: 40}} source={require('../images/burgerLogo4.png')}/>
+         </View>}
         <Carousel
           data={trucksInfo}
           renderItem={this.renderItem}
           sliderWidth={sliderWidth}
           itemWidth={itemWidth}
         />
-        <View style={styles.buttonContainer}>
+        <View style={styles.buttonContainer2}>
           <Button
             onPress={() => {navigate('CreateTruck')}}
             title="Create Truck"
@@ -110,43 +113,17 @@ const styles = StyleSheet.create({
   },
   anyText: {
     fontSize: 24,
-    color: '#1A3647',
+    color: '#1A3647'
   },
   anyText2: {
     fontSize: 24,
     color: '#1A3647',
-    marginTop: 18
-  },
-  buttonContainer: {
-    marginBottom: 10,
-    backgroundColor: '#E6E167',
-    borderRadius: 10,
-    padding: 2,
-    shadowColor: '#000000',
-    shadowOffset: {
-      width: 0,
-      height: 3
-    },
-    shadowRadius: 10,
-    shadowOpacity: 0.25
-  },
-  buttonContainer2: {
-    marginBottom: 6,
-    backgroundColor: '#D34C47',
-    borderRadius: 10,
-    padding: 2,
-    shadowColor: '#000000',
-    shadowOffset: {
-      width: 0,
-      height: 3
-    },
-    shadowRadius: 10,
-    shadowOpacity: 0.25,
-    alignItems: 'center'
+    marginTop: 10,
+    marginBottom: 18
   },
   slide: {
     backgroundColor: '#E6E167',
-    borderRadius: 10,
+    borderRadius: 8,
     padding: 2,
     shadowColor: '#000000',
     shadowOffset: {
@@ -158,13 +135,13 @@ const styles = StyleSheet.create({
     width: itemWidth,
     height: itemHeight,
     paddingHorizontal: horizontalMargin,
-    alignItems: 'center',
+    alignItems: 'center'
     // other styles for the item container
   },
   slideInnerContainer: {
     overflow: 'hidden',
     backgroundColor: '#E6E167',
-    borderRadius: 10,
+    borderRadius: 8,
     padding: 2,
     shadowColor: '#000000',
     shadowOffset: {
@@ -177,5 +154,33 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: 'center'
     // other styles for the inner container
+  },
+  buttonContainer: {
+    marginBottom: 20,
+    backgroundColor: '#D34C47',
+    borderRadius: 8,
+    padding: 10,
+    shadowColor: '#000000',
+    shadowOffset: {
+      width: 0,
+      height: 3
+    },
+    shadowRadius: 10,
+    shadowOpacity: 0.25,
+    alignItems: 'center'
+  },
+  buttonContainer2: {
+    marginBottom: 40,
+    backgroundColor: '#D34C47',
+    borderRadius: 8,
+    padding: 5,
+    shadowColor: '#000000',
+    shadowOffset: {
+      width: 0,
+      height: 3
+    },
+    shadowRadius: 10,
+    shadowOpacity: 0.25,
+    alignItems: 'center'
   }
 })

@@ -37,12 +37,9 @@ class SpecificTruck extends Component {
     const orders = this.props.orders
     let orderInfo = []
     if (orders) {
-      console.log('40', orders);
-      for ( let order in orders){
+      for (let order in orders){
         let items = ''
-        console.log('43', orders[order]);
         orders[order].items.forEach(item => {
-          console.log('45', item);
           items += `${item.name} ...$${item.price}           ${item.quantity} ${"\n"}`
         })
         orderInfo.push({key: order, name: orders[order].name, tel: orders[order].tel, items: items, total: orders[order].total, created_at: orders[order].created_at})
@@ -52,14 +49,14 @@ class SpecificTruck extends Component {
       <View style={styles.container}>
         <Text>{"\n"}</Text>
         <Form type={User} ref={c => this._form = c} onChange={() => this.onlineStatus()}/>
-        <Text> orders: {orderInfo.length} </Text>
+        <Text style={styles.anyText}> Orders: {orderInfo.length} </Text>
         <Text>{"\n"}{"\n"}</Text>
-        {!orderInfo[0] ? <View style={{alignItems: 'center'}}><Text style={styles.anyText}>you currently have no orders</Text><Image style={{marginTop: 40}} source={require('../images/burgerLogo4.png')}/></View> : null}
+        {!orderInfo[0] ? <View style={{alignItems: 'center'}}><Text style={styles.anyText}>You currently have no orders</Text><Image style={{marginTop: 40}} source={require('../images/burgerLogo4.png')}/></View> : null}
         <FlatList
           data={orderInfo}
           renderItem={({item}) =>
           <View style={styles.buttonContainer}>
-            <Text style={styles.anyText}>{item.key} {item.name}{"\n"} Order Placed: <Moment element={Text} fromNow>{item.created_at}</Moment> {"\n"}{item.tel}</Text>
+            <Text style={styles.anyText}>{item.key} {item.name}{"\n"} Order placed: <Moment element={Text} fromNow>{item.created_at}</Moment> {"\n"}{item.tel}</Text>
 
             <Text style={styles.anyText}> {"\n"}{item.items}</Text>
             <Text style={styles.anyText}>Total {item.total}{"\n"}</Text>
@@ -75,7 +72,7 @@ class SpecificTruck extends Component {
           style={styles.truckList}
         />
         <Text>{"\n"}{"\n"}{"\n"}{"\n"}</Text>
-        <View style={styles.buttonContainer}>
+        <View style={styles.buttonContainer2}>
           <Button
             onPress={() => {navigate('ChangeMenu', this.props.currentTruckId)}}
             title="Change Menu"
@@ -119,7 +116,7 @@ const styles = StyleSheet.create({
   buttonContainer: {
     marginBottom: 10,
     backgroundColor: '#E6E167',
-    borderRadius: 10,
+    borderRadius: 8,
     padding: 2,
     shadowColor: '#000000',
     shadowOffset: {
@@ -132,7 +129,7 @@ const styles = StyleSheet.create({
   buttonContainer2: {
     marginBottom: 10,
     backgroundColor: '#D34C47',
-    borderRadius: 10,
+    borderRadius: 8,
     padding: 2,
     shadowColor: '#000000',
     shadowOffset: {
