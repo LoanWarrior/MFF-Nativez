@@ -48,17 +48,22 @@ class LoggedInEater extends Component {
     }
     return (
       <View style={styles.container}>
+        <Text>{"\n"}{"\n"}</Text>
         <Text style={styles.anyText} >Welcome {this.props.currentUser.username}</Text>
-        <Text>{"\n"}{"\n"}{"\n"}{"\n"}</Text>
-        <Text style={styles.anyText} >Trucks!!!</Text>
-        {!allOpenTrucks[0] ? <View style={{alignItems: 'center'}}><Text style={styles.anyText}>There are no open trucks</Text><Image style={{marginTop: 40}} source={require('../images/burgerLogo4.png')}/></View> : null}
+        <Text>{"\n"}</Text>
+        <Text style={styles.anyText2} >Find your food</Text>
+        {!allOpenTrucks[0] ?
+           <View style={{alignItems: 'center'}}>
+             <Text style={styles.anyText}>There are no open trucks</Text>
+             <Image style={{marginTop: 40}} source={require('../images/burgerLogo4.png')}/>
+           </View>
+           : null}
         <Carousel
           data={allOpenTrucks}
           renderItem={this.renderItem}
           sliderWidth={sliderWidth}
           itemWidth={itemWidth}
         />
-        <Text>{"\n"}{"\n"}{"\n"}{"\n"}</Text>
       </View>
     );
   }
@@ -108,12 +113,12 @@ const styles = StyleSheet.create({
   anyText2: {
     fontSize: 24,
     color: '#1A3647',
-    marginTop: 18,
+    marginTop: 10,
     marginBottom: 18
   },
   slide: {
     backgroundColor: '#E6E167',
-    borderRadius: 10,
+    borderRadius: 8,
     padding: 2,
     shadowColor: '#000000',
     shadowOffset: {
@@ -131,7 +136,7 @@ const styles = StyleSheet.create({
   slideInnerContainer: {
     overflow: 'hidden',
     backgroundColor: '#E6E167',
-    borderRadius: 10,
+    borderRadius: 8,
     padding: 2,
     shadowColor: '#000000',
     shadowOffset: {
@@ -146,10 +151,10 @@ const styles = StyleSheet.create({
     // other styles for the inner container
   },
   buttonContainer2: {
-    marginBottom: 6,
+    marginBottom: 20,
     backgroundColor: '#D34C47',
-    borderRadius: 10,
-    padding: 2,
+    borderRadius: 8,
+    padding: 5,
     shadowColor: '#000000',
     shadowOffset: {
       width: 0,

@@ -54,7 +54,7 @@ class ChangeMenu extends Component {
     return (
       <View style={styles.container}>
         <View style={styles.mom}>
-          {!generateMenu[0] ? <View style={{alignItems: 'center'}}><Text style={styles.anyText}>you currently have no Items</Text><Image style={{marginTop: 40}} source={require('../images/burgerLogo4.png')}/></View> : null}
+          {!generateMenu[0] ? <View style={{alignItems: 'center'}}><Text style={styles.anyText}>You currently have no items</Text><Image style={{marginTop: 40}} source={require('../images/burgerLogo4.png')}/></View> : null}
 
           <FlatList
             data={generateMenu}
@@ -120,7 +120,7 @@ const styles = StyleSheet.create({
   buttonContainer: {
     marginBottom: 10,
     backgroundColor: '#E6E167',
-    borderRadius: 10,
+    borderRadius: 8,
     padding: 2,
     shadowColor: '#000000',
     shadowOffset: {
@@ -133,7 +133,7 @@ const styles = StyleSheet.create({
   menuContainer: {
     marginBottom: 8,
     backgroundColor: '#E6E167',
-    borderRadius: 10,
+    borderRadius: 8,
     // padding: 2,
     alignItems: 'flex-end',
     shadowColor: '#000000',
