@@ -27,7 +27,7 @@ class LoggedIn extends Component {
         return (
             <View style={styles.slide}>
                 <View style={styles.slideInnerContainer}>
-                  <Image style={{marginTop: 40}} source={require('../images/burgerLogo4.png')}/>
+                  <Image style={{marginTop: 40}}source={require('../images/burgerLogo8.png')}/>
                 </View>
                 <Text style={styles.anyText2}>{item.key}</Text>
                 <View style={styles.buttonContainer2}>

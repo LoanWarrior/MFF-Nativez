@@ -44,7 +44,7 @@ class Login extends Component {
   static navigatorButtons = {
     rightButtons: [
       {
-        icon: require('../images/burgerLogo4.png'),
+        icon: require('../images/burgerLogo8.png'),
         id: 'add'
       }
     ]
@@ -65,7 +65,7 @@ class Login extends Component {
           hidden = {false}
         />
         <Text>{"\n"}{"\n"}</Text>
-        <Image source={require('../images/burgerLogo4.png')}/>
+        <Image source={require('../images/burgerLogo8.png')}/>
         <Text>{"\n"}</Text>
         <Text style={styles.header}>Log in</Text>
         <Text>{"\n"}</Text>
