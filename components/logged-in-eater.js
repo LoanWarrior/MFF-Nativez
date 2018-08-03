@@ -55,7 +55,7 @@ class LoggedInEater extends Component {
         {!allOpenTrucks[0] ?
            <View style={{alignItems: 'center'}}>
              <Text style={styles.anyText}>There are no open trucks</Text>
-             <Image style={{marginTop: 40}} source={require('../images/burgerLogo4.png')}/>
+             <Image style={{marginTop: 40}} source={require('../images/burgerLogo8.png')}/>
            </View>
            : null}
         <Carousel

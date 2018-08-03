@@ -51,7 +51,7 @@ class SpecificTruck extends Component {
         <Form type={User} ref={c => this._form = c} onChange={() => this.onlineStatus()}/>
         <Text style={styles.anyText}> Orders: {orderInfo.length} </Text>
         <Text>{"\n"}{"\n"}</Text>
-        {!orderInfo[0] ? <View style={{alignItems: 'center'}}><Text style={styles.anyText}>You currently have no orders</Text><Image style={{marginTop: 40}} source={require('../images/burgerLogo4.png')}/></View> : null}
+        {!orderInfo[0] ? <View style={{alignItems: 'center'}}><Text style={styles.anyText}>You currently have no orders</Text><Image style={{marginTop: 40}} source={require('../images/burgerLogo8.png')}/></View> : null}
         <FlatList
           data={orderInfo}
           renderItem={({item}) =>
