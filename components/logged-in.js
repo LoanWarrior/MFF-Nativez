@@ -54,7 +54,7 @@ class LoggedIn extends Component {
         {trucksInfo[0] ?
           <Text style={styles.anyText2}>My Trucks</Text> :
            <View style={{alignItems: 'center'}}><Text style={styles.anyText}>You currently have no trucks</Text>
-           <Image style={{marginTop: 40}} source={require('../images/burgerLogo4.png')}/>
+           <Image style={{marginTop: 40}} source={require('../images/burgerLogo8.png')}/>
          </View>}
         <Carousel
           data={trucksInfo}

@@ -57,8 +57,7 @@ class EaterTruckMenu extends Component {
   handleSubmit = (newOrder, postItems, total, navigate) => {
     if (postItems[0]){
       this.props.placeOrder(newOrder, postItems, total)
-      alert('Your order has been placed')
-      navigate('LoggedInEater')
+      navigate('OrderPlaced', this.state.total)
     } else {
       alert('Please enter items')
     }

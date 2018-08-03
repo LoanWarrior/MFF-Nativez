@@ -38,7 +38,7 @@ class Login extends Component {
     headerStyle: {
       backgroundColor: '#1A3647'
     },
-    icon: require('../images/burgerLogo4.png')
+    icon: require('../images/burgerLogo8.png')
   };
 
   static navigatorButtons = {

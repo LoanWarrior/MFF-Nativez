@@ -51,26 +51,28 @@ class SpecificTruck extends Component {
         <Form type={User} ref={c => this._form = c} onChange={() => this.onlineStatus()}/>
         <Text style={styles.anyText}> Orders: {orderInfo.length} </Text>
         <Text>{"\n"}{"\n"}</Text>
-        {!orderInfo[0] ? <View style={{alignItems: 'center'}}><Text style={styles.anyText}>You currently have no orders</Text><Image style={{marginTop: 40}} source={require('../images/burgerLogo4.png')}/></View> : null}
-        <FlatList
-          data={orderInfo}
-          renderItem={({item}) =>
-          <View style={styles.buttonContainer}>
-            <Text style={styles.anyText}>{item.key} {item.name}{"\n"} Order placed: <Moment element={Text} fromNow>{item.created_at}</Moment> {"\n"}{item.tel}</Text>
+        {!orderInfo[0] ?
+          <View style={{alignItems: 'center'}}><Text style={styles.anyText}>You currently have no orders</Text><Image style={{marginTop: 40}} source={require('../images/burgerLogo8.png')}/></View> : 
+          <FlatList
+            data={orderInfo}
+            renderItem={({item}) =>
+            <View style={styles.buttonContainer}>
+              <Text style={styles.anyText}>{item.key} {item.name}{"\n"} Order placed: <Moment element={Text} fromNow>{item.created_at}</Moment> {"\n"}{item.tel}</Text>
 
-            <Text style={styles.anyText}> {"\n"}{item.items}</Text>
-            <Text style={styles.anyText}>Total {item.total}{"\n"}</Text>
-            <View style={styles.buttonContainer2}>
-              <Button
-              onPress={() => this.props.completeOrder(item.key, this.props.currentTruckId)}
-              title="Complete Order"
-              color="#1A3647"
-              />
+              <Text style={styles.anyText}> {"\n"}{item.items}</Text>
+              <Text style={styles.anyText}>Total {item.total}{"\n"}</Text>
+              <View style={styles.buttonContainer2}>
+                <Button
+                onPress={() => this.props.completeOrder(item.key, this.props.currentTruckId)}
+                title="Complete Order"
+                color="#1A3647"
+                />
+              </View>
             </View>
-          </View>
-          }
-          style={styles.truckList}
-        />
+            }
+            style={styles.truckList}
+          />
+      }
         <Text>{"\n"}{"\n"}{"\n"}{"\n"}</Text>
         <View style={styles.buttonContainer2}>
           <Button
