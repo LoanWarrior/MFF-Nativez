@@ -98,7 +98,7 @@ class EaterTruckMenu extends Component {
                 </Text>
             </View>
         }/>
-        <Text style={styles.anyText} >Total {this.state.total}{"\n"}{"\n"} </Text>
+        <Text style={styles.anyText} >Total ${this.state.total}{"\n"}{"\n"} </Text>
         <View style={styles.buttonContainer}>
           <Button
             onPress={() => {this.handleSubmit(newOrder, postItems, this.state.total, navigate)}}
