@@ -16,11 +16,12 @@ export default class OrderPlaced extends Component {
 
   render() {
     const { navigate } = this.props.navigation
+    console.log(this.props.navigation.state.params);
     return (
       <View style={styles.container}>
         <Text style={styles.anyText2}>Order Placed</Text>
         <Text>{"\n"}</Text>
-        <Text style={styles.anyText}>Your total is {this.props.navigation.state.params.total}</Text>
+        <Text style={styles.anyText}>Your total is ${this.props.navigation.state.params}</Text>
         <Text>{"\n"}</Text>
         <Image source={require('../images/burgerLogo8.png')}/>
         <Text>{"\n"}</Text>
